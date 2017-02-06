@@ -1,10 +1,12 @@
 package models.shopping;
 
 import com.avaje.ebean.Model;
+import models.products.Product;
 import models.users.Customer;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Iterator;
 import java.util.List;
 
 

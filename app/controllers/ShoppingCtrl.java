@@ -1,11 +1,18 @@
 package controllers;
 
+import controllers.security.CheckIfCustomer;
+import controllers.security.Secured;
+import models.products.Product;
+import models.shopping.Basket;
+import models.shopping.OrderItem;
 import models.shopping.ShopOrder;
 import models.users.Customer;
 import models.users.User;
 import play.db.ebean.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
+import play.mvc.With;
 import views.html.*;
 
 // Import models
@@ -84,6 +91,7 @@ public Result showBasket(){
 
     @Transactional
     public Result placeOrder() {
+        Customer c = getCurrentUser();
         
         ShopOrder order = new ShopOrder();
 

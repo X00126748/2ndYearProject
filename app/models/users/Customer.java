@@ -3,8 +3,7 @@ package models.users;
 import models.shopping.Basket;
 import models.shopping.ShopOrder;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
