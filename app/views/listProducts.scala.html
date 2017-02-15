@@ -20,7 +20,7 @@
 			<!-- Start of For loop - For each c in categories add a link -->
 			<a href="@routes.ProductCtrl.listProducts(0, filter)" class="list-group-item">All categories</a>
 			@for(c <- categories) {
-		<a href="@routes.ProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName</a>
+		<a href="@routes.ProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 	</div>
 	  </div>
@@ -40,7 +40,7 @@
 			 </form>
 			</div>
 
-			<table class="table table-bordered table-hover table-condensed">
+				 <table class="table table-bordered table-hover table-condensed">
 				<thead>
 				<!-- The header row-->
 				<tr>
@@ -53,7 +53,9 @@
 				</tr>
 				</thead>
 				<tbody>
-					<!-- Start of For loop - For each p in products add a row -->
+
+
+						<!-- Start of For loop - For each p in products add a row -->
 					@for(p <- products) {
 					<tr>
 						<!-- Display each product field value in a column -->
@@ -73,5 +75,35 @@
 				</tbody>
 			</table>
 		</div>
+
+
+
+
+	</div>
+
+	<div class="row">
+
+	@for(p <- products) {
+
+		<div class="col-sm-4 col-lg-4 col-md-4">
+			<div class="thumbnail">
+
+				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				} else {
+					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+				}
+			<div class="caption">
+				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
+				<h3><a href="#">@p.getName</a>
+				</h3>
+				<p>@p.getDescription</p>
+
+			</div>
+
+			</div>
+		</div>
+
+	}
 	</div>
 }

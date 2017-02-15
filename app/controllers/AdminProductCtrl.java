@@ -232,14 +232,14 @@ public class AdminProductCtrl extends Controller {
                 // Get the uploaded image file
                 op.addImage(file.getAbsolutePath());
                 // Resize using height and width constraints
-                op.resize(300,200);
+                op.resize(300,300);
                 // Save the  image
                 op.addImage("public/images/productImages/" + id + ".jpg");
                 // thumbnail
                 IMOperation thumb = new IMOperation();
                 // Get the uploaded image file
                 thumb.addImage(file.getAbsolutePath());
-                thumb.thumbnail(60);
+                //thumb.thumbnail(60);
                 // Save the  image
                 thumb.addImage("public/images/productImages/thumbnails/" + id + ".jpg");
                 // execute the operation
