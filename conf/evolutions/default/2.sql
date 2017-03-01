@@ -2,14 +2,14 @@
 
 # --- !Ups
 
-insert into category (id,name) values ( 1,'Audio' );
-insert into category (id,name) values ( 2,'Books' );
-insert into category (id,name) values ( 3,'Computer' );
-insert into category (id,name) values ( 4,'Furniture' );
-insert into category (id,name) values ( 5,'Kitchen' );
-insert into category (id,name) values ( 6,'Laundry' );
-insert into category (id,name) values ( 7,'Mobile Phone' ); 
-insert into category (id,name) values ( 8,'Television' ); 
+insert into category (id,name) values ( 1,'Shoes' );
+insert into category (id,name) values ( 2,'Jerseys' );
+insert into category (id,name) values ( 3,'Shorts' );
+insert into category (id,name) values ( 4,'T-Shirts' );
+insert into category (id,name) values ( 5,'Jumpers' );
+insert into category (id,name) values ( 6,'Hats' );
+insert into category (id,name) values ( 7,'Equipment' ); 
+insert into category (id,name) values ( 8,'Miscellaneous' ); 
 
 insert into product (id,name,description,stock,price) values ( 1,'Kettle','Steel Electric Kettle',100,55.00 );
 insert into product (id,name,description,stock,price) values ( 2,'Fridge freezer','Fridge + freezer large',45,799.00 );
