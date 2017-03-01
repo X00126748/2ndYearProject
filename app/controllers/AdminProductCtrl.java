@@ -65,14 +65,14 @@ public class AdminProductCtrl extends Controller {
 	}
     
     public Result index() {
-        return redirect(controllers.routes.AdminProductCtrl.listProducts(0));
+        return redirect(controllers.routes.AdminProductCtrl.listProducts(0, ""));
     }
 
 	// Get a list of products
     // If cat parameter is 0 then return all products
     // Otherwise return products for a category (by id)
     @Transactional
-    public Result listProducts(Long cat) {
+    public Result listProducts(Long cat, String filter) {
         // Get list of categories in ascending order
         List<Category> categories = Category.find.where().orderBy("name asc").findList();
         // Instantiate products, an Array list of products			
@@ -89,7 +89,7 @@ public class AdminProductCtrl extends Controller {
         // Render the list products view, passing parameters
         // categories and products lists
         // current user - if one is logged in
-        return ok(listProducts.render(env, categories, products, getCurrentUser()));
+        return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
     
     // Load the add product view

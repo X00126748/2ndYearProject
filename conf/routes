@@ -27,8 +27,8 @@ GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(i
 # Product Administration
 GET		/Admin						        controllers.AdminProductCtrl.index()
 
-GET     /Admin/listProducts                 controllers.AdminProductCtrl.listProducts(cat: Long = 0)
-GET     /Admin/listProducts/:cat            controllers.AdminProductCtrl.listProducts(cat: Long)
+GET     /Admin/listProducts                 controllers.AdminProductCtrl.listProducts(cat:Long ?= 0, filter?="")
+#GET     /Admin/listProducts/:cat            controllers.AdminProductCtrl.listProducts(cat: Long)
 
 GET		/Admin/addProduct					controllers.AdminProductCtrl.addProduct()
 POST	/Admin/addProductSubmit				controllers.AdminProductCtrl.addProductSubmit()
