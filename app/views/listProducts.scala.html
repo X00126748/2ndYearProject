@@ -52,11 +52,16 @@
 				} else {
 					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
 				}
-			<div class="caption">
+			<div class="caption" style="height: 15em;">
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
 				<h3><a href="#">@p.getName</a>
 				</h3>
 				<p class="pull-right">
+                                  @p.getReviews.size() Review(s)</p>
+       
+       @if(p.getNumStars() == 5) {
+
+                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -64,7 +69,57 @@
                                     <span class="glyphicon glyphicon-star"></span>
                                     
                                 </p>
-				<p><a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a></p>
+                } 
+                
+                @if(p.getNumStars() == 4){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 3){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 2){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 1){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+                @if(p.getNumStars() == 0){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+				}
+                                </p>
+				<p> Add to cart <a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+			    Leave Review <a href="#"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+				</p>
 				 
 				<p>@p.getDescription</p>
 

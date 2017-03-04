@@ -8,7 +8,7 @@ insert into category (id,name) values ( 3,'Shorts' );
 insert into category (id,name) values ( 4,'T-Shirts' );
 insert into category (id,name) values ( 5,'Jumpers' );
 insert into category (id,name) values ( 6,'Hats' );
-insert into category (id,name) values ( 7,'Equipment' ); 
+insert into category (id,name) values ( 7,'Coaching Equipment' ); 
 insert into category (id,name) values ( 8,'Miscellaneous' ); 
 
 insert into product (id,name,description,stock,price) values ( 1,'Kettle','Steel Electric Kettle',100,55.00 );
@@ -39,6 +39,58 @@ insert into category_product (category_id,product_id) values (2,12);
 insert into category_product (category_id,product_id) values (5,7);
 insert into category_product (category_id,product_id) values (3,8);
 insert into category_product (category_id,product_id) values (3,3);  
+
+insert into Review(id,product_id,name,description,stars) values
+( 1,1,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 2,1,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 3,1,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 4,2,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 5,2,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 6,3,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 7,3,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 8,3,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 9,4,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 10,5,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 11,6,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 12,6,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 13,7,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 14,7,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 15,8,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 16,9,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 17,10,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 18,10,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 19,10,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 20,11,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 21,11,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 22,12,'Joe Bloggs','Great buy', 5);
+insert into Review(id,product_id,name,description,stars) values
+( 27,11,'Joe Bloggs','Great buy', 3);
+insert into Review(id,product_id,name,description,stars) values
+( 28,11,'Joe Bloggs','Great buy', 4);
+insert into Review(id,product_id,name,description,stars) values
+( 29,12,'Joe Bloggs','Great buy', 5);
+
 
 insert into user (email,name,password,role) values ( 'admin@products.com', 'Alice Admin', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'manager@products.com', 'Bob Manager', 'password', 'manager' );

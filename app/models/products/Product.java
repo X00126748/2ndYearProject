@@ -20,6 +20,9 @@ public class Product extends Model {
     @Id
     private Long id;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     // many to many mapping
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Category> categories = new ArrayList<Category>();
@@ -47,12 +50,13 @@ public class Product extends Model {
     }
 
     // Constructor to initialise object
-    public  Product(Long id, String name, String description, int stock, double price){
+    public  Product(Long id, String name, String description, int stock, double price, List<Review> reviews){
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+        this.reviews = reviews;
     }
 	
 	//Generic query helper for entity Computer with id Long
@@ -136,5 +140,60 @@ public class Product extends Model {
     public void setPrice(double price) {
         this.price = price;
     }
+
+     public List<Review> getReviews() {
+        return reviews;
+    }
+    
+
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+    
+    
+
+    public double getAvgStars() {
+        double sum = 0;
+
+       for (int i=0; i < reviews.size(); i++) {
+        sum = sum + reviews.get(i).getStars();
+        }
+  
+   double avgStars = sum / reviews.size();
+
+
+        return avgStars;
+    }
+    
+
+    
+    public int getNumStars() {
+        int stars = 0;
+      
+         if(getAvgStars() == 5) {
+                      stars = 5;        
+                    } 
+                
+       else if (getAvgStars() >= 4 && getAvgStars() < 5 ){
+                     stars = 4;        
+                    }
+       else if (getAvgStars() >= 3 && getAvgStars() < 4 ){
+                     stars = 3;        
+                    }
+       else if (getAvgStars() >= 2 && getAvgStars() < 3 ){
+                     stars = 2;        
+                    }
+       else if (getAvgStars() >= 1 && getAvgStars() < 2 ){
+                     stars = 1;        
+                    }
+       else  {
+                    stars = 0;
+        }
+
+
+        return stars;
+    }
+
 }
 

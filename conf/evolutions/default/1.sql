@@ -45,6 +45,17 @@ create table product (
 );
 create sequence product_seq;
 
+create table review (
+  id                            bigint not null,
+  name                          varchar(255),
+  product_id                    bigint,
+  description                   varchar(255),
+  stars                         integer,
+  review_count                  integer,
+  constraint pk_review primary key (id)
+);
+create sequence review_seq;
+
 create table shop_order (
   id                            bigint not null,
   order_date                    timestamp,
@@ -84,6 +95,9 @@ create index ix_order_item_basket_id on order_item (basket_id);
 alter table order_item add constraint fk_order_item_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_order_item_product_id on order_item (product_id);
 
+alter table review add constraint fk_review_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_review_product_id on review (product_id);
+
 alter table shop_order add constraint fk_shop_order_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
 create index ix_shop_order_customer_email on shop_order (customer_email);
 
@@ -107,6 +121,9 @@ drop index if exists ix_order_item_basket_id;
 alter table order_item drop constraint if exists fk_order_item_product_id;
 drop index if exists ix_order_item_product_id;
 
+alter table review drop constraint if exists fk_review_product_id;
+drop index if exists ix_review_product_id;
+
 alter table shop_order drop constraint if exists fk_shop_order_customer_email;
 drop index if exists ix_shop_order_customer_email;
 
@@ -123,6 +140,9 @@ drop sequence if exists order_item_seq;
 
 drop table if exists product;
 drop sequence if exists product_seq;
+
+drop table if exists review;
+drop sequence if exists review_seq;
 
 drop table if exists shop_order;
 drop sequence if exists shop_order_seq;
