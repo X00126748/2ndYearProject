@@ -6,6 +6,13 @@
 # Home page
 GET		/   						        controllers.ProductCtrl.index()
 
+GET     /home                      controllers.HomeController.home
+
+GET     /about                      controllers.HomeController.about
+
+
+GET     /contact                     controllers.HomeController.contact
+
 # Show a list of products - note optional parameter
 GET     /listProducts                       controllers.ProductCtrl.listProducts(cat:Long ?= 0, filter?="")
 

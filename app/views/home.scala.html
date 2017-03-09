@@ -1,0 +1,117 @@
+@(user: models.users.User)
+<!-- Pass page title and content {html between braces} to the main view -->
+@main("Home", user) {
+ <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <a href="#">
+      <img src="@routes.Assets.versioned("images/pageImages/bball1.3.jpg")" alt="Chania">
+      <div class="carousel-caption">
+        <h3></h3>
+        <p>  </p>
+      </div>
+      </a>
+    </div>
+
+     <div class="item">
+       <a href="#">
+      <img src="@routes.Assets.versioned("images/pageImages/bball2.jpg")" alt="Chania">
+      <div class="carousel-caption">
+        <h3></h3>
+        <p>  </p>
+      </div>
+       </a>
+    </div>
+
+
+    <div class="item">
+      <a href="#">
+      <img src="@routes.Assets.versioned("images/pageImages/bball5.jpg")" alt="Chania">
+      <div class="carousel-caption">
+        <h3></h3>
+        <p> </p>
+      </div>
+      </a>
+    </div>
+
+<div class="item">
+  <a href="#">
+      <img src="@routes.Assets.versioned("images/pageImages/bball4.1.jpg")" alt="Chania">
+      <div class="carousel-caption">
+        
+        <h3></h3>
+        
+        <p></p>
+      </div>
+  </a>
+    </div>
+    
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+  <div class="container-fluid">
+ <div class="row">
+            <div class="col-sm-8">
+                <h2>What We Do</h2>
+                <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
+                <p>
+                    <a class="btn btn-default btn-lg" href="#">Call to Action &raquo;</a>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h2>Contact Us</h2>
+                <address>
+                    <strong>Start Bootstrap</strong>
+                    <br>3481 Melrose Place
+                    <br>Beverly Hills, CA 90210
+                    <br>
+                </address>
+                <address>
+                    <abbr title="Phone">P:</abbr>(123) 456-7890
+                    <br>
+                    <abbr title="Email">E:</abbr> <a href="mailto:#">name@@example.com</a>
+                </address>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="img-rounded img-responsive img-left" style="width: 80%; max-width: 300px" src="@routes.Assets.versioned("images/pageImages/athleteImg/athleteImg1.3.jpg")" alt="">
+                
+            </div>
+            <div class="col-sm-4">
+                <img class="img-rounded img-responsive img-center" style="width: 100%; " src="@routes.Assets.versioned("images/pageImages/shopMens.jpg")" alt="">
+                <br>
+                <img class="img-rounded img-responsive img-center" style="width: 100%; " src="@routes.Assets.versioned("images/pageImages/shopWomens.jpg")" alt="">
+                <br>
+                <button type="button" class="btn btn-success btn-lg btn-block">Visit our shop</button>
+            </div>
+            <div class="col-sm-4">
+                <img class="img-rounded img-responsive img-right pull-right" style="width: 80%; max-width: 300px" src="@routes.Assets.versioned("images/pageImages/athleteImg/athleteImg8.1.png")" alt="">
+            </div>
+        </div>
+        <!-- /.row -->
+}
