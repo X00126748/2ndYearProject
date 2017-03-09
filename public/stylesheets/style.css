@@ -43,13 +43,13 @@ margin-top: -20px;
 }
 
 .image-bg-fluid-height {
-	background: url(@routes.Assets.versioned('images/pageImages/aboutUs5.1.jpg')) no-repeat center center scroll;
+	background: url('../images/pageImages/aboutUs5.1.jpg') no-repeat center center scroll;
     padding: 100px 0;
     
 }
 
 .image-bg-fixed-height {
-	background: url('../images/aboutUs8.jpg') no-repeat center center scroll;
+	background: url('../images/pageImages/aboutUs8.jpg') no-repeat center center scroll;
     height: 450px;
 }
 
