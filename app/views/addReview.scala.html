@@ -1,0 +1,38 @@
+@(addReviewForm: Form[models.products.Review], user: models.users.User)
+<!-- addReviewForm defined above is the parameter
+ passed to this view by the controller -->
+@import models.products._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Create Review", user) {
+
+	<h3>Create Review</h3>
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.HomeController.addReviewSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		@inputText(addReviewForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(addReviewForm("description"), '_label -> "Description",'class -> "form-control")
+                @inputText(addReviewForm("stars"), '_label -> "Stars",'class -> "form-control")
+		
+	
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Add Review" class="btn btn-primary">
+			<a href="@controllers.routes.HomeController.home()"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+} <!-- End of page content -->
+
+

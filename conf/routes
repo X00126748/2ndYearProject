@@ -13,6 +13,16 @@ GET     /about                      controllers.HomeController.about
 
 GET     /contact                     controllers.HomeController.contact
 
+
+
+GET		/addCustomer					controllers.HomeController.addCustomer()
+POST	/addCustomerSubmit				controllers.HomeController.addCustomerSubmit()
+
+GET		/addReview					controllers.HomeController.addReview()
+POST	/addReviewSubmit				controllers.HomeController.addReviewSubmit()
+
+
+
 # Show a list of products - note optional parameter
 GET     /listProducts                       controllers.ProductCtrl.listProducts(cat:Long ?= 0, filter?="")
 

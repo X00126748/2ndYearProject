@@ -57,4 +57,80 @@ public class HomeController extends Controller {
 
         return ok(contact.render(User.getLoggedIn(session().get("email"))));
     }
+
+
+     // Load the add Customer view
+    // Display an empty form in the view
+    @Transactional
+    public Result addCustomer() {   
+        // Instantiate a form object based on the Product class
+        Form<Customer> addCustomerForm = formFactory.form(Customer.class);
+        // Render the Add Product View, passing the form object
+        return ok(addCustomer.render(addCustomerForm, getCurrentUser()));
+    }
+
+    // Handle the form data when a new Customer is submitted
+    @Transactional
+    public Result addCustomerSubmit() {
+
+        // Create a product form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Customer> newCustomerForm = formFactory.form(Customer.class).bindFromRequest();
+
+        // Check for errors (based on Product class annotations)	
+        if(newCustomerForm.hasErrors()) {
+            // Display the form again
+            return badRequest(addCustomer.render(newCustomerForm, getCurrentUser()));
+        }
+     
+        Customer newCustomer = newCustomerForm.get();
+        
+        // Save product now to set id (needed to update manytomany)
+        newCustomer.save();
+        
+        // Redirect to the admin home
+        return redirect(controllers.security.routes.LoginCtrl.login());
+    }
+
+
+     // Add Review by product ID
+    // called when leave review button is pressed
+    @Transactional
+    public Result addReview() {
+        // Instantiate a form object based on the Review class
+        Form<Review> addReviewForm = formFactory.form(Review.class);
+        // Render the Add Review View, passing the form object
+        return ok(addReview.render(addReviewForm, getCurrentUser()));	
+    }
+
+
+    // Handle the form data when a new Review is submitted
+    @Transactional
+    public Result addReviewSubmit() {
+
+        // Create a product form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Review> newReviewForm = formFactory.form(Review.class).bindFromRequest();
+
+        // Check for errors (based on Product class annotations)	
+        if(newReviewForm.hasErrors()) {
+            // Display the form again
+            return badRequest(addReview.render(newReviewForm, getCurrentUser()));
+        }
+     
+        Review newReview = newReviewForm.get();
+        
+        // Save product now to set id (needed to update manytomany)
+        newReview.save();
+        
+        // Redirect to the admin home
+        return redirect(controllers.security.routes.LoginCtrl.login());
+    }
+
+
+
+
+
+
+
 }

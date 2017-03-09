@@ -1,0 +1,44 @@
+@(addCustomerForm: Form[models.users.Customer], user: models.users.User)
+<!-- addProductForm defined above is the parameter
+ passed to this view by the controller -->
+@import models.users._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Create Account", user) {
+
+	<h3>Create Account</h3>
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.HomeController.addCustomerSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		@inputText(addCustomerForm("email"), '_label -> "Email",'class -> "form-control")
+		@inputText(addCustomerForm("role"), '_label -> "Role",'class -> "form-control")
+                @inputText(addCustomerForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(addCustomerForm("password"), '_label -> "Password",'class -> "form-control")
+                @inputText(addCustomerForm("street1"), '_label -> "Street1",'class -> "form-control")
+		@inputText(addCustomerForm("street2"), '_label -> "Street2",'class -> "form-control")
+                @inputText(addCustomerForm("town"), '_label -> "Town",'class -> "form-control")
+                @inputText(addCustomerForm("postCode"), '_label -> "PostCode",'class -> "form-control")
+		@inputText(addCustomerForm("creditCard"), '_label -> "CreditCard",'class -> "form-control")
+
+	
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Add Customer" class="btn btn-primary">
+			<a href="@controllers.routes.HomeController.home()"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+} <!-- End of page content -->
+
+
