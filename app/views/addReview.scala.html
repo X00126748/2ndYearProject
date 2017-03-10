@@ -1,4 +1,4 @@
-@(addReviewForm: Form[models.products.Review], user: models.users.User)
+@(id: Long,addReviewForm: Form[models.products.Review], user: models.users.User)
 <!-- addReviewForm defined above is the parameter
  passed to this view by the controller -->
 @import models.products._
@@ -13,7 +13,7 @@ though a static HTML form would also work -->
 	<h3>Create Review</h3>
 	
 	<!-- Use the views.html.helpers package to create the form -->
-	@form(action = routes.HomeController.addReviewSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+	@form(action = routes.HomeController.addReviewSubmit(id), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->

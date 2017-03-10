@@ -18,8 +18,8 @@ GET     /contact                     controllers.HomeController.contact
 GET		/addCustomer					controllers.HomeController.addCustomer()
 POST	/addCustomerSubmit				controllers.HomeController.addCustomerSubmit()
 
-GET		/addReview					controllers.HomeController.addReview()
-POST	/addReviewSubmit				controllers.HomeController.addReviewSubmit()
+GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
+POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 
 

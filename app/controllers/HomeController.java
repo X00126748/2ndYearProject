@@ -96,17 +96,19 @@ public class HomeController extends Controller {
      // Add Review by product ID
     // called when leave review button is pressed
     @Transactional
-    public Result addReview() {
+    public Result addReview(Long id) {
+        // Retrieve the product by id
+        Product p = Product.find.byId(id);
         // Instantiate a form object based on the Review class
         Form<Review> addReviewForm = formFactory.form(Review.class);
         // Render the Add Review View, passing the form object
-        return ok(addReview.render(addReviewForm, getCurrentUser()));	
+        return ok(addReview.render(id,addReviewForm, getCurrentUser()));	
     }
 
 
     // Handle the form data when a new Review is submitted
     @Transactional
-    public Result addReviewSubmit() {
+    public Result addReviewSubmit(Long id) {
 
         // Create a product form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
@@ -115,11 +117,16 @@ public class HomeController extends Controller {
         // Check for errors (based on Product class annotations)	
         if(newReviewForm.hasErrors()) {
             // Display the form again
-            return badRequest(addReview.render(newReviewForm, getCurrentUser()));
+            return badRequest(addReview.render(id,newReviewForm, getCurrentUser()));
         }
      
         Review newReview = newReviewForm.get();
-        
+
+        // Retrieve the product by id
+        Product p = Product.find.byId(id);
+
+        newReview.setProduct(p);
+
         // Save product now to set id (needed to update manytomany)
         newReview.save();
         
