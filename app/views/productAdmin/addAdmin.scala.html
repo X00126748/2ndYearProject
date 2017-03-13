@@ -1,0 +1,38 @@
+@(addAdministratorForm: Form[models.users.Administrator], user: models.users.User)
+<!-- addAdministratorForm defined above is the parameter
+ passed to this view by the controller -->
+@import models.users._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@productAdmin.main("New Administrator", user) {
+
+	<h3>Add a new Administrator</h3>
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.AdminHomeCtrl.addAdministratorSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		@inputText(addAdministratorForm("email"), '_label -> "Email",'class -> "form-control")
+		@inputText(addAdministratorForm("role"), '_label -> "Role",'class -> "form-control")
+		@inputText(addAdministratorForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(addAdministratorForm("password"), '_label -> "Password",'class -> "form-control")
+	
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Add Administrator" class="btn btn-primary">
+			<a href="@routes.AdminProductCtrl.listProducts(0)"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+} <!-- End of page content -->
+
+

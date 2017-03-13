@@ -131,7 +131,7 @@ public class HomeController extends Controller {
         newReview.save();
         
         // Redirect to the admin home
-        return redirect(controllers.security.routes.LoginCtrl.login());
+        return redirect(routes.ProductCtrl.listProducts(0, ""));
     }
 
 
