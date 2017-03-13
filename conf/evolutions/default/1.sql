@@ -24,6 +24,14 @@ create table category_product (
   constraint pk_category_product primary key (category_id,product_id)
 );
 
+create table forum_message (
+  id                            bigint not null,
+  message_content               varchar(255),
+  customer_email                varchar(255),
+  constraint pk_forum_message primary key (id)
+);
+create sequence forum_message_seq;
+
 create table order_item (
   id                            bigint not null,
   order_id                      bigint,
@@ -34,6 +42,16 @@ create table order_item (
   constraint pk_order_item primary key (id)
 );
 create sequence order_item_seq;
+
+create table payment_card (
+  card_number                   bigint not null,
+  expiration_date               varchar(255),
+  security_code                 integer,
+  type                          varchar(255),
+  customer_email                varchar(255),
+  constraint pk_payment_card primary key (card_number)
+);
+create sequence payment_card_seq;
 
 create table product (
   id                            bigint not null,
@@ -86,6 +104,9 @@ create index ix_category_product_category on category_product (category_id);
 alter table category_product add constraint fk_category_product_product foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_category_product_product on category_product (product_id);
 
+alter table forum_message add constraint fk_forum_message_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
+create index ix_forum_message_customer_email on forum_message (customer_email);
+
 alter table order_item add constraint fk_order_item_order_id foreign key (order_id) references shop_order (id) on delete restrict on update restrict;
 create index ix_order_item_order_id on order_item (order_id);
 
@@ -94,6 +115,9 @@ create index ix_order_item_basket_id on order_item (basket_id);
 
 alter table order_item add constraint fk_order_item_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_order_item_product_id on order_item (product_id);
+
+alter table payment_card add constraint fk_payment_card_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
+create index ix_payment_card_customer_email on payment_card (customer_email);
 
 alter table review add constraint fk_review_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_review_product_id on review (product_id);
@@ -112,6 +136,9 @@ drop index if exists ix_category_product_category;
 alter table category_product drop constraint if exists fk_category_product_product;
 drop index if exists ix_category_product_product;
 
+alter table forum_message drop constraint if exists fk_forum_message_customer_email;
+drop index if exists ix_forum_message_customer_email;
+
 alter table order_item drop constraint if exists fk_order_item_order_id;
 drop index if exists ix_order_item_order_id;
 
@@ -120,6 +147,9 @@ drop index if exists ix_order_item_basket_id;
 
 alter table order_item drop constraint if exists fk_order_item_product_id;
 drop index if exists ix_order_item_product_id;
+
+alter table payment_card drop constraint if exists fk_payment_card_customer_email;
+drop index if exists ix_payment_card_customer_email;
 
 alter table review drop constraint if exists fk_review_product_id;
 drop index if exists ix_review_product_id;
@@ -135,8 +165,14 @@ drop sequence if exists category_seq;
 
 drop table if exists category_product;
 
+drop table if exists forum_message;
+drop sequence if exists forum_message_seq;
+
 drop table if exists order_item;
 drop sequence if exists order_item_seq;
+
+drop table if exists payment_card;
+drop sequence if exists payment_card_seq;
 
 drop table if exists product;
 drop sequence if exists product_seq;
