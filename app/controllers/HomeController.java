@@ -135,7 +135,16 @@ public class HomeController extends Controller {
     }
 
 
+    @Transactional
+    public Result viewReview(Long id) {
 
+        // Retrieve the product by id
+        Product p = Product.find.byId(id);
+
+        List<Review> reviews = p.getReviews();
+    
+        return ok(viewReview.render(reviews, getCurrentUser()));
+    }
 
 
 

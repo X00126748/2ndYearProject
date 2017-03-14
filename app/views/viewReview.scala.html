@@ -1,0 +1,45 @@
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+@import models.users.User
+@(reviews: List[Review], user: User)
+
+<!-- Pass page title and user on to main -->
+@main("View Reviews", user) {
+
+
+<div class="row">
+
+	<div class="col-md-12">
+		
+        @for(r <- reviews) {
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Product Name</th>
+				<th>Reviewer</th>
+				<th>Description</th>
+				<th>Stars</th>
+                
+			</tr>
+			</thead>
+			<tbody>
+                   
+                    <tr>
+                        <td>@r.getProduct.getName</td>
+                        <td>@r.getName</td>
+                        <td>@r.getDescription</td>
+                        <td>@r.getStars</td>
+                    </tr>
+                   
+              
+			</tbody>
+		</table>
+      
+        }
+        </div>
+</div>
+}

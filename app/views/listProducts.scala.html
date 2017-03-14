@@ -56,8 +56,10 @@
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
 				<h3><a href="#">@p.getName</a>
 				</h3>
+                <a href="@routes.HomeController.viewReview(p.getId)"
 				<p class="pull-right">
                                   @p.getReviews.size() Review(s)</p>
+                </a>
        
        @if(p.getNumStars() == 5) {
 

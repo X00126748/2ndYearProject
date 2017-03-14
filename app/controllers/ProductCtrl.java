@@ -70,4 +70,9 @@ public class ProductCtrl extends Controller {
         // current user - if one is logged in
         return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
+
+    
+     
+
+
 }

@@ -157,11 +157,7 @@ return ok (orderConfirmed.render(c, order));
         
         List<ShopOrder> orders = c.getOrders();
 
-        // Render the list products view, passing parameters
-        // categories and products lists
-        // category id - used for filtering
-        // the filter string - this will be displayed in the filter text input
-        // current user - if one is logged in
+      
         return ok(orderHistory.render(orders, c));
     }
 

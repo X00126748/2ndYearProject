@@ -21,6 +21,8 @@ POST	/addCustomerSubmit				controllers.HomeController.addCustomerSubmit()
 GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
 POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
+GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
+
 
 
 # Show a list of products - note optional parameter
