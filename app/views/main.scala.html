@@ -70,6 +70,9 @@
                         <li>
                             <a href="@routes.ProductCtrl.listProducts(0)">Products</a>
                         </li>
+                        <li>
+                            <a href="@routes.ShoppingCtrl.orderHistory()">My Orders</a>
+                        </li>
                                             <!-- Login/ logout Link - check if user logged in -->
                         <li>
                             @if(user != null) {
@@ -81,6 +84,7 @@
                         <li>
                             <a href="@routes.HomeController.addCustomer()">Sign Up</a>
                         </li>
+                        
                         <li>
                             <a href="@routes.ShoppingCtrl.showBasket()"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                         </li>

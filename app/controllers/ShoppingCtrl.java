@@ -15,6 +15,10 @@ import play.mvc.Security;
 import play.mvc.With;
 import views.html.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+
 // Import models
 // Import security controllers
 
@@ -139,6 +143,26 @@ return ok (orderConfirmed.render(c, order));
     public Result viewOrder(long id) {
         ShopOrder order = ShopOrder.find.byId(id);
         return ok(orderConfirmed.render(getCurrentUser(), order));
+    }
+
+   
+	// Get a list of orders
+    // If cat parameter is 0 then return all products
+    // Otherwise return products for a category (by id)
+    // In both cases products will be searched using the fiter value
+    @Transactional
+    public Result orderHistory() {
+
+        Customer c = getCurrentUser();
+        
+        List<ShopOrder> orders = c.getOrders();
+
+        // Render the list products view, passing parameters
+        // categories and products lists
+        // category id - used for filtering
+        // the filter string - this will be displayed in the filter text input
+        // current user - if one is logged in
+        return ok(orderHistory.render(orders, c));
     }
 
 }
