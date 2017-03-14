@@ -23,6 +23,10 @@ POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
 
+GET		/addForumMessage/					controllers.HomeController.addForumMessage()
+POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit()
+
+
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()
 POST	/addPaymentCardSubmit			controllers.HomeController.addPaymentCardSubmit()
 

@@ -19,6 +19,7 @@ import views.html.*;
 import models.users.*;
 import models.products.*;
 import models.shopping.*;
+import models.*;
 
 public class HomeController extends Controller {
 
@@ -199,9 +200,46 @@ public class HomeController extends Controller {
         return redirect(controllers.routes.HomeController.home());
     }
 
+
+        @Transactional
+    public Result addForumMessage() {
+        // Retrieve the product by id
+        Customer c = (Customer)getCurrentUser();
+        // Instantiate a form object based on the Review class
+        Form<ForumMessage> addForumMessageForm = formFactory.form(ForumMessage.class);
+        // Render the Add Review View, passing the form object
+        return ok(addForumMessage.render(addForumMessageForm, (Customer)getCurrentUser()));	
+    }
+
+
+    // Handle the form data when a new Review is submitted
+    @Transactional
+    public Result addForumMessageSubmit() {
+
+        // Create a product form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<ForumMessage> newForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
+
+        // Check for errors (based on Product class annotations)	
+        if(newForumMessageForm.hasErrors()) {
+            // Display the form again
+            return badRequest(addForumMessage.render(newForumMessageForm, (Customer)getCurrentUser()));
+        }
      
+        ForumMessage newForumMessage = newForumMessageForm.get();
 
+        // Retrieve the product by id
+        Customer c = (Customer)getCurrentUser();
 
+        newForumMessage.setCustomer(c);
+
+        // Save product now to set id (needed to update manytomany)
+        newForumMessage.save();
+        
+        // Redirect to the admin home
+        return redirect(routes.HomeController.home());
+
+    }
 
 
 }
