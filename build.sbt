@@ -1,4 +1,4 @@
-name := """playLab_ShoppingWithSearch1"""
+name := """2ndYearProject"""
 
 version := "1.0-SNAPSHOT"
 
