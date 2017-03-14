@@ -45,7 +45,8 @@ create sequence order_item_seq;
 
 create table payment_card (
   card_number                   bigint not null,
-  expiration_date               varchar(255),
+  expiration_month              integer,
+  expiration_year               integer,
   security_code                 integer,
   type                          varchar(255),
   customer_email                varchar(255),

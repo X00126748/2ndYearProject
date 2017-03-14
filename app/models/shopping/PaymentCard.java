@@ -11,6 +11,8 @@ import com.avaje.ebean.*;
 
 import models.products.*;
 import models.users.*;
+import models.products.*;
+import models.shopping.*;
 
 // PaymentCard Entity managed by the ORM
 @Entity
@@ -18,12 +20,18 @@ public class PaymentCard extends Model {
 
     // Properties
     // Annotate id as the primary key
+    @Constraints.Required
     @Id
     private Long cardNumber;
 
     // Other fields marked as being required (for validation purposes)
+    
+    
     @Constraints.Required
-    private String expirationDate;
+    private Integer expirationMonth;
+
+    @Constraints.Required
+    private Integer expirationYear;
 
     @Constraints.Required
     private Integer securityCode;
@@ -40,9 +48,10 @@ public class PaymentCard extends Model {
     }
 
     // Constructor to initialise object
-    public PaymentCard(Long cardNumber, String expirationDate, Integer securityCode, String type) {
+    public PaymentCard(Long cardNumber, Integer expirationMonth, Integer expirationYear, Integer securityCode, String type) {
         this.cardNumber = cardNumber;
-        this.expirationDate = expirationDate;
+        this.expirationMonth = expirationMonth;
+        this.expirationYear = expirationYear;
         this.securityCode = securityCode;
         this.type = type;
     }
@@ -64,12 +73,20 @@ public class PaymentCard extends Model {
         this.cardNumber = cardNumber;
     }
 
-    public String getExpirationDate() {
-        return expirationDate;
+    public Integer getExpirationMonth() {
+        return expirationMonth;
     }
 
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpirationMonth(Integer expirationMonth) {
+        this.expirationMonth = expirationMonth;
+    }
+    
+    public Integer getExpirationYear() {
+        return expirationYear;
+    }
+
+    public void setExpirationYear(Integer expirationYear) {
+        this.expirationYear = expirationYear;
     }
 
     public Integer getSecurityCode() {

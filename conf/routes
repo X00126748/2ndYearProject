@@ -23,7 +23,8 @@ POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
 
-
+GET		/addPaymentCard					controllers.HomeController.addPaymentCard()
+POST	/addPaymentCardSubmit			controllers.HomeController.addPaymentCardSubmit()
 
 # Show a list of products - note optional parameter
 GET     /listProducts                       controllers.ProductCtrl.listProducts(cat:Long ?= 0, filter?="")

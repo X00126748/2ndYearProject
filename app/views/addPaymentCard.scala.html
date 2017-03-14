@@ -1,0 +1,39 @@
+@(addPaymentCardForm: Form[models.shopping.PaymentCard], user: models.users.User)
+<!-- addPaymentCardForm defined above is the parameter
+ passed to this view by the controller -->
+@import models.shopping._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("New PaymentCard", user) {
+
+	<h3>Add a new PaymentCard</h3>
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.HomeController.addPaymentCardSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		@inputText(addPaymentCardForm("cardNumber"), '_label -> "Card Number",'class -> "form-control")
+		@inputDate(addPaymentCardForm("expirationMonth"), '_label -> "Expiration Month",'class -> "form-control")
+                @inputDate(addPaymentCardForm("expirationYear"), '_label -> "Expiration Year",'class -> "form-control")
+		@inputText(addPaymentCardForm("securityCode"), '_label -> "Security Code",'class -> "form-control")
+		@inputText(addPaymentCardForm("type"), '_label -> "Type",'class -> "form-control")
+	
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Add PaymentCard" class="btn btn-primary">
+			<a href="@routes.AdminProductCtrl.listProducts(0)"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+} <!-- End of page content -->
+
+

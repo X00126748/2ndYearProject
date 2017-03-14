@@ -5,16 +5,20 @@ import play.mvc.*;
 import play.data.*;
 import play.db.ebean.Transactional;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+
+import play.mvc.Security;
+
 
 import views.html.*;
 
 // Import models
 import models.users.*;
 import models.products.*;
-
+import models.shopping.*;
 
 public class HomeController extends Controller {
 
@@ -145,6 +149,57 @@ public class HomeController extends Controller {
     
         return ok(viewReview.render(reviews, getCurrentUser()));
     }
+    
+     
+
+    
+      // Update a PaymentCard by ID
+    // called when edit button is pressed
+    @Transactional
+    public Result addPaymentCard() {
+        // Retrieve the Customer by id
+        Customer c = (Customer)getCurrentUser();
+        // Create a form based on the PaymentCard class
+        Form<PaymentCard> paymentCardForm = formFactory.form(PaymentCard.class);
+        // Render the addPaymentCard view
+        // pass the id and form as parameters
+        return ok(addPaymentCard.render(paymentCardForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when a PaymentCard is submitted
+    @Transactional
+    public Result addPaymentCardSubmit() {
+
+        // Create a PaymentCard form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<PaymentCard> addPaymentCardForm = formFactory.form(PaymentCard.class).bindFromRequest();
+
+        // Check for errors (based on PaymentCard class annotations)	
+        if(addPaymentCardForm.hasErrors()) {
+            // Display the form again
+            return badRequest(addPaymentCard.render(addPaymentCardForm, getCurrentUser()));
+        }
+        
+
+        // Retrieve the Customer by id
+        Customer c = (Customer)getCurrentUser();
+        // Update the PaymentCard (using its ID to select the existing object))
+        PaymentCard p = addPaymentCardForm.get();
+        p.setCustomer(c);
+   
+        
+        // update (save) this PaymentCard            
+        p.save();
+
+        // Add a success message to the flash session
+        flash("success", "PaymentCard has been Created" );
+            
+        // Return to admin home
+        return redirect(controllers.routes.HomeController.home());
+    }
+
+     
 
 
 
