@@ -1,0 +1,58 @@
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+@(customer: models.users.Customer)
+
+<!-- Pass page title and user on to main -->
+@main("Account Details", customer) {
+
+
+<div class="row">
+
+	<div class="col-md-12">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Name</th>
+				<th>Street1</th>
+                                <th>Street2</th>
+                                <th>Town</th>
+				<th>PostCode</th>
+				<th>Country</th>
+			</tr>
+			</thead>
+			<tbody>
+                @if(customer != null) {
+
+                    <!-- Start of customer info - For each p in products add a row -->
+                    
+                    <tr>
+                        <td>@customer.getEmail</td>
+                        <td>@customer.getRole</td>
+                        <td>@customer.getName</td>
+                        <td>@customer.getStreet1</td>
+                        <td>@customer.getStreet2</td>
+                        <td>@customer.getTown</td>
+                        <td>@customer.getPostCode</td>
+                        <td>@customer.getCountry</td>
+                    </tr>
+                    
+              }
+			</tbody>
+		</table>
+     
+        
+        </div>
+</div>
+}

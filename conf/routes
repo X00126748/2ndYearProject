@@ -30,6 +30,8 @@ POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()
 POST	/addPaymentCardSubmit			controllers.HomeController.addPaymentCardSubmit()
 
+GET     /accountDetails                        controllers.HomeController.accountDetails()
+
 # Show a list of products - note optional parameter
 GET     /listProducts                       controllers.ProductCtrl.listProducts(cat:Long ?= 0, filter?="")
 

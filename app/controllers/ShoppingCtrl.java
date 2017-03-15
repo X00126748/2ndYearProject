@@ -148,9 +148,6 @@ return ok (orderConfirmed.render(c, order));
 
    
 	// Get a list of orders
-    // If cat parameter is 0 then return all products
-    // Otherwise return products for a category (by id)
-    // In both cases products will be searched using the fiter value
     @Transactional
     public Result orderHistory() {
 

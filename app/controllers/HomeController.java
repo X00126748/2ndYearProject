@@ -243,5 +243,14 @@ public class HomeController extends Controller {
 
     }
 
+        // Get a list of orders
+    @Transactional
+    public Result accountDetails(){
+
+        Customer c = (Customer)getCurrentUser();
+        
+        return ok(accountDetails.render(c));
+    }
+
 
 }
