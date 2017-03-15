@@ -5,6 +5,7 @@ import models.shopping.ShopOrder;
 
 import javax.persistence.*;
 import java.util.List;
+import play.data.validation.*;
 
 @Entity
 
@@ -13,12 +14,16 @@ import java.util.List;
 
 // Customer inherits from the User class
 public class Customer extends User{
-	
+	@Constraints.Required
 	private String street1;
 	private String street2;
+@Constraints.Required
     private String town;
+@Constraints.Required
     private String postCode;
-    private String creditCard;
+@Constraints.Required
+    private String country;
+    
     
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Basket basket;
@@ -26,14 +31,15 @@ public class Customer extends User{
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ShopOrder> orders;
 	
-	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String creditCard)
+	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country)
 	{
 		super(email, role, name, password);
         this.street1 = street1;
         this.street2 = street2;
         this.town = town;
         this.postCode = postCode;
-		this.creditCard = creditCard;
+        this.country = country;
+		
 	}
 
     public String getStreet1() {
@@ -68,13 +74,15 @@ public class Customer extends User{
         this.postCode = postCode;
     }
 
-    public String getCreditCard() {
-        return creditCard;
+    
+     public String getCountry() {
+        return country;
     }
 
-    public void setCreditCard(String creditCard) {
-        this.creditCard = creditCard;
+    public void setCountry(String country) {
+        this.country = country;
     }
+
 
     public Basket getBasket() {
         return basket;

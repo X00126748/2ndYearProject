@@ -26,6 +26,7 @@ public class User extends Model {
 	//public Long id;
 	
 	@Constraints.Required
+    @Constraints.Email
     @Id
     private String email;
 

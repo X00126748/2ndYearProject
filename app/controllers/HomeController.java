@@ -89,6 +89,8 @@ public class HomeController extends Controller {
         }
      
         Customer newCustomer = newCustomerForm.get();
+
+        newCustomer.setRole("Customer");
         
         // Save product now to set id (needed to update manytomany)
         newCustomer.save();
