@@ -99,6 +99,53 @@ public class HomeController extends Controller {
         return redirect(controllers.security.routes.LoginCtrl.login());
     }
 
+    
+
+     // Update a Customer by getCurrentUser
+    // called when edit button is pressed
+    @Transactional
+    public Result updateCustomer() {
+         // Retrieve the Customer by getCurrentUser
+        Customer c = (Customer)getCurrentUser();
+        // Create a form based on the Customer class and fill using c
+        Form<Customer> customerForm = Form.form(Customer.class).fill(c);
+        // Render the updateCustomer view
+        // pass the form as a parameter
+        return ok(updateCustomer.render(customerForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when an updated customer is submitted
+    @Transactional
+    public Result updateCustomerSubmit() {
+
+        // Create a Customer form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Customer> updateCustomerForm = formFactory.form(Customer.class).bindFromRequest();
+
+        // Check for errors (based on Customer class annotations)	
+        if(updateCustomerForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateCustomer.render(updateCustomerForm, getCurrentUser()));
+        }
+        
+        // Update the Customer (using its ID to select the existing object))
+        Customer c = updateCustomerForm.get();
+
+        //c.setId(id);
+       
+        // update (save) this Customer           
+        c.update();
+
+        
+        // Add a success message to the flash session
+        flash("success", "Customer " + updateCustomerForm.get().getName() + " has been updated");
+            
+        // Return to admin home
+        return redirect(controllers.routes.HomeController.accountDetails());
+    }
+
+
 
      // Add Review by product ID
     // called when leave review button is pressed
@@ -160,7 +207,7 @@ public class HomeController extends Controller {
     // called when edit button is pressed
     @Transactional
     public Result addPaymentCard() {
-        // Retrieve the Customer by id
+        // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
         // Create a form based on the PaymentCard class
         Form<PaymentCard> paymentCardForm = formFactory.form(PaymentCard.class);
