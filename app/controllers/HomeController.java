@@ -95,7 +95,7 @@ public class HomeController extends Controller {
         // Save product now to set id (needed to update manytomany)
         newCustomer.save();
         
-        // Redirect to the admin home
+        // Redirect to the login
         return redirect(controllers.security.routes.LoginCtrl.login());
     }
 
@@ -143,6 +143,26 @@ public class HomeController extends Controller {
             
         // Return to admin home
         return redirect(controllers.routes.HomeController.accountDetails());
+    }
+
+        
+
+          // Delete Customer
+    @Transactional
+    public Result deleteCustomer() {
+         
+          // Retrieve the Customer by getCurrentUser
+        Customer c = (Customer)getCurrentUser();
+       
+
+        String email = c.getEmail();
+        
+        // Call delete method
+        Customer.find.ref(email).delete();
+        // Add message to flash session 
+        flash("success", "Customer has been deleted");
+        // Redirect home
+        return redirect(controllers.security.routes.LoginCtrl.login());
     }
 
 

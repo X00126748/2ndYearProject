@@ -14,26 +14,35 @@ GET     /about                      controllers.HomeController.about
 GET     /contact                     controllers.HomeController.contact
 
 
-
+# Customer
 GET		/addCustomer					controllers.HomeController.addCustomer()
 POST	/addCustomerSubmit				controllers.HomeController.addCustomerSubmit()
 
 GET		/updateCustomer			controllers.HomeController.updateCustomer()
 POST	/updateCustomerSubmit		controllers.HomeController.updateCustomerSubmit()
 
+GET     /deleteProduct              controllers.HomeController.deleteCustomer()
+
+GET     /accountDetails                        controllers.HomeController.accountDetails()
+
+
+# Review
 GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
 POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
 
+
+# Forum
 GET		/addForumMessage/					controllers.HomeController.addForumMessage()
 POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit()
 
 
+# Payment Card
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()
 POST	/addPaymentCardSubmit			controllers.HomeController.addPaymentCardSubmit()
 
-GET     /accountDetails                        controllers.HomeController.accountDetails()
+
 
 # Show a list of products - note optional parameter
 GET     /listProducts                       controllers.ProductCtrl.listProducts(cat:Long ?= 0, filter?="")
