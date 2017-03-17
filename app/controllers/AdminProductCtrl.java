@@ -24,6 +24,7 @@ import org.im4java.core.IMOperation;
 // Import models and views
 import models.users.*;
 import models.products.*;
+import models.shopping.*;
 
 import views.html.productAdmin.*;
 
@@ -254,5 +255,9 @@ public class AdminProductCtrl extends Controller {
             }
         }
         return "image file missing";	
-    } 
+    }
+
+
+
+     
 }

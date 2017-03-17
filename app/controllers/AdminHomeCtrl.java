@@ -24,6 +24,7 @@ import org.im4java.core.IMOperation;
 // Import models and views
 import models.users.*;
 import models.products.*;
+import models.shopping.*;
 
 import views.html.productAdmin.*;
 
@@ -103,7 +104,19 @@ public class AdminHomeCtrl extends Controller {
         return redirect(controllers.routes.AdminProductCtrl.index());
     }
 
-    
+      // Get a list of orders
+    @Transactional
+    public Result orders() {
+
+        List<ShopOrder> ordersList = new ArrayList<ShopOrder>();
+
+         
+            // Get the list of ALL products with filter
+            ordersList = ShopOrder.findAll();
+        
+        // Render the list orders view, passing parameters
+        return ok(orders.render(ordersList, getCurrentUser()));
+    } 
         
    
 }
