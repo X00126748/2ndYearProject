@@ -2,7 +2,7 @@
 @import play.api.Play.current
 @import models.shopping._
 @import models.products._
-@(orders: List[ShopOrder], customer: models.users.Customer)
+@(currentOrders: List[ShopOrder], previousOrders: List[ShopOrder], customer: models.users.Customer)
 
 <!-- Pass page title and user on to main -->
 @main("Order History", customer) {
@@ -17,7 +17,11 @@
 			  </div>
 		} 
 
-        @for(o <- orders) {
+        <h3>Current Orders</h3>
+
+        @for(o <- currentOrders) {
+
+
 
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
@@ -31,7 +35,7 @@
 			</tr>
 			</thead>
 			<tbody>
-                @if(orders != null) {
+                @if(currentOrders != null) {
 
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- o.getItems) {
@@ -50,11 +54,61 @@
             <div class="col-md-12">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
+                <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
+            </div>  
+
+        
+        </div>
+
+        }
+
+         <h3>Previous Orders</h3>
+
+
+         @for(o <- previousOrders) {
+
+        
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Item Price</th>
+				<th>Quantity</th>
+                <th>Total</th>
+			</tr>
+			</thead>
+			<tbody>
+                @if(previousOrders != null) {
+
+                    <!-- Start of For loop - For each p in products add a row -->
+                    @for(i <- o.getItems) {
+                    <tr>
+                        <td>@i.getProduct.getName</td>
+                        <td>@i.getProduct.getDescription</td>
+                        <td>&euro; @("%.2f".format(i.getPrice))</td>
+                        <td>@i.getQuantity()</td>
+                        <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+                    </tr>
+                    }<!-- End of For loop -->
+              }
+			</tbody>
+		</table>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+                <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
+                <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
             </div>  
 
         
         </div>
         }
+
+
+
         </div>
 </div>
 }

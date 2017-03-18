@@ -104,6 +104,8 @@ public Result showBasket(){
 
         order.setItems(c.getBasket().getBasketItems());
 
+        order.setOrderStatus("Processing Order");
+
         order.save();
 
 for (OrderItem i: order.getItems()){
@@ -152,11 +154,28 @@ return ok (orderConfirmed.render(c, order));
     public Result orderHistory() {
 
         Customer c = getCurrentUser();
+
+        List<ShopOrder> currentOrders = new ArrayList<ShopOrder>();
+        List<ShopOrder> previousOrders = new ArrayList<ShopOrder>();
         
-        List<ShopOrder> orders = c.getOrders();
+       // List<ShopOrder> orders = c.getOrders();
+
+        for (ShopOrder o: c.getOrders()){
+
+            if (o.getOrderStatus() == "Processing Order"){
+
+              currentOrders.add(o);
+
+		}  else if (o.getOrderStatus() == "Order Complete"){
+
+              previousOrders.add(o);
+
+		}
+ 
+			}	
 
       
-        return ok(orderHistory.render(orders, c));
+        return ok(orderHistory.render(currentOrders,previousOrders, c));
     }
 
 

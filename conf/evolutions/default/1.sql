@@ -78,6 +78,7 @@ create sequence review_seq;
 create table shop_order (
   id                            bigint not null,
   order_date                    timestamp,
+  order_status                  varchar(255),
   customer_email                varchar(255),
   constraint pk_shop_order primary key (id)
 );

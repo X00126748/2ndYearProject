@@ -49,12 +49,23 @@
 		</table>
         <div class="row">
             <div class="col-md-12">
-                <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
-                <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
+		
+                <p ><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+                <p ><strong>Order Date: @o.getOrderDate</strong></p>
+                <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
+                 
+                @if(o.getOrderStatus == "Processing Order"){
+                 <p class="text-right"><a href="@routes.AdminHomeCtrl.setOrderForDelivery(o.getId())">
+				<button class="btn btn-primary">Complete Order</button>
+			</a></p>
+                
+                 }
             </div>  
+  
 
         
         </div>
+          <hr>
         }
         </div>
 </div>

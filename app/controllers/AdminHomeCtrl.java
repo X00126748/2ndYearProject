@@ -117,6 +117,24 @@ public class AdminHomeCtrl extends Controller {
         // Render the list orders view, passing parameters
         return ok(orders.render(ordersList, getCurrentUser()));
     } 
+
+      // Get a list of orders
+    @Transactional
+    public Result setOrderForDelivery(Long id) {
+
+         ShopOrder order = ShopOrder.find.byId(id);
+
+         order.setOrderStatus("Order Complete");
+
+         order.save();
+
+	 order.update();
+
+        // Render the list orders view, passing parameters
+       // return ok(orders.render(ordersList, getCurrentUser()));
+
+          return orders();
+    } 
         
    
 }

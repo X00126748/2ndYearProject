@@ -20,6 +20,9 @@ public class ShopOrder extends Model {
     private Long id;
     
     private Date OrderDate;
+
+    
+    private String orderStatus;
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
@@ -64,6 +67,14 @@ public class ShopOrder extends Model {
 
     public void setOrderDate(Date orderDate) {
         OrderDate = orderDate;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public List<OrderItem> getItems() {
