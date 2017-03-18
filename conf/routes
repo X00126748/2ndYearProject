@@ -62,6 +62,7 @@ GET     /emptyBasket                        controllers.ShoppingCtrl.emptyBasket
 GET     /placeOrder                         controllers.ShoppingCtrl.placeOrder()
 GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(id: Long)
 GET     /orderHistory                        controllers.ShoppingCtrl.orderHistory()
+GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
 
 # Product Administration
 GET		/Admin						        controllers.AdminProductCtrl.index()
@@ -83,7 +84,7 @@ POST	/Admin/addAdministratorSubmit				controllers.AdminHomeCtrl.addAdministrator
 
 GET     /Admin/orders                 controllers.AdminHomeCtrl.orders()
 
-GET     /setOrderForDelivery/:id                     controllers.AdminHomeCtrl.setOrderForDelivery(id: Long)
+GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHomeCtrl.setOrderForDelivery(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

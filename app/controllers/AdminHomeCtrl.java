@@ -118,7 +118,7 @@ public class AdminHomeCtrl extends Controller {
         return ok(orders.render(ordersList, getCurrentUser()));
     } 
 
-      // Get a list of orders
+      
     @Transactional
     public Result setOrderForDelivery(Long id) {
 

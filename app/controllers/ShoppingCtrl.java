@@ -162,11 +162,11 @@ return ok (orderConfirmed.render(c, order));
 
         for (ShopOrder o: c.getOrders()){
 
-            if (o.getOrderStatus() == "Processing Order"){
+            if (o.getOrderStatus().equals("Processing Order")){
 
               currentOrders.add(o);
 
-		}  else if (o.getOrderStatus() == "Order Complete"){
+		} else { 
 
               previousOrders.add(o);
 
@@ -177,7 +177,25 @@ return ok (orderConfirmed.render(c, order));
       
         return ok(orderHistory.render(currentOrders,previousOrders, c));
     }
+ 
 
+        @Transactional
+    public Result cancelOrder(Long id) {
+
+         ShopOrder order = ShopOrder.find.byId(id);
+
+         order.setOrderStatus("Order Cancelled");
+
+         order.save();
+
+	 order.update();
+
+        // Render the list orders view, passing parameters
+       // return ok(orders.render(ordersList, getCurrentUser()));
+
+          return orderHistory();
+    } 
+        
 
      
 
