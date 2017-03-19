@@ -119,7 +119,12 @@
                                 </p>
 				}
                                 </p>
-				<p> Add to cart <a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                                @if(p.getStock() > 0) {
+					<p> Add to cart <a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				} else {
+					<p> Out of stock <a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				}
+				
 			    Leave Review <a href="@routes.HomeController.addReview(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
 				</p>
 				 

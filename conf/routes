@@ -13,6 +13,8 @@ GET     /about                      controllers.HomeController.about
 
 GET     /contact                     controllers.HomeController.contact
 
+GET     /error                     controllers.HomeController.error
+
 
 # Customer
 GET		/addCustomer					controllers.HomeController.addCustomer()

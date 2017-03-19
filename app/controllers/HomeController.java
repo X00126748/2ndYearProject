@@ -63,6 +63,14 @@ public class HomeController extends Controller {
         return ok(contact.render(User.getLoggedIn(session().get("email"))));
     }
 
+    @Transactional
+    public Result error() {
+
+        return ok(error.render("Product out of stock", User.getLoggedIn(session().get("email"))));
+    }
+
+
+
 
      // Load the add Customer view
     // Display an empty form in the view

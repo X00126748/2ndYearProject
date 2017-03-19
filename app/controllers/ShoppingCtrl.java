@@ -50,10 +50,16 @@ public class ShoppingCtrl extends Controller {
             customer.getBasket().setCustomer(customer);
             customer.update();
         }
+
+        if (p.getStock() > 0){
         // Add product to the basket and save
         customer.getBasket().addProduct(p);
         customer.update();
-        
+        } else {
+
+        return redirect(routes.HomeController.error());
+
+        }
         // Show the basket contents     
         return ok(basket.render(customer));
     }
@@ -72,9 +78,16 @@ public Result showBasket(){
         
         // Get the order item
         OrderItem item = OrderItem.find.byId(itemId);
-        // Increment quantity
+        
+        if (checkStock(itemId) == true){
+           // Increment quantity
         item.increaseQty();
-        // Save
+
+        } else {
+           return redirect(routes.HomeController.error());
+
+        }
+       
         item.update();
         // Show updated basket
         return redirect(routes.ShoppingCtrl.showBasket());
@@ -92,6 +105,22 @@ public Result showBasket(){
         c.getBasket().update();
         // back to basket
         return ok(basket.render(c));
+    }
+
+
+    public boolean checkStock(Long itemId){
+
+         // Get the order item
+        OrderItem item = OrderItem.find.byId(itemId);
+
+        if (item.getProduct().getStock() > 0){
+           return true;
+
+        } else {
+           return false;
+
+        }
+
     }
 
     @Transactional
