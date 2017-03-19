@@ -37,17 +37,23 @@ public class OrderItem extends Model {
     public OrderItem(Product p) {
             product = p;
             quantity = 1;
+            product.decreaseStock();
+            product.update();
             price = p.getPrice();
     }
     
     // Increment quantity
     public void increaseQty() {
         quantity += 1;
+        product.decreaseStock();
+         product.update();
     }
     
     // Decrement quantity
     public void decreaseQty() {
         quantity -= 1;
+        product.increaseStock();
+         product.update();
     }
     
     // Calculate and return total price for this order item

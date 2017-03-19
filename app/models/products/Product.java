@@ -133,6 +133,18 @@ public class Product extends Model {
         this.stock = stock;
     }
 
+    // Increment Stock
+    public void increaseStock() {
+        stock += 1;
+       
+    }
+    
+    // Decrement Stock
+    public void decreaseStock() {
+        stock -= 1;
+    }
+    
+
     public double getPrice() {
         return price;
     }
