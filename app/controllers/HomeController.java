@@ -4,7 +4,8 @@ import play.api.Environment;
 import play.mvc.*;
 import play.data.*;
 import play.db.ebean.Transactional;
-
+import controllers.security.CheckIfCustomer;
+import controllers.security.Secured;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -277,15 +278,18 @@ public class HomeController extends Controller {
         return redirect(controllers.routes.HomeController.home());
     }
 
-
+        
+    @Security.Authenticated(Secured.class)
+    @With(CheckIfCustomer.class)
         @Transactional
     public Result addForumMessage() {
         // Retrieve the product by id
-        Customer c = (Customer)getCurrentUser();
+        User u = getCurrentUser();
         // Instantiate a form object based on the Review class
-        Form<ForumMessage> addForumMessageForm = formFactory.form(ForumMessage.class);
+        Form<ForumMessage> forumMessageForm = formFactory.form(ForumMessage.class);
         // Render the Add Review View, passing the form object
-        return ok(addForumMessage.render(addForumMessageForm, (Customer)getCurrentUser()));	
+        return ok(addForumMessage.render(forumMessageForm, User.getLoggedIn(session().get("email"))));	
+
     }
 
 
@@ -295,30 +299,46 @@ public class HomeController extends Controller {
 
         // Create a product form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
-        Form<ForumMessage> newForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
+        Form<ForumMessage> addForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
 
         // Check for errors (based on Product class annotations)	
-        if(newForumMessageForm.hasErrors()) {
+        if(addForumMessageForm.hasErrors()) {
             // Display the form again
-            return badRequest(addForumMessage.render(newForumMessageForm, (Customer)getCurrentUser()));
+            return badRequest(addForumMessage.render(addForumMessageForm, getCurrentUser()));
         }
      
-        ForumMessage newForumMessage = newForumMessageForm.get();
+        ForumMessage f = addForumMessageForm.get();
 
         // Retrieve the product by id
-        Customer c = (Customer)getCurrentUser();
+        User u = getCurrentUser();
 
-        newForumMessage.setCustomer(c);
+        f.setUser(u);
 
         // Save product now to set id (needed to update manytomany)
-        newForumMessage.save();
+        f.save();
+
+         // Add a success message to the flash session
+        flash("success", "Message has been Created" );
+            
         
         // Redirect to the admin home
-        return redirect(routes.HomeController.home());
+        return redirect(routes.HomeController.forum());
 
     }
 
-        // Get a list of orders
+
+        @Transactional
+    public Result forum() {
+
+	 List<ForumMessage> messages = new ArrayList<ForumMessage>();
+
+         messages = ForumMessage.findAll();
+
+    
+        return ok(forum.render(messages, getCurrentUser()));
+    }
+    
+
     @Transactional
     public Result accountDetails(){
 

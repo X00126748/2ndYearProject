@@ -216,6 +216,8 @@ public class AdminProductCtrl extends Controller {
         // Redirect home
         return redirect(routes.AdminProductCtrl.index());
     }
+
+    
     
     // Save an image file
     public String saveFile(Long id, FilePart<File> image) {

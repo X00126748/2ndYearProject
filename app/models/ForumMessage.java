@@ -28,7 +28,7 @@ public class ForumMessage extends Model {
     private String messageContent;
 
     @ManyToOne
-    private Customer customer;
+    private User user;
 
   
     // Default constructor
@@ -36,10 +36,18 @@ public class ForumMessage extends Model {
     }
 
     // Constructor to initialise object
-    public ForumMessage(Long id, String messageContent, Customer customer) {
+    public ForumMessage(Long id, String messageContent) {
         this.id = id;
         this.messageContent = messageContent;
-        this.customer = customer;
+
+    }
+
+    	//Generic query helper
+    public static Finder<Long,ForumMessage> find = new Finder<Long,ForumMessage>(ForumMessage.class);
+
+    //Find all ForumMessage in the database
+    public static List<ForumMessage> findAll() {
+        return ForumMessage.find.all();
     }
 
     public Long getId() {
@@ -58,12 +66,12 @@ public class ForumMessage extends Model {
         this.messageContent = messageContent;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
     
    

@@ -27,7 +27,7 @@ create table category_product (
 create table forum_message (
   id                            bigint not null,
   message_content               varchar(255),
-  customer_email                varchar(255),
+  user_email                    varchar(255),
   constraint pk_forum_message primary key (id)
 );
 create sequence forum_message_seq;
@@ -106,8 +106,8 @@ create index ix_category_product_category on category_product (category_id);
 alter table category_product add constraint fk_category_product_product foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_category_product_product on category_product (product_id);
 
-alter table forum_message add constraint fk_forum_message_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
-create index ix_forum_message_customer_email on forum_message (customer_email);
+alter table forum_message add constraint fk_forum_message_user_email foreign key (user_email) references user (email) on delete restrict on update restrict;
+create index ix_forum_message_user_email on forum_message (user_email);
 
 alter table order_item add constraint fk_order_item_order_id foreign key (order_id) references shop_order (id) on delete restrict on update restrict;
 create index ix_order_item_order_id on order_item (order_id);
@@ -138,8 +138,8 @@ drop index if exists ix_category_product_category;
 alter table category_product drop constraint if exists fk_category_product_product;
 drop index if exists ix_category_product_product;
 
-alter table forum_message drop constraint if exists fk_forum_message_customer_email;
-drop index if exists ix_forum_message_customer_email;
+alter table forum_message drop constraint if exists fk_forum_message_user_email;
+drop index if exists ix_forum_message_user_email;
 
 alter table order_item drop constraint if exists fk_order_item_order_id;
 drop index if exists ix_order_item_order_id;

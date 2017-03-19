@@ -39,6 +39,8 @@ GET     /viewReview/:id                      controllers.HomeController.viewRevi
 GET		/addForumMessage/					controllers.HomeController.addForumMessage()
 POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit()
 
+GET     /forum                      controllers.HomeController.forum()
+
 
 # Payment Card
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()

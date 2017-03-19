@@ -1,0 +1,53 @@
+@import models.products.Category
+@import models.products.Product
+@import models.users.User
+@import models._;
+@(messages: List[ForumMessage], user: User)
+
+
+<!-- Pass page title and user on to main -->
+@main("Forum Page", user) {
+
+
+	<div class="row">
+	<div class="col-md-12">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+        @for(m <- messages) {
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Name</th>
+				<th>Message</th>
+			</tr>
+			</thead>
+			<tbody>
+                @if(messages!= null) {
+
+                    <tr>
+                        <td>@m.getUser.getName</td>
+                        <td>@m.getMessageContent</td>
+                       
+                    </tr>
+
+              }
+			</tbody>
+		</table>
+   
+          <hr>
+        }
+        </div>
+
+
+
+
+	</div>
+
+	
+}
