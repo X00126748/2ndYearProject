@@ -6,7 +6,7 @@
 
 
 <!-- Pass page title and user on to main -->
-@main("Forum Page", user) {
+@productAdmin.main("Forum Page", user) {
 
 
 	<div class="row">
@@ -51,7 +51,7 @@
    
           <hr>
 
-           <a href="@routes.HomeController.addForumMessage()"
+           <a href="@routes.AdminHomeCtrl.addForumMessage()"
 				<button class="btn btn-primary">Leave Message</button>
 			</a>
         

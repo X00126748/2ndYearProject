@@ -41,6 +41,11 @@ POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit
 
 GET     /forum                      controllers.HomeController.forum()
 
+#Admin Forum
+GET		/admin/addForumMessage/					controllers.AdminHomeCtrl.addForumMessage()
+POST	/admin/addForumMessageSubmit/				controllers.AdminHomeCtrl.addForumMessageSubmit()
+
+GET     /admin/forum                      controllers.AdminHomeCtrl.forum()
 
 # Payment Card
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()

@@ -25,8 +25,10 @@ import org.im4java.core.IMOperation;
 import models.users.*;
 import models.products.*;
 import models.shopping.*;
+import models.*;
 
 import views.html.productAdmin.*;
+
 
 
 /* - Docs -
@@ -136,5 +138,61 @@ public class AdminHomeCtrl extends Controller {
           return orders();
     } 
         
-   
+    @Transactional
+    public Result addForumMessage() {
+        // Retrieve the product by id
+        User u = getCurrentUser();
+        // Instantiate a form object based on the Review class
+        Form<ForumMessage> forumMessageForm = formFactory.form(ForumMessage.class);
+        // Render the Add Review View, passing the form object
+        return ok(addForumMessage.render(forumMessageForm, User.getLoggedIn(session().get("email"))));	
+
+    }
+
+
+    // Handle the form data when a new Review is submitted
+    @Transactional
+    public Result addForumMessageSubmit() {
+
+        // Create a product form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<ForumMessage> addForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
+
+        // Check for errors (based on Product class annotations)	
+        if(addForumMessageForm.hasErrors()) {
+            // Display the form again
+            return badRequest(addForumMessage.render(addForumMessageForm, getCurrentUser()));
+        }
+     
+        ForumMessage f = addForumMessageForm.get();
+
+        // Retrieve the product by id
+        User u = getCurrentUser();
+
+        f.setUser(u);
+
+        // Save product now to set id (needed to update manytomany)
+        f.save();
+
+         // Add a success message to the flash session
+        flash("success", "Message has been Created" );
+            
+        
+        // Redirect to the admin home
+        return redirect(routes.AdminHomeCtrl.forum());
+
+    }
+
+         @Transactional
+         public Result forum() {
+
+	 List<ForumMessage> messages = new ArrayList<ForumMessage>();
+
+         messages = ForumMessage.findAll();
+
+    
+        return ok(forum.render(messages, getCurrentUser()));
+    }
+    
+
 }

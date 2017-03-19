@@ -23,23 +23,29 @@ public class ForumMessage extends Model {
     private Long id;
 
     // Other fields marked as being required (for validation purposes)
-
+    @Constraints.Required
+    private String subject;
+   
     @Constraints.Required
     private String messageContent;
 
     @ManyToOne
     private User user;
 
+    private Date messageDate;
+
   
     // Default constructor
     public ForumMessage() {
+        messageDate = new Date();
     }
 
     // Constructor to initialise object
-    public ForumMessage(Long id, String messageContent) {
+    public ForumMessage(Long id, String subject, String messageContent) {
         this.id = id;
-        this.messageContent = messageContent;
-
+        this.subject = subject;
+        this.messageContent = messageContent; 
+        messageDate = new Date();
     }
 
     	//Generic query helper
@@ -58,6 +64,14 @@ public class ForumMessage extends Model {
         this.id = id;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public String getMessageContent() {
         return messageContent;
     }
@@ -74,6 +88,15 @@ public class ForumMessage extends Model {
         this.user = user;
     }
     
+
+     public Date getMessageDate() {
+        return messageDate;
+    }
+
+    public void setMessageDate(Date messageDate) {
+        this.messageDate = messageDate;
+    }
+
    
 
 }
