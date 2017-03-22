@@ -178,10 +178,22 @@ public class AdminHomeCtrl extends Controller {
         flash("success", "Message has been Created" );
             
         
-        // Redirect to the admin home
+        // Redirect to the admin forum
         return redirect(routes.AdminHomeCtrl.forum());
 
     }
+
+           // Delete message
+    @Transactional
+    public Result deleteMessage(Long id) {
+        // Call delete method
+        ForumMessage.find.ref(id).delete();
+        // Add message to flash session 
+        flash("success", "Message has been deleted");
+        // Redirect to admin forum
+        return redirect(routes.AdminHomeCtrl.forum());
+    }
+
 
          @Transactional
          public Result forum() {

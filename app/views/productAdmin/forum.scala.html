@@ -41,6 +41,10 @@
                         <td>@m.getSubject</td>
                         <td>@m.getMessageContent</td>
                         <td>@m.getMessageDate</td>
+			<td> <!-- Delete product button -->
+<a href="@routes.AdminHomeCtrl.deleteMessage(m.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a></td>
                        
                     </tr>
 
@@ -61,6 +65,14 @@
 
 
 	</div>
+
+
+      <script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
 
 	
 }
