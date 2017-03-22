@@ -32,6 +32,8 @@
 			  <div class="alert alert-success">
 			      @flash.get("success")
 			  </div>
+
+                
 		} 
 
         <!-- Search Form -->
@@ -88,7 +90,7 @@
 			<div id="actions">
 			 <form action="@routes.AdminProductCtrl.orderStock(p.getId)" method="GET">
 				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Enter amount to order...">
-				<input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
+				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary">
 			 </form>
 			</div>
 

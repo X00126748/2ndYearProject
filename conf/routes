@@ -90,7 +90,7 @@ POST	/Admin/updateProductSubmit/:id		controllers.AdminProductCtrl.updateProductS
 
 GET     /Admin/delProduct/:id               controllers.AdminProductCtrl.deleteProduct(id:Long)
 
-GET     /Admin/orderStock/:id               controllers.AdminProductCtrl.orderStock(id:Long)
+GET     /Admin/orderStock/:id               controllers.AdminProductCtrl.orderStock(id:Long, amount:Long ?= 0)
 
 
 GET		/Admin/addAdmin					controllers.AdminHomeCtrl.addAdministrator()
