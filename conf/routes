@@ -79,6 +79,9 @@ GET		/Admin						        controllers.AdminProductCtrl.index()
 GET     /Admin/listProducts                 controllers.AdminProductCtrl.listProducts(cat:Long ?= 0, filter?="")
 #GET     /Admin/listProducts/:cat            controllers.AdminProductCtrl.listProducts(cat: Long)
 
+GET     /Admin/lowStock                controllers.AdminProductCtrl.lowStock(cat:Long ?= 0, filter?="")
+#GET     /Admin/lowStock/:cat            controllers.AdminProductCtrl.lowStock(cat: Long)
+
 GET		/Admin/addProduct					controllers.AdminProductCtrl.addProduct()
 POST	/Admin/addProductSubmit				controllers.AdminProductCtrl.addProductSubmit()
 
@@ -86,6 +89,8 @@ GET		/Admin/updateProduct/:id			controllers.AdminProductCtrl.updateProduct(id:Lo
 POST	/Admin/updateProductSubmit/:id		controllers.AdminProductCtrl.updateProductSubmit(id:Long)
 
 GET     /Admin/delProduct/:id               controllers.AdminProductCtrl.deleteProduct(id:Long)
+
+GET     /Admin/orderStock/:id               controllers.AdminProductCtrl.orderStock(id:Long)
 
 
 GET		/Admin/addAdmin					controllers.AdminHomeCtrl.addAdministrator()

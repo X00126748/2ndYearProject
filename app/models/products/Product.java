@@ -143,7 +143,12 @@ public class Product extends Model {
     public void decreaseStock() {
         stock -= 1;
     }
-    
+
+
+    // Add Stock
+    public void addStock(Long amount) {
+        stock += amount;
+    }
 
     public double getPrice() {
         return price;

@@ -1,11 +1,13 @@
 @import models.products.Category
 @import models.products.Product
+@import models.shopping._
+@import models.products._
 @import models.users.User
-@(env: play.api.Environment, categories: List[Category], products: List[Product], catId: Long, filter: String, user: User)
-
+@(env: play.api.Environment, categories: List[Category], products: List[Product], catId: Long, filter: String, user: User, amount: Long)
 
 <!-- Pass page title and user on to main -->
-@productAdmin.main("Products Page", user) {
+@productAdmin.main("Low Stock", user) {
+
 
     <style>
 		form {
@@ -18,9 +20,9 @@
   <div class="col-md-3">
       <div class="list-group">
 				<!-- Start of For loop - For each c in categories add a link -->
-				<a href="@routes.AdminProductCtrl.listProducts(0)" class="list-group-item">All categories</a>
+				<a href="@routes.AdminProductCtrl.lowStock(0)" class="list-group-item">All categories</a>
 				@for(c <- categories) {
-          <a href="@routes.AdminProductCtrl.listProducts(c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+          <a href="@routes.AdminProductCtrl.lowStock(c.getId)" class="list-group-item">@c.getName  </a>
 				}
       </div>
   </div>
@@ -34,7 +36,7 @@
 
         <!-- Search Form -->
 			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.listProducts(catId)" method="GET">
+			 <form action="@routes.AdminProductCtrl.lowStock(catId)" method="GET">
 				<input type="search" id="searchbox" name="filter" value="@filter" placeholder="Filter by product name...">
 				<input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
 			 </form>
@@ -78,6 +80,17 @@
 				 
 				<p>@p.getDescription</p>
 			        <p>Stock: @p.getStock</p>
+                    <!-- <a href="@routes.AdminProductCtrl.orderStock(p.getId)">
+				<button class="btn btn-primary">Order Stock</button>
+			</a> -->
+                       
+                       <!-- orderStock Form -->
+			<div id="actions">
+			 <form action="@routes.AdminProductCtrl.orderStock(p.getId)" method="GET">
+				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Enter amount to order...">
+				<input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
+			 </form>
+			</div>
 
 			</div>
 
@@ -87,13 +100,7 @@
 	}
 
 		</div>
-		@if(user != null) {
-		<div>
-			<a href="@routes.AdminProductCtrl.addProduct()">
-				<button class="btn btn-primary">Add a Product</button>
-			</a>
-		</div>
-		}
+		
 	</div>
 </div>
 
@@ -104,4 +111,3 @@
 	}
 </script>
 }
-

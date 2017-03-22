@@ -79,19 +79,56 @@ public class AdminProductCtrl extends Controller {
         // Instantiate products, an Array list of products			
         List<Product> products = new ArrayList<Product>();
 
-         if (cat == 0) {
+          if (cat == 0) {
             // Get the list of ALL products with filter
-            products = Product.findAll("");
+            products = Product.findAll(filter);
         }
         else {
             // Get products for the selected category and filter (search field)
-            products = Product.findFilter(cat, "");
+            products = Product.findFilter(cat, filter);
         }
         // Render the list products view, passing parameters
         // categories and products lists
         // current user - if one is logged in
         return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
+
+
+
+    	// Get a list of products
+    // If cat parameter is 0 then return all products
+    // Otherwise return products for a category (by id)
+    @Transactional
+    public Result lowStock(Long cat, String filter) {
+        // Get list of categories in ascending order
+        List<Category> categories = Category.find.where().orderBy("name asc").findList();
+        // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+        // Instantiate lowStock, an Array list of low stock products			
+        List<Product> lowProducts = new ArrayList<Product>();
+
+        if (cat == 0) {
+            // Get the list of ALL products with filter
+            products = Product.findAll(filter);
+        }
+        else {
+            // Get products for the selected category and filter (search field)
+            products = Product.findFilter(cat, filter);
+        }
+
+        for (Product p : products) {
+            if (p.getStock() < 10){
+             lowProducts.add(p);
+            }
+        }
+
+        Long amount = null;
+        // Render the list products view, passing parameters
+        // categories and products lists
+        // current user - if one is logged in
+        return ok(lowStock.render(env, categories, lowProducts, cat, filter, getCurrentUser(), amount));
+    }
+    
     
     // Load the add product view
     // Display an empty form in the view
@@ -259,6 +296,21 @@ public class AdminProductCtrl extends Controller {
         return "image file missing";	
     }
 
+
+       // order stock for Product
+    @Transactional
+    public Result orderStock(Long id, Long amount) {
+        // Call delete method
+        Product p = Product.find.ref(id);
+
+        p.addStock(amount);
+
+        p.update();
+        // Add message to flash session 
+        flash("success", "Product Stock added");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+    }
 
 
      
