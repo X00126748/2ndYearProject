@@ -312,6 +312,38 @@ public class AdminProductCtrl extends Controller {
         return redirect(routes.AdminProductCtrl.lowStock(0, ""));
     }
 
+    // order stock for all low stock Products
+    @Transactional
+    public Result orderAllStock(Long amount) {
+        
+        // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+        // Instantiate lowStock, an Array list of low stock products			
+        List<Product> lowProducts = new ArrayList<Product>();
+
+            // Get the list of ALL products with filter
+            products = Product.findAll("");
+        
+
+        for (Product p : products) {
+            if (p.getStock() < 10){
+             lowProducts.add(p);
+            }
+        }
+
+        for (Product p : lowProducts) {
+            
+             p.addStock(amount);
+             p.update();
+        }
+
+        
+        // Add message to flash session 
+        flash("success", "All Product Stock added");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+    }
+
 
      
 }

@@ -71,7 +71,11 @@ public class ProductCtrl extends Controller {
         return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
 
-    
+    @Transactional
+    public Result product() {
+
+        return ok(product.render(User.getLoggedIn(session().get("email"))));
+    }
      
 
 
