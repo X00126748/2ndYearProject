@@ -26,6 +26,7 @@
 				<th>Description</th>
 				<th>Item Price</th>
 				<th>Quantity</th>
+                                <th>Size</th>
                 <th>Total</th>
 			</tr>
 			</thead>
@@ -38,6 +39,7 @@
                         <td>@i.getProduct.getDescription</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>@i.getQuantity()</td>
+		        <td>@i.getSize()</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
                     </tr>
                     }<!-- End of For loop -->

@@ -2,6 +2,8 @@ package models.products;
 
 import java.util.*;
 import javax.persistence.*;
+import java.util.Date;
+
 
 import com.avaje.ebean.Model;
 import play.data.format.*;
@@ -26,6 +28,8 @@ public class Review extends Model {
     @Constraints.Required
     private String description;
 
+    private Date reviewDate;
+
     
     private Integer stars;
 
@@ -34,6 +38,7 @@ public class Review extends Model {
 
     // Default constructor
     public  Review() {
+     reviewDate = new Date();
     }
 
     // Constructor to initialise object
@@ -75,6 +80,14 @@ public class Review extends Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
     public Integer getStars() {

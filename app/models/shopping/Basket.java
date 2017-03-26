@@ -80,6 +80,9 @@ public class Basket extends Model {
         this.customer = customer;
     }
 
+
+
+
     // Add product to basket
 // Either update existing order item or ad a new one.
 public void addProduct(Product p) {

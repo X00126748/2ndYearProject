@@ -29,6 +29,8 @@ public class OrderItem extends Model {
     
     private int quantity;
     private double price;
+  
+    private String size;
 
     // Default constructor
     public  OrderItem() {
@@ -40,6 +42,7 @@ public class OrderItem extends Model {
             product.decreaseStock();
             product.update();
             price = p.getPrice();
+            size = "Small";
     }
     
     // Increment quantity
@@ -115,6 +118,14 @@ public class OrderItem extends Model {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }
 

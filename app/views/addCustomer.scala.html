@@ -10,8 +10,17 @@ though a static HTML form would also work -->
 <!-- The page will be based on the main template -->
 @main("Create Account", user) {
 
-	<h3>Create Account</h3>
-	
+<div class="row">
+
+       <div class="col-md-3">
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+      <div class="panel-heading"><h4>Create Account</h4></div>
+	 <div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.HomeController.addCustomerSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
@@ -38,6 +47,20 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
+
 
 } <!-- End of page content -->
 

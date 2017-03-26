@@ -41,6 +41,7 @@ create table order_item (
   product_id                    bigint,
   quantity                      integer,
   price                         double,
+  size                          varchar(255),
   constraint pk_order_item primary key (id)
 );
 create sequence order_item_seq;
@@ -71,6 +72,7 @@ create table review (
   name                          varchar(255),
   product_id                    bigint,
   description                   varchar(255),
+  review_date                   timestamp,
   stars                         integer,
   review_count                  integer,
   constraint pk_review primary key (id)

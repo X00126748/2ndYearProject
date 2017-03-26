@@ -108,6 +108,28 @@ public Result showBasket(){
     }
 
 
+       // Add an item to the basket
+    @Transactional
+    public Result setItemSize(Long itemId, String size) {
+        
+        // Get the order item
+        OrderItem item = OrderItem.find.byId(itemId);
+
+        // Get user
+        Customer c = getCurrentUser();
+
+        //c.getBasket().removeItem(item);
+        //c.getBasket().update();
+    
+           // Set Size
+        item.setSize(size);
+ 
+        item.update();
+        c.getBasket().update();
+        // Show updated basket
+        return redirect(routes.ShoppingCtrl.showBasket());
+    }
+
     public boolean checkStock(Long itemId){
 
          // Get the order item

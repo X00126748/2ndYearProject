@@ -72,9 +72,14 @@ public class ProductCtrl extends Controller {
     }
 
     @Transactional
-    public Result product() {
+    public Result product(Long id) {
+         // Retrieve the product by id
+        Product p = Product.find.byId(id);
 
-        return ok(product.render(User.getLoggedIn(session().get("email"))));
+        List<Review> reviews = p.getReviews();
+    
+
+        return ok(product.render(env, p, reviews, User.getLoggedIn(session().get("email"))));
     }
      
 

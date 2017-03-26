@@ -15,7 +15,7 @@ GET     /contact                     controllers.HomeController.contact
 
 GET     /error                     controllers.HomeController.error
 
-GET     /product                    controllers.ProductCtrl.product
+GET     /product/:id                    controllers.ProductCtrl.product(id: Long)
 
 
 # Customer
@@ -70,6 +70,7 @@ GET     /showBasket                         controllers.ShoppingCtrl.showBasket(
 GET     /addToBasket/:id                    controllers.ShoppingCtrl.addToBasket(id: Long)
 GET     /addOne/:itemId                     controllers.ShoppingCtrl.addOne(itemId: Long)
 GET     /removeOne/:itemId                  controllers.ShoppingCtrl.removeOne(itemId: Long)
+GET     /setItemSize/:itemId                  controllers.ShoppingCtrl.setItemSize(itemId: Long, size: String)
 GET     /emptyBasket                        controllers.ShoppingCtrl.emptyBasket()
 GET     /placeOrder                         controllers.ShoppingCtrl.placeOrder()
 GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(id: Long)
@@ -104,6 +105,8 @@ POST	/Admin/addAdministratorSubmit				controllers.AdminHomeCtrl.addAdministrator
 GET     /Admin/orders                 controllers.AdminHomeCtrl.orders()
 
 GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHomeCtrl.setOrderForDelivery(id: Long)
+
+GET     /Admin/reports                controllers.AdminHomeCtrl.reports()
 
 
 # Map static resources from the /public folder to the /assets URL path

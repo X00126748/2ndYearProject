@@ -138,6 +138,14 @@ public class AdminHomeCtrl extends Controller {
           return orders();
     } 
         
+          // Get reports
+    @Transactional
+    public Result reports() {
+
+        return ok(reports.render(getCurrentUser()));
+    } 
+
+
     @Transactional
     public Result addForumMessage() {
         // Retrieve the product by id

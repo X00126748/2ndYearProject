@@ -45,6 +45,8 @@ public class Product extends Model {
     @Constraints.Required
     private double price;
 
+    
+
     // Default constructor
     public  Product() {
     }
@@ -99,6 +101,17 @@ public class Product extends Model {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+
+    public boolean checkIfShoe() {
+      boolean check = false;
+        for (Category c : categories){
+         if(c.getName() == "Shoes"){
+	   check = true;
+          }
+     }
+	return check;
     }
 
     public List<Long> getCatSelect() {

@@ -29,6 +29,8 @@
 				<th>Quantity</th>
                 <th>dec.</th>
                 <th>inc.</th>
+                <th>Size</th>
+                <th>Size Value</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -43,7 +45,32 @@
                         <td>@i.getQuantity()</td>
                         <td><a href="@routes.ShoppingCtrl.removeOne(i.getId)"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
                         <td><a href="@routes.ShoppingCtrl.addOne(i.getId)"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
-                    </tr>
+
+                        <td>
+                     @if(i.getProduct().checkIfShoe()) {
+
+			   <form>
+			    <div class="form-group">
+			      <!--<label for="sel1">Select list (select one):</label> -->
+			      <select class="form-control" id="sel1">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+			      </select>
+			       </div> 
+			  </form>  
+			} else {
+                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Small")" class="btn btn-info btn-sm">
+                    S</a>
+                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Medium")" class="btn btn-info btn-sm">
+                    M</a>
+                     <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Large")" class="btn btn-info btn-sm">
+                    L</a>
+                       } </td>
+                        <td>@i.getSize()</td>
+
+                       </tr>
                     }<!-- End of For loop -->
               }
 			</tbody>
