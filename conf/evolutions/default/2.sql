@@ -25,6 +25,10 @@ insert into product (id,name,description,stock,price) values ( 9,'Jordan T-Shirt
 insert into product (id,name,description,stock,price) values ( 10,'Jordan T-Shirt','Air Jordan Engineered For Flight Top',50,35.00 );
 insert into product (id,name,description,stock,price) values ( 11,'Jordan T-Shirt','Air Jordan Long Sleeve Top',50,45.00 );
 insert into product (id,name,description,stock,price) values ( 12,'Jordan T-Shirt','Air Jordan No Excuses Top',50,30.00 );
+insert into product (id,name,description,stock,price) values ( 13,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
+insert into product (id,name,description,stock,price) values ( 14,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
+insert into product (id,name,description,stock,price) values ( 15,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
+insert into product (id,name,description,stock,price) values ( 16,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
 
 insert into category_product (category_id,product_id) values (4,1);
 insert into category_product (category_id,product_id) values (4,2);
@@ -50,6 +54,10 @@ insert into category_product (category_id,product_id) values (9,9);
 insert into category_product (category_id,product_id) values (9,10); 
 insert into category_product (category_id,product_id) values (9,11); 
 insert into category_product (category_id,product_id) values (9,12); 
+insert into category_product (category_id,product_id) values (9,13); 
+insert into category_product (category_id,product_id) values (9,14); 
+insert into category_product (category_id,product_id) values (9,15); 
+insert into category_product (category_id,product_id) values (9,16);
 
 insert into Review(id,product_id,name,description,stars) values
 ( 1,1,'Joe Bloggs','Great buy', 4);
@@ -107,3 +115,8 @@ insert into user (email,name,password,role) values ( 'Aidan@products.com', 'Aida
 insert into user (email,name,password,role) values ( 'Stephen@products.com', 'Stephen', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'Jordan@products.com', 'Jordan', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'customer@products.com', 'Charlie Customer', 'password', 'customer' );
+
+
+insert into forum_message (id, user_email,subject,message_content) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?');
+insert into forum_message (id, user_email,subject,message_content) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered withun 5 working days.');
+insert into forum_message (id, user_email,subject,message_content) values (3,  'customer@products.com','Delivery', 'Thank you');
