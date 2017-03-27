@@ -300,6 +300,14 @@ public class AdminProductCtrl extends Controller {
        // order stock for Product
     @Transactional
     public Result orderStock(Long id, Long amount) {
+
+        if(amount < 1){
+           // Add message to flash session 
+        flash("warning", "Cannot add stock less than 1");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+        }
+
         // Call delete method
         Product p = Product.find.ref(id);
 
@@ -315,6 +323,15 @@ public class AdminProductCtrl extends Controller {
     // order stock for all low stock Products
     @Transactional
     public Result orderAllStock(Long amount) {
+
+        if (amount instanceof Long) {
+
+        if(amount < 1){
+           // Add message to flash session 
+        flash("warning", "Cannot add stock less than 1");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+        }
         
         // Instantiate products, an Array list of products			
         List<Product> products = new ArrayList<Product>();
@@ -342,6 +359,15 @@ public class AdminProductCtrl extends Controller {
         flash("success", "All Product Stock added");
         // Redirect home
         return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+
+        } else {
+            // Add message to flash session 
+        flash("warning", "Amount must be a number");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+
+
+         }
     }
 
 

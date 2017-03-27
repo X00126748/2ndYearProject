@@ -45,6 +45,8 @@ public class Customer extends User{
     //Generic query helper for entity Computer with id Long
     public static Finder<String,Customer> find = new Finder<String,Customer>(Customer.class);
 
+   
+
     public String getStreet1() {
         return street1;
     }

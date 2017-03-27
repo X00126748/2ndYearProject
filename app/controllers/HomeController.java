@@ -100,6 +100,19 @@ public class HomeController extends Controller {
      
         Customer newCustomer = newCustomerForm.get();
 
+        List<User> users = User.findAll();
+
+        for (User u : users) {
+            if (newCustomer.getEmail().equals(u.getEmail())){
+              // Add a warning message to the flash session
+        flash("warning", "Customer email already exits");
+            
+        // Return to admin home
+        return redirect(controllers.routes.HomeController.addCustomer());
+            }
+        }
+        
+
         newCustomer.setRole("Customer");
         
         // Save product now to set id (needed to update manytomany)

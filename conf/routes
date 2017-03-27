@@ -98,7 +98,6 @@ GET     /Admin/orderStock/:id               controllers.AdminProductCtrl.orderSt
 
 GET     /Admin/orderAllStock              controllers.AdminProductCtrl.orderAllStock(amount:Long ?= 0)
 
-
 GET		/Admin/addAdmin					controllers.AdminHomeCtrl.addAdministrator()
 POST	/Admin/addAdministratorSubmit				controllers.AdminHomeCtrl.addAdministratorSubmit()
 

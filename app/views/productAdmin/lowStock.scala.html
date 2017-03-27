@@ -35,6 +35,13 @@
 
                 
 		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
 
         <!-- Search Form -->
 			<div id="actions">
@@ -48,7 +55,7 @@
 			<div id="actions">
 			 <form action="@routes.AdminProductCtrl.orderAllStock()" method="GET">
 				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Order amt for all products...">
-				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary">
+				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
 			 </form>
 			</div>
 
@@ -70,7 +77,14 @@
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
 				<h3><a href="#">@p.getName</a>
 				</h3>
+				<a href="@routes.HomeController.viewReview(p.getId)"
 				<p class="pull-right">
+                                  @p.getReviews.size() Review(s)</p>
+                </a>
+       
+       @if(p.getNumStars() == 5) {
+
+                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -78,6 +92,53 @@
                                     <span class="glyphicon glyphicon-star"></span>
                                     
                                 </p>
+                } 
+                
+                @if(p.getNumStars() == 4){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 3){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 2){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 1){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+                @if(p.getNumStars() == 0){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+				}
 				<p><a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 @if(user != null) {
 		<a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -99,7 +160,7 @@
 			<div id="actions">
 			 <form action="@routes.AdminProductCtrl.orderStock(p.getId)" method="GET">
 				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Enter amount to order...">
-				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary">
+				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
 			 </form>
 			</div>
 
@@ -120,5 +181,6 @@
 	function confirmDel() {
 		return confirm('Are you sure?');
 	}
+
 </script>
 }

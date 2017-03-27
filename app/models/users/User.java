@@ -53,6 +53,12 @@ public class User extends Model {
 
 	//Generic query helper for entity User with unique id String
     public static Finder<String,User> find = new Finder<String,User>(User.class);
+
+    //Find all customers in the database
+    public static List<User> findAll() {
+        return User.find.all();
+    }
+
     
     // Static method to authenticate based on username and password
     // Returns user object if found, otherwise NULL

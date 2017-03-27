@@ -10,7 +10,12 @@
 
 
 	<div class="row">
-	<div class="col-md-12">
+
+        <div class="col-md-3">
+
+
+        </div>
+	<div class="col-md-6">
 		@if(flash.containsKey("success")) {
 			  <div class="alert alert-success">
 			      @flash.get("success")
@@ -33,7 +38,7 @@
     </div>
     <div class="media-body">
       <h4 class="media-heading">@m.getUser.getName</h4>
-	<h4>@m.getSubject</h4>
+	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
 
       <p>@m.getMessageDate</p>
@@ -45,7 +50,7 @@
   <div class="media">
     <div class="media-body">
      <h4 class="media-heading">@m.getUser.getName</h4>
-	<h4>@m.getSubject</h4>
+	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
         <p>@m.getMessageDate</p>
     </div>
@@ -65,6 +70,10 @@
 
 
 	</div>
+        <div class="col-md-3">
+
+
+        </div>
 
 	
 }

@@ -118,5 +118,5 @@ insert into user (email,name,password,role) values ( 'customer@products.com', 'C
 
 
 insert into forum_message (id, user_email,subject,message_content) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?');
-insert into forum_message (id, user_email,subject,message_content) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered withun 5 working days.');
+insert into forum_message (id, user_email,subject,message_content) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.');
 insert into forum_message (id, user_email,subject,message_content) values (3,  'customer@products.com','Delivery', 'Thank you');
