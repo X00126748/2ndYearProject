@@ -18,44 +18,46 @@
 		} 
 
 
-		<table class="table table-bordered table-hover table-condensed">
-			<thead>
-			<!-- The header row-->
-			<tr>
-				<th>Email</th>
-				<th>Name</th>
-				<th>Street1</th>
-                                <th>Street2</th>
-                                <th>Town</th>
-				<th>PostCode</th>
-				<th>Country</th>
-			</tr>
-			</thead>
-			<tbody>
-                @if(customer != null) {
+          <h3>Account Details</h3> 
+ @if(customer != null) {          
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>@customer.getName</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email</td>
+        <td>@customer.getEmail</td>
+      </tr>
+      <tr>
+        <td>Street1</td>
+        <td>@customer.getStreet1</td>
+      </tr>
+      <tr>
+        <td>Street2</td>
+        <td>@customer.getStreet2</td>
+      </tr>
+      <tr>
+        <td>Town</td>
+        <td>@customer.getTown</td>
+      </tr>
+      <tr>
+      <tr>
+        <td>PostCode</td>
+        <td>@customer.getPostCode</td>
+      </tr>
+        <td>Country</td>
+        <td>@customer.getCountry</td>
+      </tr>
+    </tbody>
+  </table>
+}
 
-                    <!-- Start of customer info - For each p in products add a row -->
-                    
-                    <tr>
-                        <td>@customer.getEmail</td>
-                        <td>@customer.getName</td>
-                        <td>@customer.getStreet1</td>
-                        <td>@customer.getStreet2</td>
-                        <td>@customer.getTown</td>
-                        <td>@customer.getPostCode</td>
-                        <td>@customer.getCountry</td>
-                    </tr>
-                    
-              }
-			</tbody>
-		</table>
-     
-        
-        </div>
-
-                <div>
-			<a href="@routes.HomeController.updateCustomer()">
-				<button class="btn btn-primary">Update Customer</button>
+<a href="@routes.HomeController.updateCustomer()">
+				<button class="btn btn-primary">Edit Details</button>
 			</a>
                         <a href="@routes.HomeController.deleteCustomer()">
 				<button class="btn btn-danger">Delete Customer</button>
