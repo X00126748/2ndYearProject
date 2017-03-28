@@ -341,6 +341,39 @@ public class HomeController extends Controller {
     }
 
 
+        // Thumbs up message
+    @Transactional
+    public Result like(Long messageId) {
+        
+        // Get the message
+        ForumMessage message = ForumMessage.find.byId(messageId);
+        
+
+           //add like
+        message.addLike();
+       
+        message.update();
+        // Show updated forum
+        return redirect(routes.HomeController.forum());
+    }
+
+    @Transactional
+    public Result dislike(Long messageId) {
+        
+        // Get the message
+        ForumMessage message = ForumMessage.find.byId(messageId);
+        
+
+           //add dislike
+        message.addDislike();
+       
+        message.update();
+        // Show updated forum
+        return redirect(routes.HomeController.forum());
+    }
+
+
+
         @Transactional
     public Result forum() {
 

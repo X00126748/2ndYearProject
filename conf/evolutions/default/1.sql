@@ -29,6 +29,8 @@ create table forum_message (
   subject                       varchar(255),
   message_content               varchar(255),
   user_email                    varchar(255),
+  likes                         integer,
+  dislikes                      integer,
   message_date                  timestamp,
   constraint pk_forum_message primary key (id)
 );

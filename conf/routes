@@ -43,6 +43,9 @@ POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit
 
 GET     /forum                      controllers.HomeController.forum()
 
+GET     /like/:messageId                     controllers.HomeController.like(messageId: Long)
+GET     /dislike/:messageId                  controllers.HomeController.dislike(messageId: Long)
+
 #Admin Forum
 GET		/Admin/addForumMessage/					controllers.AdminHomeCtrl.addForumMessage()
 POST	/Admin/addForumMessageSubmit/				controllers.AdminHomeCtrl.addForumMessageSubmit()

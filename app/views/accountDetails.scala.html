@@ -10,7 +10,7 @@
 
 <div class="row">
 
-	<div class="col-md-12">
+	<div class="col-md-9">
 		@if(flash.containsKey("success")) {
 			  <div class="alert alert-success">
 			      @flash.get("success")
@@ -23,7 +23,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>@customer.getName</th>
+        <th><strong>@customer.getName</strong></th>
        
       </tr>
     </thead>
@@ -44,7 +44,7 @@
         <td>Town</td>
         <td>@customer.getTown</td>
       </tr>
-      <tr>
+      
       <tr>
         <td>PostCode</td>
         <td>@customer.getPostCode</td>
@@ -60,8 +60,14 @@
 				<button class="btn btn-primary">Edit Details</button>
 			</a>
                         <a href="@routes.HomeController.deleteCustomer()">
-				<button class="btn btn-danger">Delete Customer</button>
+				<button class="btn btn-danger">Delete Account</button>
 			</a>
 		</div>
+
+
+<div class="col-md-3">
+
+</div>
+
 </div>
 }

@@ -31,6 +31,10 @@ public class ForumMessage extends Model {
 
     @ManyToOne
     private User user;
+   
+    private Integer likes;
+    
+    private Integer dislikes;
 
     private Date messageDate;
 
@@ -38,6 +42,8 @@ public class ForumMessage extends Model {
     // Default constructor
     public ForumMessage() {
         messageDate = new Date();
+         likes = 0;
+        dislikes = 0;
     }
 
     // Constructor to initialise object
@@ -46,6 +52,8 @@ public class ForumMessage extends Model {
         this.subject = subject;
         this.messageContent = messageContent; 
         messageDate = new Date();
+        likes = 0;
+        dislikes = 0;
     }
 
     	//Generic query helper
@@ -95,6 +103,22 @@ public class ForumMessage extends Model {
 
     public void setMessageDate(Date messageDate) {
         this.messageDate = messageDate;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public Integer getDislikes() {
+        return dislikes;
+    }
+
+    public void addLike() {
+        likes += 1;
+    }
+
+    public void addDislike() {
+        dislikes += 1;
     }
 
    

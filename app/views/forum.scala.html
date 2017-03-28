@@ -42,9 +42,11 @@
       <h4 class="media-heading">@m.getUser.getName</h4>
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
-
       <p>@m.getMessageDate</p>
     </div>
+ <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a>@m.getDislikes() Dislikes
+      </p>
   </div>
   <hr>
   } @if(m.getUser.getRole().equalsIgnoreCase("admin")){
@@ -55,11 +57,15 @@
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
         <p>@m.getMessageDate</p>
+
     </div>
     <div class="media-right">
       <img src="@routes.Assets.versioned("images/adminIcon.png")" class="media-object" style="width:60px">
       <p>Administrator</p>
     </div>
+ <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a>@m.getDislikes() Dislikes
+      </p>
   </div>
   <hr>
 }
