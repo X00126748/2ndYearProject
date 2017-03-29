@@ -19,7 +19,7 @@ public class Review extends Model {
     private Long id;
 
     // Other fields marked as being required (for validation purposes)
-    @Constraints.Required
+    
     private String name;
 
     @ManyToOne
@@ -31,7 +31,7 @@ public class Review extends Model {
     private Date reviewDate;
 
     
-    private Integer stars;
+    private double stars;
 
    
     private Integer reviewCount = 0;
@@ -90,11 +90,11 @@ public class Review extends Model {
         this.reviewDate = reviewDate;
     }
 
-    public Integer getStars() {
+    public double getStars() {
         return stars;
     }
 
-    public void setStars(Integer stars) {
+    public void setStars(double stars) {
         this.stars = stars;
     }
 

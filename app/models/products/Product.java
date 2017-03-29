@@ -198,24 +198,44 @@ public class Product extends Model {
     
 
     
-    public int getNumStars() {
-        int stars = 0;
+    public double getNumStars() {
+        double stars = 0;
       
          if(getAvgStars() == 5) {
                       stars = 5;        
                     } 
+
+       else if (getAvgStars() >= 4.75 && getAvgStars() < 5 ){
+                     stars = 5;        
+                    }
+
+       else if (getAvgStars() >= 4.25 && getAvgStars() < 4.75 ){
+                     stars = 4.5;        
+                    }
                 
-       else if (getAvgStars() >= 4 && getAvgStars() < 5 ){
+       else if (getAvgStars() >= 3.75 && getAvgStars() < 4.25 ){
                      stars = 4;        
                     }
-       else if (getAvgStars() >= 3 && getAvgStars() < 4 ){
+       else if (getAvgStars() >= 3.25 && getAvgStars() < 3.75 ){
+                     stars = 3.5;        
+                    }
+	else if (getAvgStars() >= 2.75 && getAvgStars() < 3.25 ){
                      stars = 3;        
                     }
-       else if (getAvgStars() >= 2 && getAvgStars() < 3 ){
+       else if (getAvgStars() >= 2.25 && getAvgStars() < 2.75 ){
+                     stars = 2.5;        
+                    }
+	else if (getAvgStars() >= 1.75 && getAvgStars() < 2.25 ){
                      stars = 2;        
                     }
-       else if (getAvgStars() >= 1 && getAvgStars() < 2 ){
+       else if (getAvgStars() >= 1.25 && getAvgStars() < 1.75 ){
+                     stars = 1.5;        
+                    }
+	else if (getAvgStars() >= 0.75 && getAvgStars() < 1.25 ){
                      stars = 1;        
+                    }
+       else if (getAvgStars() >= 0.25 && getAvgStars() < 0.75 ){
+                     stars = 0.5;        
                     }
        else  {
                     stars = 0;

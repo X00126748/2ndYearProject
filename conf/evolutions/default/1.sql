@@ -75,7 +75,7 @@ create table review (
   product_id                    bigint,
   description                   varchar(255),
   review_date                   timestamp,
-  stars                         integer,
+  stars                         double,
   review_count                  integer,
   constraint pk_review primary key (id)
 );

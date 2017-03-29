@@ -72,6 +72,17 @@
                                     
                                 </p>
                 } 
+	@if(p.getNumStars() == 4.5) {
+
+                                  <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star half"></span>
+                                    
+                                </p>
+                }
                 
                 @if(p.getNumStars() == 4){
                                  <p>
@@ -82,11 +93,29 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
+		@if(p.getNumStars() == 3.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star half"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
                 @if(p.getNumStars() == 3){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+		 @if(p.getNumStars() == 2.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star half"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
@@ -100,9 +129,27 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
+                 @if(p.getNumStars() == 1.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star half"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
                 @if(p.getNumStars() == 1){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+		@if(p.getNumStars() == 0.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star half"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>

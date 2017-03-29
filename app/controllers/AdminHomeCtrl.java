@@ -142,7 +142,23 @@ public class AdminHomeCtrl extends Controller {
     @Transactional
     public Result reports() {
 
-        return ok(reports.render(getCurrentUser()));
+       // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+     
+	products = Product.findAll("");
+
+        Product mostPopular = null;
+        int mpIndex = 0;
+        
+        for (int i=0; i < products.size(); i++) {
+        
+        if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
+           mostPopular = products.get(i);
+        }
+  }
+       
+
+        return ok(reports.render(env,mostPopular,getCurrentUser()));
     } 
 
 

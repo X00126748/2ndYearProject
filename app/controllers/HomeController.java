@@ -192,7 +192,9 @@ public class HomeController extends Controller {
 
      // Add Review by product ID
     // called when leave review button is pressed
-    @Transactional
+    @Security.Authenticated(Secured.class)
+    @With(CheckIfCustomer.class)
+   @Transactional
     public Result addReview(Long id) {
         // Retrieve the product by id
         Product p = Product.find.byId(id);
@@ -211,7 +213,7 @@ public class HomeController extends Controller {
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<Review> newReviewForm = formFactory.form(Review.class).bindFromRequest();
 
-        // Check for errors (based on Product class annotations)	
+        // Check for errors (based on Review class annotations)	
         if(newReviewForm.hasErrors()) {
             // Display the form again
             return badRequest(addReview.render(id,newReviewForm, getCurrentUser()));
@@ -223,6 +225,12 @@ public class HomeController extends Controller {
         Product p = Product.find.byId(id);
 
         newReview.setProduct(p);
+
+        User u = getCurrentUser();
+
+        String name = u.getName();
+
+        newReview.setName(name);
 
         // Save product now to set id (needed to update manytomany)
         newReview.save();
