@@ -1,7 +1,7 @@
 @import models.products.Category
 @import models.products.Product
 @import models.users.User
-@(env: play.api.Environment, p: Product, user: models.users.User)
+@(env: play.api.Environment, mp: Product, lp: Product, user: models.users.User)
 @main("Reports", user) {
 
  <!-- HTML content for the error view -->
@@ -13,21 +13,21 @@
            <div class="col-sm-4 col-lg-4 col-md-4">
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				@if(env.resource("public/images/productImages/thumbnails/" + mp.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(mp.getId).jpg"/>
 				} else {
 					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
 				}
 			<div class="caption">
-				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
-				<h3><a href="#">@p.getName</a>
+				<h3 class="pull-right">&euro; @("%.2f".format(mp.getPrice))</h3>
+				<h3><a href="#">@mp.getName</a>
 				</h3>
-				<a href="@routes.HomeController.viewReview(p.getId)"
+				<a href="@routes.HomeController.viewReview(mp.getId)"
 				<p class="pull-right">
-                                  @p.getReviews.size() Review(s)</p>
+                                  @mp.getReviews.size() Review(s)</p>
                 </a>
        
-       @if(p.getNumStars() == 5) {
+       @if(mp.getNumStars() == 5) {
 
                                   <p>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -39,7 +39,7 @@
                                 </p>
                 } 
                 
-                @if(p.getNumStars() == 4){
+                @if(mp.getNumStars() == 4){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -48,7 +48,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 3){
+                @if(mp.getNumStars() == 3){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -57,7 +57,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 2){
+                @if(mp.getNumStars() == 2){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -66,7 +66,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 1){
+                @if(mp.getNumStars() == 1){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -75,7 +75,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }   
-                @if(p.getNumStars() == 0){
+                @if(mp.getNumStars() == 0){
                                  <p>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -84,19 +84,19 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
 				}
-				<p><a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				<p><a href="@routes.ShoppingCtrl.addToBasket(mp.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 @if(user != null) {
-		<a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+		<a href="@routes.AdminProductCtrl.updateProduct(mp.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
 					<!-- Delete product button -->
-<a href="@routes.AdminProductCtrl.deleteProduct(p.getId)" class="btn-xs btn-danger"
+<a href="@routes.AdminProductCtrl.deleteProduct(mp.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a>
 					}
 
 </p>
 				 
-				<p>@p.getDescription</p>
-			        <p>Stock: @p.getStock</p>
+				<p>@mp.getDescription</p>
+			        <p>Stock: @mp.getStock</p>
 
 			</div>
 
@@ -107,6 +107,101 @@
 
 	
           <h3>Least Popular Products</h3>
+		<div class="col-sm-4 col-lg-4 col-md-4">
+			<div class="thumbnail">
+
+				@if(env.resource("public/images/productImages/thumbnails/" + lp.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(lp.getId).jpg"/>
+				} else {
+					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+				}
+			<div class="caption">
+				<h3 class="pull-right">&euro; @("%.2f".format(lp.getPrice))</h3>
+				<h3><a href="#">@lp.getName</a>
+				</h3>
+				<a href="@routes.HomeController.viewReview(lp.getId)"
+				<p class="pull-right">
+                                  @lp.getReviews.size() Review(s)</p>
+                </a>
+       
+       @if(lp.getNumStars() == 5) {
+
+                                  <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    
+                                </p>
+                } 
+                
+                @if(lp.getNumStars() == 4){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(lp.getNumStars() == 3){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(lp.getNumStars() == 2){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(lp.getNumStars() == 1){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+                @if(lp.getNumStars() == 0){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+				}
+				<p><a href="@routes.ShoppingCtrl.addToBasket(lp.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+@if(user != null) {
+		<a href="@routes.AdminProductCtrl.updateProduct(lp.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+					<!-- Delete product button -->
+<a href="@routes.AdminProductCtrl.deleteProduct(lp.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a>
+					}
+
+</p>
+				 
+				<p>@lp.getDescription</p>
+			        <p>Stock: @lp.getStock</p>
+
+			</div>
+
+			</div>
+            </div> <!-- end of product-->
+
+
+
           <h3>Best Sellers</h3>
           <h3>Lowest sellers</h3>
           <h3>Most Orders by Customer</h3>

@@ -148,17 +148,25 @@ public class AdminHomeCtrl extends Controller {
 	products = Product.findAll("");
 
         Product mostPopular = null;
+        Product leastPopular = null;
         int mpIndex = 0;
+        int lpIndex = 0;
         
         for (int i=0; i < products.size(); i++) {
         
         if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
+           mpIndex = i;
            mostPopular = products.get(i);
+        }
+
+        if (products.get(i).getAvgStars() < products.get(lpIndex).getAvgStars()){
+           lpIndex = i;
+           leastPopular = products.get(i);
         }
   }
        
 
-        return ok(reports.render(env,mostPopular,getCurrentUser()));
+        return ok(reports.render(env,mostPopular,leastPopular, getCurrentUser()));
     } 
 
 
