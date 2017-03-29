@@ -148,7 +148,7 @@ public class AdminHomeCtrl extends Controller {
 	products = Product.findAll("");
 
         Product mostPopular = null;
-        Product leastPopular = null;
+        Product leastPopular = products.get(0);;
         int mpIndex = 0;
         int lpIndex = 0;
         

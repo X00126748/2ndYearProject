@@ -9,6 +9,7 @@ import play.data.validation.*;
 import com.avaje.ebean.*;
 
 import models.shopping.*;
+import models.products.*;
 
 // Product entity managed by Ebean
 @Entity
@@ -26,6 +27,9 @@ public class Product extends Model {
     // many to many mapping
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Category> categories = new ArrayList<Category>();
+
+    @ManyToOne
+    private Supplier supplier;
 
     //@OneToOne(mappedBy="product")
     //public OrderItem item = new OrderItem();
@@ -181,7 +185,13 @@ public class Product extends Model {
         this.reviews = reviews;
     }
     
-    
+      public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
 
     public double getAvgStars() {
         double sum = 0;

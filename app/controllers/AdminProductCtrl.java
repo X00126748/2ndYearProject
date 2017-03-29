@@ -160,6 +160,8 @@ public class AdminProductCtrl extends Controller {
         }
      
         Product newProduct = newProductForm.get();
+
+        
         
         // Save product now to set id (needed to update manytomany)
         newProduct.save();

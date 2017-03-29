@@ -2,15 +2,16 @@
 @import models.products.Product
 @import models.users.User
 @(env: play.api.Environment, mp: Product, lp: Product, user: models.users.User)
-@main("Reports", user) {
+@productAdmin.main("Reports", user) {
 
  <!-- HTML content for the error view -->
   <div class="row">
-      <div class="col-sm-12">
-       
-          
-          <h3>Most Popular Products</h3>
+
            <div class="col-sm-4 col-lg-4 col-md-4">
+
+            <h3>Most Popular Product</h3>
+
+             @if(mp != null) {
 			<div class="thumbnail">
 
 				@if(env.resource("public/images/productImages/thumbnails/" + mp.getId + ".jpg").isDefined) {
@@ -103,11 +104,15 @@
 			</div>
             </div> <!-- end of product-->
 
-		   
+		   }
 
 	
-          <h3>Least Popular Products</h3>
-		<div class="col-sm-4 col-lg-4 col-md-4">
+          
+		
+          <div class="col-sm-4 col-lg-4 col-md-4">
+
+             <h3>Least Popular Product</h3>
+                 @if(lp != null) {
 			<div class="thumbnail">
 
 				@if(env.resource("public/images/productImages/thumbnails/" + lp.getId + ".jpg").isDefined) {
@@ -200,6 +205,7 @@
 			</div>
             </div> <!-- end of product-->
 
+         }
 
 
           <h3>Best Sellers</h3>
@@ -210,7 +216,7 @@
           
           
         
-      </div>
+
 
     
   </div>

@@ -13,22 +13,24 @@ insert into category (id,name) values ( 8,'Miscellaneous' );
 insert into category (id,name) values ( 9,'Mens'); 
 insert into category (id,name) values ( 10,'Womens');
 
-insert into product (id,name,description,stock,price) values ( 1,'Nike T-Shirt','Mens Black Basketball Top',50,40.00 );
-insert into product (id,name,description,stock,price) values ( 2,'Nike T-Shirt','Mens Bring Your Game Basketball Top',50,35.00 );
-insert into product (id,name,description,stock,price) values ( 3,'Nike T-Shirt','Mens Black & White Basketball Top',50,35.00 );
-insert into product (id,name,description,stock,price) values ( 4,'Nike T-Shirt','Good Things Come In Threes Top',50,40.00 );
-insert into product (id,name,description,stock,price) values ( 5,'Nike T-Shirt','Kobe Bryant Black Top',50,26.00 );
-insert into product (id,name,description,stock,price) values ( 6,'Nike T-Shirt','Kobe Bryant Grey Top',50,30.00 );
-insert into product (id,name,description,stock,price) values ( 7,'Nike T-Shirt','Lebron James Grey Top',50,35.00 );
-insert into product (id,name,description,stock,price) values ( 8,'Jordan T-Shirt','Air Jordan Gret Top',50,26.00 );
-insert into product (id,name,description,stock,price) values ( 9,'Jordan T-Shirt','Air Jordan Black Top',50,30.00 );
-insert into product (id,name,description,stock,price) values ( 10,'Jordan T-Shirt','Air Jordan Engineered For Flight Top',50,35.00 );
-insert into product (id,name,description,stock,price) values ( 11,'Jordan T-Shirt','Air Jordan Long Sleeve Top',50,45.00 );
-insert into product (id,name,description,stock,price) values ( 12,'Jordan T-Shirt','Air Jordan No Excuses Top',50,30.00 );
-insert into product (id,name,description,stock,price) values ( 13,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
-insert into product (id,name,description,stock,price) values ( 14,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
-insert into product (id,name,description,stock,price) values ( 15,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
-insert into product (id,name,description,stock,price) values ( 16,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00 );
+insert into supplier (id,name, email, number) values (1,'ABC Product Supplier','customer@products.com', '0855436782');
+
+insert into product (id,name,description,stock,price,supplier_id) values ( 1,'Nike T-Shirt','Mens Black Basketball Top',50,40.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 2,'Nike T-Shirt','Mens Bring Your Game Basketball Top',50,35.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 3,'Nike T-Shirt','Mens Black & White Basketball Top',50,35.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 4,'Nike T-Shirt','Good Things Come In Threes Top',50,40.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 5,'Nike T-Shirt','Kobe Bryant Black Top',50,26.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 6,'Nike T-Shirt','Kobe Bryant Grey Top',50,30.00 , 1);
+insert into product (id,name,description,stock,price,supplier_id) values ( 7,'Nike T-Shirt','Lebron James Grey Top',50,35.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 8,'Jordan T-Shirt','Air Jordan Gret Top',50,26.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 9,'Jordan T-Shirt','Air Jordan Black Top',50,30.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 10,'Jordan T-Shirt','Air Jordan Engineered For Flight Top',50,35.00 , 1);
+insert into product (id,name,description,stock,price,supplier_id) values ( 11,'Jordan T-Shirt','Air Jordan Long Sleeve Top',50,45.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 12,'Jordan T-Shirt','Air Jordan No Excuses Top',50,30.00,1  );
+insert into product (id,name,description,stock,price,supplier_id) values ( 13,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 14,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 15,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00, 1 );
+insert into product (id,name,description,stock,price,supplier_id) values ( 16,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00, 1 );
 
 insert into category_product (category_id,product_id) values (4,1);
 insert into category_product (category_id,product_id) values (4,2);
@@ -121,3 +123,6 @@ insert into user (email,name,password,role) values ( 'customer@products.com', 'C
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?', 1, 0);
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 2,0);
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (3,  'customer@products.com','Delivery', 'Thank you',0,0);
+
+
+

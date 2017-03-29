@@ -61,6 +61,7 @@ create sequence payment_card_seq;
 
 create table product (
   id                            bigint not null,
+  supplier_id                   bigint,
   name                          varchar(255),
   description                   varchar(255),
   stock                         integer,
@@ -89,6 +90,15 @@ create table shop_order (
   constraint pk_shop_order primary key (id)
 );
 create sequence shop_order_seq;
+
+create table supplier (
+  id                            bigint not null,
+  name                          varchar(255),
+  email                         varchar(255),
+  number                        varchar(255),
+  constraint pk_supplier primary key (id)
+);
+create sequence supplier_seq;
 
 create table user (
   role                          varchar(255),
@@ -127,6 +137,9 @@ create index ix_order_item_product_id on order_item (product_id);
 alter table payment_card add constraint fk_payment_card_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
 create index ix_payment_card_customer_email on payment_card (customer_email);
 
+alter table product add constraint fk_product_supplier_id foreign key (supplier_id) references supplier (id) on delete restrict on update restrict;
+create index ix_product_supplier_id on product (supplier_id);
+
 alter table review add constraint fk_review_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_review_product_id on review (product_id);
 
@@ -159,6 +172,9 @@ drop index if exists ix_order_item_product_id;
 alter table payment_card drop constraint if exists fk_payment_card_customer_email;
 drop index if exists ix_payment_card_customer_email;
 
+alter table product drop constraint if exists fk_product_supplier_id;
+drop index if exists ix_product_supplier_id;
+
 alter table review drop constraint if exists fk_review_product_id;
 drop index if exists ix_review_product_id;
 
@@ -190,6 +206,9 @@ drop sequence if exists review_seq;
 
 drop table if exists shop_order;
 drop sequence if exists shop_order_seq;
+
+drop table if exists supplier;
+drop sequence if exists supplier_seq;
 
 drop table if exists user;
 
