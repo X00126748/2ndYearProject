@@ -8,6 +8,7 @@ import controllers.security.CheckIfCustomer;
 import controllers.security.CheckIfAdmin;
 import controllers.security.Secured;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -16,6 +17,15 @@ import play.mvc.Security;
 
 
 import views.html.*;
+
+
+import play.mvc.Http.*;
+import play.mvc.Http.MultipartFormData.FilePart;
+
+// File upload and image editing dependencies
+import org.im4java.core.ConvertCmd;
+import org.im4java.core.IMOperation;
+
 
 // Import models
 import models.users.*;
@@ -88,6 +98,8 @@ public class HomeController extends Controller {
     @Transactional
     public Result addCustomerSubmit() {
 
+        String saveImageMsg;
+
         // Create a product form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<Customer> newCustomerForm = formFactory.form(Customer.class).bindFromRequest();
@@ -117,6 +129,18 @@ public class HomeController extends Controller {
         
         // Save product now to set id (needed to update manytomany)
         newCustomer.save();
+
+        
+        // Get image data
+        MultipartFormData data = request().body().asMultipartFormData();
+        FilePart image = data.getFile("upload");
+        
+        // Save the image file
+        saveImageMsg = saveFile(newCustomer.getName(), image);
+
+        // Set a success message in temporary flash
+        flash("success", "Customer " + newCustomerForm.get().getName() + " has been created" + " " + saveImageMsg);
+            
         
         // Redirect to the login
         return redirect(controllers.security.routes.LoginCtrl.login());
@@ -142,6 +166,8 @@ public class HomeController extends Controller {
     @Transactional
     public Result updateCustomerSubmit() {
 
+	String saveImageMsg;
+
         // Create a Customer form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<Customer> updateCustomerForm = formFactory.form(Customer.class).bindFromRequest();
@@ -160,9 +186,14 @@ public class HomeController extends Controller {
         // update (save) this Customer           
         c.update();
 
-        
+        // Get image data
+        MultipartFormData data = request().body().asMultipartFormData();
+        FilePart image = data.getFile("upload");
+
+        saveImageMsg = saveFile(c.getName(), image);
+      
         // Add a success message to the flash session
-        flash("success", "Customer " + updateCustomerForm.get().getName() + " has been updated");
+        flash("success", "Customer " + updateCustomerForm.get().getName() + " has been updated" + " " + saveImageMsg);
             
         // Return to admin home
         return redirect(controllers.routes.HomeController.accountDetails());
@@ -189,6 +220,46 @@ public class HomeController extends Controller {
     }
 
 
+
+         // Save an image file
+    public String saveFile(String name, FilePart<File> image) {
+        if (image != null) {
+            // Get mimetype from image
+            String mimeType = image.getContentType();
+            // Check if uploaded file is an image
+            if (mimeType.startsWith("image/")) {
+                // Create file from uploaded image
+                File file = image.getFile();
+                // create ImageMagick command instance
+                ConvertCmd cmd = new ConvertCmd();
+                // create the operation, add images and operators/options
+                IMOperation op = new IMOperation();
+                // Get the uploaded image file
+                op.addImage(file.getAbsolutePath());
+                // Resize using height and width constraints
+                op.resize(300,300);
+                // Save the  image
+                op.addImage("public/images/userIcons/" + name + ".jpg");
+                // thumbnail
+                IMOperation thumb = new IMOperation();
+                // Get the uploaded image file
+                thumb.addImage(file.getAbsolutePath());
+                //thumb.thumbnail(60);
+                // Save the  image
+                thumb.addImage("public/images/userIcons/thumbnails/" + name + ".jpg");
+                // execute the operation
+                try{
+                    cmd.run(op);
+                    cmd.run(thumb);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }				
+                return " and image saved";
+            }
+        }
+        return "image file missing";	
+    }
 
      // Add Review by product ID
     // called when leave review button is pressed
