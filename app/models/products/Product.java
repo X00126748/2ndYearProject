@@ -107,7 +107,7 @@ public class Product extends Model {
     public boolean checkIfShoe() {
       boolean check = false;
         for (Category c : categories){
-         if(c.getName() == "Shoes"){
+         if(c.getName().equalsIgnoreCase("Shoes")){
 	   check = true;
           }
      }

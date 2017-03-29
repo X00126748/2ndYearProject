@@ -42,7 +42,7 @@ public class OrderItem extends Model {
             product.decreaseStock();
             product.update();
             price = p.getPrice();
-            size = "Small";
+            size = "No size selected";
     }
     
     // Increment quantity

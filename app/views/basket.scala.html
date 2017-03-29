@@ -47,19 +47,30 @@
                         <td><a href="@routes.ShoppingCtrl.addOne(i.getId)"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
 
                         <td>
-                     @if(i.getProduct().checkIfShoe()) {
+                     @if(i.getProduct().checkIfShoe() == true) {
 
-			   <form>
-			    <div class="form-group">
-			      <!--<label for="sel1">Select list (select one):</label> -->
-			      <select class="form-control" id="sel1">
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-			      </select>
-			       </div> 
-			  </form>  
+
+			<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Size
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "1")">1</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "2")">2</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "3")">3</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "4")">4</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "5")">5</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "6")">6</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "7")">7</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "8")">8</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "9")">9</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "10")">10</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "11")">11</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "12")">12</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "13")">13</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "14")">14</a></li>
+      <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "15")">15</a></li>
+    </ul>
+  </div>
 			} else {
                     <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Small")" class="btn btn-info btn-sm">
                     S</a>

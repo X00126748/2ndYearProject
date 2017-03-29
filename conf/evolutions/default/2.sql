@@ -58,6 +58,7 @@ insert into category_product (category_id,product_id) values (9,13);
 insert into category_product (category_id,product_id) values (9,14); 
 insert into category_product (category_id,product_id) values (9,15); 
 insert into category_product (category_id,product_id) values (9,16);
+insert into category_product (category_id,product_id) values (1,16);
 
 insert into Review(id,product_id,name,description,stars) values
 ( 1,1,'Joe Bloggs','Great buy', 4);
