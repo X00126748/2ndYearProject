@@ -241,16 +241,16 @@ public class HomeController extends Controller {
                 // Save the  image
                 op.addImage("public/images/userIcons/" + name + ".jpg");
                 // thumbnail
-                IMOperation thumb = new IMOperation();
+                //IMOperation thumb = new IMOperation();
                 // Get the uploaded image file
-                thumb.addImage(file.getAbsolutePath());
+                //thumb.addImage(file.getAbsolutePath());
                 //thumb.thumbnail(60);
                 // Save the  image
-                thumb.addImage("public/images/userIcons/thumbnails/" + name + ".jpg");
+                //thumb.addImage("public/images/userIcons/thumbnails/" + name + ".jpg");
                 // execute the operation
                 try{
                     cmd.run(op);
-                    cmd.run(thumb);
+                    //cmd.run(thumb);
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -470,7 +470,7 @@ public class HomeController extends Controller {
 
         Customer c = (Customer)getCurrentUser();
         
-        return ok(accountDetails.render(c));
+        return ok(accountDetails.render(env, c));
     }
 
 

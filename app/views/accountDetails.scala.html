@@ -2,13 +2,14 @@
 @import play.api.Play.current
 @import models.shopping._
 @import models.products._
-@(customer: models.users.Customer)
+@(env: play.api.Environment, customer: models.users.Customer)
 
 <!-- Pass page title and user on to main -->
 @main("Account Details", customer) {
 
 
 <div class="row">
+
 
 	<div class="col-md-9">
 		@if(flash.containsKey("success")) {
@@ -19,6 +20,14 @@
 
 
           <h3>Account Details</h3> 
+
+    				@if(env.resource("public/images/userIcons/" + customer.getName + ".jpg").isDefined) {
+					<img src="/assets/images/userIcons/@(customer.getName).jpg" height="200" width="200"/>
+				} else {
+					<img src="/assets/images/userIcons/noImage.png" height="200" width="200"/>
+				}
+
+
  @if(customer != null) {          
   <table class="table table-striped">
     <thead>
@@ -64,10 +73,10 @@
 			</a>
 		</div>
 
-
 <div class="col-md-3">
 
 </div>
+
 
 </div>
 }
