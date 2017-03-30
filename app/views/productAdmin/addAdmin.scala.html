@@ -18,10 +18,12 @@ though a static HTML form would also work -->
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
 		@inputText(addAdministratorForm("email"), '_label -> "Email",'class -> "form-control")
-		@inputText(addAdministratorForm("role"), '_label -> "Role",'class -> "form-control")
 		@inputText(addAdministratorForm("name"), '_label -> "Name",'class -> "form-control")
 		@inputText(addAdministratorForm("password"), '_label -> "Password",'class -> "form-control")
 	
+		<!-- Image upload input -->
+		<label>Image</label>
+    <input class="btn-sm btn-default" type="file" name="upload">
 		<br><br>
 
 	<!-- Add a submit button -->

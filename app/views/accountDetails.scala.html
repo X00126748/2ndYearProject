@@ -21,8 +21,8 @@
 
           <h3>Account Details</h3> 
 
-    				@if(env.resource("public/images/userIcons/" + customer.getName + ".jpg").isDefined) {
-					<img src="/assets/images/userIcons/@(customer.getName).jpg" height="200" width="200"/>
+    				@if(env.resource("public/images/userIcons/" + customer.getName + ".png").isDefined) {
+					<img src="/assets/images/userIcons/@(customer.getName).png" height="200" width="200"/>
 				} else {
 					<img src="/assets/images/userIcons/noImage.png" height="200" width="200"/>
 				}

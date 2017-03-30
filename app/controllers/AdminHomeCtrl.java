@@ -82,6 +82,7 @@ public class AdminHomeCtrl extends Controller {
     // Handle the form data when a new Administrator is submitted
     @Transactional
     public Result addAdministratorSubmit() {
+     String saveImageMsg;
 
         // Create a Administrator form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
@@ -94,16 +95,66 @@ public class AdminHomeCtrl extends Controller {
         }
      
         Administrator newAdministrator = newAdministratorForm.get();
+
+        newAdministrator.setRole("admin");
         
-        // Save Administrator now to set id (needed to update manytomany)
+        // Save Administrator now to set id ()
         newAdministrator.save();
         
 
+
+	// Get image data
+        MultipartFormData data = request().body().asMultipartFormData();
+        FilePart image = data.getFile("upload");
+
+        saveImageMsg = saveFile(newAdministrator.getName(), image);
+
         // Set a success message in temporary flash
-        flash("success", "Administrator " + newAdministrator.getName() + " has been created");
+        flash("success", "Administrator " + newAdministrator.getName() + " has been created" + " " + saveImageMsg);
             
         // Redirect to the admin home
         return redirect(controllers.routes.AdminProductCtrl.index());
+    }
+
+
+         // Save an image file
+    public String saveFile(String name, FilePart<File> image) {
+        if (image != null) {
+            // Get mimetype from image
+            String mimeType = image.getContentType();
+            // Check if uploaded file is an image
+            if (mimeType.startsWith("image/")) {
+                // Create file from uploaded image
+                File file = image.getFile();
+                // create ImageMagick command instance
+                ConvertCmd cmd = new ConvertCmd();
+                // create the operation, add images and operators/options
+                IMOperation op = new IMOperation();
+                // Get the uploaded image file
+                op.addImage(file.getAbsolutePath());
+                // Resize using height and width constraints
+                op.resize(300,300);
+                // Save the  image
+                op.addImage("public/images/userIcons/" + name + ".png");
+                // thumbnail
+                //IMOperation thumb = new IMOperation();
+                // Get the uploaded image file
+                //thumb.addImage(file.getAbsolutePath());
+                //thumb.thumbnail(60);
+                // Save the  image
+                //thumb.addImage("public/images/userIcons/thumbnails/" + name + ".jpg");
+                // execute the operation
+                try{
+                    cmd.run(op);
+                    //cmd.run(thumb);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }				
+                return " and image saved";
+            }
+        }
+        return "image file missing";	
     }
 
       // Get a list of orders

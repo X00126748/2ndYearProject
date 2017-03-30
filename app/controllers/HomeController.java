@@ -239,7 +239,7 @@ public class HomeController extends Controller {
                 // Resize using height and width constraints
                 op.resize(300,300);
                 // Save the  image
-                op.addImage("public/images/userIcons/" + name + ".jpg");
+                op.addImage("public/images/userIcons/" + name + ".png");
                 // thumbnail
                 //IMOperation thumb = new IMOperation();
                 // Get the uploaded image file
