@@ -157,6 +157,88 @@ public class AdminHomeCtrl extends Controller {
         return "image file missing";	
     }
 
+
+                // Update a Administrator by getCurrentUser
+    // called when edit button is pressed
+    @Transactional
+    public Result updateAdministrator() {
+         // Retrieve the Administrator by getCurrentUser
+        Administrator a = (Administrator)getCurrentUser();
+        // Create a form based on the Administrator class and fill using a
+        Form<Administrator> administratorForm = Form.form(Administrator.class).fill(a);
+        // Render the updateAdministrator view
+        // pass the form as a parameter
+        return ok(updateAdministrator.render(administratorForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when an updated customer is submitted
+    @Transactional
+    public Result updateAdministratorSubmit() {
+
+	String saveImageMsg;
+
+        // Create a Administrator form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Administrator> updateAdministratorForm = formFactory.form(Administrator.class).bindFromRequest();
+
+        // Check for errors (based on Customer class annotations)	
+        if(updateAdministratorForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateAdministrator.render(updateAdministratorForm, getCurrentUser()));
+        }
+        
+        // Update the Customer (using its ID to select the existing object))
+        Administrator a = updateAdministratorForm.get();
+
+        //c.setId(id);
+       
+        // update (save) this Administrator          
+        a.update();
+
+        // Get image data
+        MultipartFormData data = request().body().asMultipartFormData();
+        FilePart image = data.getFile("upload");
+
+        saveImageMsg = saveFile(a.getName(), image);
+      
+        // Add a success message to the flash session
+        flash("success", "Administrator " + updateAdministratorForm.get().getName() + " has been updated" + " " + saveImageMsg);
+            
+        // Return to admin home
+        return redirect(controllers.routes.AdminHomeCtrl.accountDetails());
+    }
+
+        
+
+          // Delete Administrator
+    @Transactional
+    public Result deleteAdministrator() {
+         
+          // Retrieve the Administrator by getCurrentUser
+       Administrator a = (Administrator)getCurrentUser();
+       
+
+        String email = a.getEmail();
+        
+        // Call delete method
+        Administrator.find.ref(email).delete();
+        // Add message to flash session 
+        flash("success", "Administrator has been deleted");
+        // Redirect home
+        return redirect(controllers.security.routes.LoginCtrl.login());
+    }
+
+
+         @Transactional
+    public Result accountDetails(){
+
+        Administrator a = (Administrator)getCurrentUser();
+        
+        return ok(accountDetails.render(env, a));
+    }
+
+
       // Get a list of orders
     @Transactional
     public Result orders() {

@@ -1,0 +1,42 @@
+@(updateAdministratorForm: Form[models.users.Administrator], user: models.users.User)
+<!-- editAdministratorForm parameters defined above
+ passed to this view by the controller -->
+@import models.products._
+@import models.users._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Update Administrator", user) {
+
+	<h3>Update Administrator</h3>
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.AdminHomeCtrl.updateAdministratorSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		@inputText(updateAdministratorForm("email"), '_label -> "Email",'class -> "form-control")
+                @inputText(updateAdministratorForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(updateAdministratorForm("password"), '_label -> "Password",'class -> "form-control")
+                
+		<!-- Image upload input -->
+		<label>Image</label>
+    <input class="btn-sm btn-default" type="file" name="upload">
+		
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Save" class="btn btn-primary">
+			<a href="@routes.AdminHomeCtrl.accountDetails()"
+				<button class="btn btn-warning" role="button">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+} <!-- End of page content -->
+
+

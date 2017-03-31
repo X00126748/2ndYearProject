@@ -1,0 +1,63 @@
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+@(env: play.api.Environment, admin: models.users.Administrator)
+
+<!-- Pass page title and user on to main -->
+@main("Account Details", admin) {
+
+
+<div class="row">
+
+
+	<div class="col-md-9">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+
+          <h3>Account Details</h3> 
+
+    				@if(env.resource("public/images/userIcons/" + admin.getName + ".png").isDefined) {
+					<img src="/assets/images/userIcons/@(admin.getName).png" height="200" width="200"/>
+				} else {
+					<img src="/assets/images/userIcons/noImage.png" height="200" width="200"/>
+				}
+
+
+ @if(admin != null) {          
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><strong>@admin.getName</strong></th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email</td>
+        <td>@admin.getEmail</td>
+      </tr>
+   
+    </tbody>
+  </table>
+}
+
+<a href="@routes.AdminHomeCtrl.updateAdministrator()">
+				<button class="btn btn-primary">Edit Details</button>
+			</a>
+                        <a href="@routes.AdminHomeCtrl.deleteAdministrator()">
+				<button class="btn btn-danger">Delete Account</button>
+			</a>
+		</div>
+
+<div class="col-md-3">
+
+</div>
+
+
+</div>
+}
