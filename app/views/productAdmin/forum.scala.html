@@ -2,7 +2,7 @@
 @import models.products.Product
 @import models.users.User
 @import models._;
-@(messages: List[ForumMessage], user: User)
+@(env: play.api.Environment, messages: List[ForumMessage], user: User)
 
 
 <!-- Pass page title and user on to main -->
@@ -35,8 +35,12 @@
 <!-- Left-aligned media object -->
   <div class="media">
     <div class="media-left">
-
-      <img src="@routes.Assets.versioned("images/adminIcon2.png")" class="media-object" style="width:60px">
+@if(env.resource("public/images/userIcons/" + m.getUser.getName + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getName).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+      
       <p>Customer</p>
     </div>
     <div class="media-body">
@@ -65,7 +69,12 @@
 	<span class="glyphicon glyphicon-trash"></span></a></p>
     </div>
     <div class="media-right">
-      <img src="@routes.Assets.versioned("images/adminIcon.png")" class="media-object" style="width:60px">
+     @if(env.resource("public/images/userIcons/" + m.getUser.getName + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getName).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+      
       <p>Administrator</p>
     </div>
   </div>

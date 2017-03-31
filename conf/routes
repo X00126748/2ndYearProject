@@ -104,12 +104,12 @@ GET     /Admin/orderAllStock              controllers.AdminProductCtrl.orderAllS
 GET		/Admin/addAdmin					controllers.AdminHomeCtrl.addAdministrator()
 POST	/Admin/addAdministratorSubmit				controllers.AdminHomeCtrl.addAdministratorSubmit()
 
-GET		/updateAdministrator			controllers.AdminHomeCtrl.updateAdministrator()
-POST	/updateAdministratorSubmit		controllers.AdminHomeCtrl.updateAdministratorSubmit()
+GET		/Admin/updateAdministrator			controllers.AdminHomeCtrl.updateAdministrator()
+POST	/Admin/updateAdministratorSubmit		controllers.AdminHomeCtrl.updateAdministratorSubmit()
 
-GET     /deleteAdministrator              controllers.AdminHomeCtrl.deleteAdministrator()
+GET     /Admin/deleteAdministrator              controllers.AdminHomeCtrl.deleteAdministrator()
 
-GET     /accountDetails                        controllers.AdminHomeCtrl.accountDetails()
+GET     /Admin/accountDetails                        controllers.AdminHomeCtrl.accountDetails()
 
 GET     /Admin/orders                 controllers.AdminHomeCtrl.orders()
 

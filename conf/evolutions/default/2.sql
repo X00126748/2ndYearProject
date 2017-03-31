@@ -118,11 +118,15 @@ insert into user (email,name,password,role) values ( 'Aidan@products.com', 'Aida
 insert into user (email,name,password,role) values ( 'Stephen@products.com', 'Stephen', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'Jordan@products.com', 'Jordan', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'customer@products.com', 'Charlie Customer', 'password', 'customer' );
-
+insert into user (email,name,password,role) values ( 'customer2@products.com', 'John Smith', 'password', 'customer' );
+insert into user (email,name,password,role) values ( 'customer3@products.com', 'Alice Ryan', 'password', 'customer' );
 
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?', 1, 0);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 2,0);
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 3,1);
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (3,  'customer@products.com','Delivery', 'Thank you',0,0);
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (4, 'customer2@products.com', 'Account details', 'How do i edit my address?', 1, 0);
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (5,  'Jordan@products.com', 'Account details', 'Editing of your acount can be done on the account details page.', 2,0);
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (6,  'customer3@products.com','Cavs vs Warriors', 'Anyone see the game?',0,0);
 
 
 

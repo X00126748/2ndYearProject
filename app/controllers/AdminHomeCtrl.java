@@ -172,23 +172,23 @@ public class AdminHomeCtrl extends Controller {
     }
 
 
-    // Handle the form data when an updated customer is submitted
+    // Handle the form data when an updated Administrator is submitted
     @Transactional
     public Result updateAdministratorSubmit() {
-
+ 
 	String saveImageMsg;
 
         // Create a Administrator form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<Administrator> updateAdministratorForm = formFactory.form(Administrator.class).bindFromRequest();
 
-        // Check for errors (based on Customer class annotations)	
+        // Check for errors (based on Administrator class annotations)	
         if(updateAdministratorForm.hasErrors()) {
             // Display the form again
             return badRequest(updateAdministrator.render(updateAdministratorForm, getCurrentUser()));
         }
         
-        // Update the Customer (using its ID to select the existing object))
+        // Update the Administrator (using its ID to select the existing object))
         Administrator a = updateAdministratorForm.get();
 
         //c.setId(id);
@@ -368,7 +368,7 @@ public class AdminHomeCtrl extends Controller {
          messages = ForumMessage.findAll();
 
     
-        return ok(forum.render(messages, getCurrentUser()));
+        return ok(forum.render(env, messages, getCurrentUser()));
     }
     
 

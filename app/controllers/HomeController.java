@@ -461,7 +461,7 @@ public class HomeController extends Controller {
          messages = ForumMessage.findAll();
 
     
-        return ok(forum.render(messages, getCurrentUser()));
+        return ok(forum.render(env, messages, getCurrentUser()));
     }
     
 
