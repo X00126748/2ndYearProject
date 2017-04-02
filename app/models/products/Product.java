@@ -49,20 +49,21 @@ public class Product extends Model {
     @Constraints.Required
     private double price;
 
-    
+    private int	amountSold;
 
     // Default constructor
     public  Product() {
     }
 
     // Constructor to initialise object
-    public  Product(Long id, String name, String description, int stock, double price, List<Review> reviews){
+    public  Product(Long id, String name, String description, int stock, double price, List<Review> reviews, int amountSold){
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
         this.reviews = reviews;
+        this.amountSold = amountSold;
     }
 	
 	//Generic query helper for entity Computer with id Long
@@ -174,6 +175,22 @@ public class Product extends Model {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
+    public int getAmountSold() {
+        return amountSold;
+    }
+
+    public void setAmountSold(int amountSold) {
+        this.amountSold = amountSold;
+    }
+
+
+    // Add to amount sold
+    public void addAmountSold(int amount) {
+        amountSold += amount;
+    }
+
 
      public List<Review> getReviews() {
         return reviews;

@@ -9,7 +9,7 @@ import play.data.validation.*;
 
 @Entity
 
-// This is a Customer of type admin
+// This is a User of type customer
 @DiscriminatorValue("customer")
 
 // Customer inherits from the User class

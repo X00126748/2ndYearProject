@@ -66,6 +66,7 @@ create table product (
   description                   varchar(255),
   stock                         integer,
   price                         double,
+  amount_sold                   integer,
   constraint pk_product primary key (id)
 );
 create sequence product_seq;
@@ -90,6 +91,35 @@ create table shop_order (
   constraint pk_shop_order primary key (id)
 );
 create sequence shop_order_seq;
+
+create table stock_basket (
+  id                            bigint not null,
+  admin_email                   varchar(255),
+  constraint uq_stock_basket_admin_email unique (admin_email),
+  constraint pk_stock_basket primary key (id)
+);
+create sequence stock_basket_seq;
+
+create table stock_order (
+  id                            bigint not null,
+  order_date                    timestamp,
+  order_status                  varchar(255),
+  admin_email                   varchar(255),
+  constraint pk_stock_order primary key (id)
+);
+create sequence stock_order_seq;
+
+create table stock_order_item (
+  id                            bigint not null,
+  order_id                      bigint,
+  basket_id                     bigint,
+  product_id                    bigint,
+  quantity                      integer,
+  price                         double,
+  size                          varchar(255),
+  constraint pk_stock_order_item primary key (id)
+);
+create sequence stock_order_item_seq;
 
 create table supplier (
   id                            bigint not null,
@@ -146,6 +176,20 @@ create index ix_review_product_id on review (product_id);
 alter table shop_order add constraint fk_shop_order_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
 create index ix_shop_order_customer_email on shop_order (customer_email);
 
+alter table stock_basket add constraint fk_stock_basket_admin_email foreign key (admin_email) references user (email) on delete restrict on update restrict;
+
+alter table stock_order add constraint fk_stock_order_admin_email foreign key (admin_email) references user (email) on delete restrict on update restrict;
+create index ix_stock_order_admin_email on stock_order (admin_email);
+
+alter table stock_order_item add constraint fk_stock_order_item_order_id foreign key (order_id) references stock_order (id) on delete restrict on update restrict;
+create index ix_stock_order_item_order_id on stock_order_item (order_id);
+
+alter table stock_order_item add constraint fk_stock_order_item_basket_id foreign key (basket_id) references stock_basket (id) on delete restrict on update restrict;
+create index ix_stock_order_item_basket_id on stock_order_item (basket_id);
+
+alter table stock_order_item add constraint fk_stock_order_item_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_stock_order_item_product_id on stock_order_item (product_id);
+
 
 # --- !Downs
 
@@ -181,6 +225,20 @@ drop index if exists ix_review_product_id;
 alter table shop_order drop constraint if exists fk_shop_order_customer_email;
 drop index if exists ix_shop_order_customer_email;
 
+alter table stock_basket drop constraint if exists fk_stock_basket_admin_email;
+
+alter table stock_order drop constraint if exists fk_stock_order_admin_email;
+drop index if exists ix_stock_order_admin_email;
+
+alter table stock_order_item drop constraint if exists fk_stock_order_item_order_id;
+drop index if exists ix_stock_order_item_order_id;
+
+alter table stock_order_item drop constraint if exists fk_stock_order_item_basket_id;
+drop index if exists ix_stock_order_item_basket_id;
+
+alter table stock_order_item drop constraint if exists fk_stock_order_item_product_id;
+drop index if exists ix_stock_order_item_product_id;
+
 drop table if exists basket;
 drop sequence if exists basket_seq;
 
@@ -206,6 +264,15 @@ drop sequence if exists review_seq;
 
 drop table if exists shop_order;
 drop sequence if exists shop_order_seq;
+
+drop table if exists stock_basket;
+drop sequence if exists stock_basket_seq;
+
+drop table if exists stock_order;
+drop sequence if exists stock_order_seq;
+
+drop table if exists stock_order_item;
+drop sequence if exists stock_order_item_seq;
 
 drop table if exists supplier;
 drop sequence if exists supplier_seq;

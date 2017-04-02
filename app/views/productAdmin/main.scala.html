@@ -24,6 +24,7 @@
     <link href="@routes.Assets.versioned("stylesheets/style.css")" rel="stylesheet"> 
     <!-- Icons CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">-->
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -78,11 +79,22 @@
                      <li>
                             <a href="@routes.AdminProductCtrl.lowStock(0)">Low Stock</a>
                         </li>
-                     <li>
-                            <a href="@routes.AdminHomeCtrl.reports()">Reports</a>
-                        </li>
-                      <li><a href="@routes.AdminHomeCtrl.accountDetails()">Account Details</a></li>
 
+		 <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.AdminHomeCtrl.reports()">Reports</a></li>
+                                <li><a href="@routes.AdminHomeCtrl.mostPopProducts()">Most Popular Products</a></li>
+                              <li><a href="@routes.AdminHomeCtrl.leastPopProducts()">Least Popular Products</a></li>
+                                
+                            </ul>
+                         </li>
+
+
+                      <li><a href="@routes.AdminHomeCtrl.accountDetails()">Account Details</a></li>
+                      <li>
+                            <a href="@routes.StockCtrl.showBasket()"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                        </li>
 
 		
                 </ul>

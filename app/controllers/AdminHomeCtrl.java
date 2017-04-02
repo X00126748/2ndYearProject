@@ -265,6 +265,21 @@ public class AdminHomeCtrl extends Controller {
 
 	 order.update();
 
+Product p = null;
+
+for (OrderItem i: order.getItems()){
+     
+     p = i.getProduct();
+     int quantity = i.getQuantity();
+
+        
+     p.addAmountSold(quantity);
+     p.update();
+
+
+}
+
+
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
 
@@ -279,28 +294,186 @@ public class AdminHomeCtrl extends Controller {
         List<Product> products = new ArrayList<Product>();
      
 	products = Product.findAll("");
+     
+        List<Product> mostPopular = new ArrayList<Product>(3);
+        mostPopular.add(null);
+        mostPopular.add(null);
+	mostPopular.add(null);
+       
+	 //Product mostPopular[] = new Product[3];
 
-        Product mostPopular = null;
-        Product leastPopular = products.get(0);;
+        //Product mostPopular = products.get(0);
+       // List<Product> leastPopular = new ArrayList<Product>();
+
+        List<Product> leastPopularFind = doSelectionSort(products);
+
+        List<Product> leastPopular = new ArrayList<Product>(3);
+        leastPopular.add(leastPopularFind.get(0));
+        leastPopular.add(leastPopularFind.get(1));
+	leastPopular.add(leastPopularFind.get(2));
+        
+        
+        //Product leastPopular = products.get(0);
         int mpIndex = 0;
+	int mp2Index = 0;
+	int mp3Index = 0;
+
         int lpIndex = 0;
+
+        Product mostSold = products.get(0);
+        Product leastSold = products.get(0);
+        int msIndex = 0;
+        int lsIndex = 0;
         
         for (int i=0; i < products.size(); i++) {
         
         if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
            mpIndex = i;
-           mostPopular = products.get(i);
+           mostPopular.set(0, products.get(i));
+        } 
+
+        //else if (products.get(i).getAvgStars() == products.get(mpIndex).getAvgStars()){
+         //  mp2Index = i;
+           //mostPopular.set(1, products.get(i));
+        //}
+
+        
+        if (products.get(i).getAvgStars() > products.get(mp2Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mpIndex).getAvgStars()){
+           mp2Index = i;
+           mostPopular.set(1, products.get(i));
+        } 
+
+        if (products.get(i).getAvgStars() > products.get(mp3Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mp2Index).getAvgStars()){
+           mp3Index = i;
+           mostPopular.set(2, products.get(i));
         }
 
+       /*
         if (products.get(i).getAvgStars() < products.get(lpIndex).getAvgStars()){
            lpIndex = i;
            leastPopular = products.get(i);
         }
+
+        */
+        if (products.get(i).getAmountSold() > products.get(msIndex).getAmountSold()){
+           msIndex = i;
+           mostSold = products.get(i);
+        }
+
+        if (products.get(i).getAmountSold() < products.get(lsIndex).getAmountSold()){
+           lsIndex = i;
+           leastSold = products.get(i);
+        }
   }
        
 
-        return ok(reports.render(env,mostPopular,leastPopular, getCurrentUser()));
+        return ok(reports.render(env,mostPopular,leastPopular, mostSold, leastSold,  getCurrentUser()));
     } 
+
+        // Get reports
+    @Transactional
+    public Result mostPopProducts() {
+
+       // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+     
+	products = Product.findAll("");
+     
+        List<Product> mostPopular = new ArrayList<Product>(3);
+        mostPopular.add(null);
+        mostPopular.add(null);
+	mostPopular.add(null);
+       
+	 //Product mostPopular[] = new Product[3];
+
+        //Product mostPopular = products.get(0);
+      
+        
+        //Product leastPopular = products.get(0);
+        int mpIndex = 0;
+	int mp2Index = 0;
+	int mp3Index = 0;
+
+        
+        for (int i=0; i < products.size(); i++) {
+        
+        if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
+           mpIndex = i;
+           mostPopular.set(0, products.get(i));
+        } 
+
+        else if (products.get(i).getAvgStars() == products.get(mpIndex).getAvgStars()){
+           mp2Index = i;
+           mostPopular.set(1, products.get(i));
+        } else if (products.get(i).getAvgStars() == products.get(mp2Index).getAvgStars()){
+           mp3Index = i;
+           mostPopular.set(2, products.get(i));
+        }
+
+
+        
+        if (products.get(i).getAvgStars() > products.get(mp2Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mpIndex).getAvgStars()){
+           mp2Index = i;
+           mostPopular.set(1, products.get(i));
+        } 
+
+        if (products.get(i).getAvgStars() > products.get(mp3Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mp2Index).getAvgStars()){
+           mp3Index = i;
+           mostPopular.set(2, products.get(i));
+        }
+
+   
+  }
+       
+
+        return ok(mostPopProducts.render(env, mostPopular, getCurrentUser()));
+    } 
+
+	      // Get reports
+    @Transactional
+    public Result leastPopProducts() {
+
+       // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+     
+	products = Product.findAll("");
+     
+        List<Product> leastPopularFind = doSelectionSort(products);
+
+        List<Product> leastPopular = new ArrayList<Product>(3);
+        leastPopular.add(leastPopularFind.get(0));
+        leastPopular.add(leastPopularFind.get(1));
+	leastPopular.add(leastPopularFind.get(2));
+       
+
+        return ok(leastPopProducts.render(env, leastPopularFind, getCurrentUser()));
+    } 
+
+
+       public static List<Product> doSelectionSort(List<Product> arr){
+         
+        int min;
+    for (int i = 0; i < arr.size(); i++) {
+        // Assume first element is min
+        min = i;
+        for (int j = i + 1; j < arr.size(); j++) {
+            if (arr.get(j).getAvgStars() < arr.get(min).getAvgStars()) {
+                min = j;
+
+            }
+        }
+       
+            if (min != i){
+            Product temp = arr.get(i);
+            arr.set(min, arr.get(i));
+            arr.set(i, temp);
+        }
+
+	}
+
+       return arr;
+     
+    }
 
 
     @Transactional

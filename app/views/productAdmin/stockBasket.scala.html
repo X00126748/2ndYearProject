@@ -1,0 +1,117 @@
+@(administrator: models.users.Administrator)
+
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+
+<!-- Pass page title and user on to main -->
+@productAdmin.main("Stock Basket", administrator) {
+
+
+<div class="row">
+
+	<div class="col-md-12">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Item Price</th>
+				<th>Total</th>
+				<th>Quantity</th>
+                <th>dec.</th>
+                <th>inc.</th>
+                <th>Size</th>
+                <th>Size Value</th>
+			</tr>
+			</thead>
+			<tbody>
+                @if(administrator.getBasket() != null) {
+                    <!-- Start of For loop - For each p in products add a row -->
+                    @for(i <- administrator.getBasket().getBasketItems()) {
+                    <tr>
+                        <td>@i.getProduct.getName</td>
+                        <td>@i.getProduct.getDescription()</td>
+                        <td>&euro; @("%.2f".format(i.getPrice))</td>
+                        <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+                        <td>@i.getQuantity()</td>
+                        <td><a href="@routes.StockCtrl.removeOne(i.getId)"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
+                        <td><a href="@routes.StockCtrl.addOne(i.getId)"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
+
+                        <td>
+                     @if(i.getProduct().checkIfShoe() == true) {
+
+
+			<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Size
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "1")">1</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "2")">2</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "3")">3</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "4")">4</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "5")">5</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "6")">6</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "7")">7</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "8")">8</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "9")">9</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "10")">10</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "11")">11</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "12")">12</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "13")">13</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "14")">14</a></li>
+      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "15")">15</a></li>
+    </ul>
+  </div>
+			} else {
+                    <a href="@routes.StockCtrl.setItemSize(i.getId, "Small")" class="btn btn-info btn-sm">
+                    S</a>
+                    <a href="@routes.StockCtrl.setItemSize(i.getId, "Medium")" class="btn btn-info btn-sm">
+                    M</a>
+                     <a href="@routes.StockCtrl.setItemSize(i.getId, "Large")" class="btn btn-info btn-sm">
+                    L</a>
+                       } </td>
+                        <td>@i.getSize()</td>
+
+                       </tr>
+                    }<!-- End of For loop -->
+              }
+			</tbody>
+		</table>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(administrator.getBasket.getBasketTotal))</strong></p>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-right">
+                    <a href="@routes.StockCtrl.emptyBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
+                    <span class="glyphicon glyphicon-trash"></span> Empty Basket</a>
+                </p>
+            </div>  
+            <div class="col-md-6">
+                <p class="text-right">
+                    <a href="@routes.StockCtrl.placeOrder()" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-euro"></span> Place Order</a>
+                </p>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+}

@@ -1,88 +1,37 @@
 @import models.products.Category
 @import models.products.Product
-@import models.shopping._
-@import models.products._
 @import models.users.User
-@(env: play.api.Environment, categories: List[Category], products: List[Product], catId: Long, filter: String, user: User, amount: Long)
+@(env: play.api.Environment, MostPopular: List[Product], user: models.users.User)
+@productAdmin.main("Reports", user) {
 
-<!-- Pass page title and user on to main -->
-@productAdmin.main("Low Stock", user) {
-
-
-    <style>
-		form {
-			margin-bottom: 1em;
-		}
-	</style>
-
+ <!-- HTML content for the error view -->
+  <div class="row">
 <div class="row">
 
-  <div class="col-md-3">
-      <div class="list-group">
-				<!-- Start of For loop - For each c in categories add a link -->
-				<a href="@routes.AdminProductCtrl.lowStock(0)" class="list-group-item">All categories</a>
-				@for(c <- categories) {
-          <a href="@routes.AdminProductCtrl.lowStock(c.getId)" class="list-group-item">@c.getName  </a>
-				}
-      </div>
-  </div>
+    <h3>Most Popular Product</h3>
+        @for(mp <- MostPopular) {
+           <div class="col-sm-4 col-lg-4 col-md-4">
 
-	<div class="col-md-9">
-		@if(flash.containsKey("success")) {
-			  <div class="alert alert-success">
-			      @flash.get("success")
-			  </div>
+            
 
-                
-		} 
-               @if(flash.containsKey("warning")) {
-			  <div class="alert alert-warning">
-			      @flash.get("warning")
-			  </div>
-
-                
-		} 
-
-        <!-- Search Form -->
-			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.lowStock(catId)" method="GET">
-				<input type="search" id="searchbox" name="filter" value="@filter" placeholder="Filter by product name...">
-				<input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
-			 </form>
-			</div>
-
-                         <!-- orderAllStock Form -->
-			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.orderAllStock()" method="GET">
-				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Order amt for all products...">
-				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
-			 </form>
-			</div>
-
-
-
-		 <div class="row">
-
-			@for(p <- products) {
-
-		    <div class="col-sm-4 col-lg-4 col-md-4">
+             @if(mp != null) {
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				@if(env.resource("public/images/productImages/thumbnails/" + mp.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(mp.getId).jpg"/>
 				} else {
 					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
 				}
-			<div class="caption" style = "height: 20em;">
-				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
-				<h3><a href="#">@p.getName</a>
+			<div class="caption">
+				<h3 class="pull-right">&euro; @("%.2f".format(mp.getPrice))</h3>
+				<h3><a href="#">@mp.getName</a>
 				</h3>
-				<a href="@routes.HomeController.viewReview(p.getId)"
+				<a href="@routes.HomeController.viewReview(mp.getId)"
 				<p class="pull-right">
-                                  @p.getReviews.size() Review(s)</p>
+                                  @mp.getReviews.size() Review(s)</p>
                 </a>
        
-      @if(p.getNumStars() == 5) {
+       @if(mp.getNumStars() == 5) {
 
                                   <p>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -93,7 +42,7 @@
                                     
                                 </p>
                 } 
-	@if(p.getNumStars() == 4.5) {
+	@if(mp.getNumStars() == 4.5) {
 
                                   <p>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -105,7 +54,7 @@
                                 </p>
                 }
                 
-                @if(p.getNumStars() == 4){
+                @if(mp.getNumStars() == 4){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -114,7 +63,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-		@if(p.getNumStars() == 3.5){
+		@if(mp.getNumStars() == 3.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -123,7 +72,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 3){
+                @if(mp.getNumStars() == 3){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -132,7 +81,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-		 @if(p.getNumStars() == 2.5){
+		 @if(mp.getNumStars() == 2.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -141,7 +90,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 2){
+                @if(mp.getNumStars() == 2){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -150,7 +99,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                 @if(p.getNumStars() == 1.5){
+                 @if(mp.getNumStars() == 1.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
@@ -159,7 +108,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(p.getNumStars() == 1){
+                @if(mp.getNumStars() == 1){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -168,7 +117,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }   
-		@if(p.getNumStars() == 0.5){
+		@if(mp.getNumStars() == 0.5){
                                  <p>
                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -177,7 +126,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }   
-                @if(p.getNumStars() == 0){
+                @if(mp.getNumStars() == 0){
                                  <p>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -187,48 +136,41 @@
                                 </p>
 				}
 				<p>
-				<p><a href="@routes.ShoppingCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				<p><a href="@routes.ShoppingCtrl.addToBasket(mp.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 @if(user != null) {
-		<a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+		<a href="@routes.AdminProductCtrl.updateProduct(mp.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
 					<!-- Delete product button -->
-<a href="@routes.AdminProductCtrl.deleteProduct(p.getId)" class="btn-xs btn-danger"
+<a href="@routes.AdminProductCtrl.deleteProduct(mp.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a>
 					}
 
 </p>
 				 
-				<p>@p.getDescription</p>
-			        <p>Stock: @p.getStock</p>
-                    <!-- <a href="@routes.AdminProductCtrl.orderStock(p.getId)">
-				<button class="btn btn-primary">Order Stock</button>
-			</a> -->
-                       
-                       <!-- orderStock Form -->
-			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.orderStock(p.getId)" method="GET">
-				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Enter amount to order...">
-				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
-			 </form>
-			</div>
+				<p>@mp.getDescription</p>
+			        <p>Stock: @mp.getStock</p>
 
 			</div>
 
 			</div>
-            </div>
+            </div> <!-- end of product-->
+           
 
-	}
+		   }
 
-		</div>
-		
-	</div>
-</div>
+        }  </div>
 
-<script>
-	// JavaScript function returns true if user clicks yes, otherwise, false
-	function confirmDel() {
-		return confirm('Are you sure?');
-	}
 
-</script>
+          <h3>Most Orders by Customer</h3>
+          <h3>Highest loyality points</h3>
+          
+          
+          
+        
+    
+  
+
+    
+  </div>
+  <!-- End of content for main -->
 }

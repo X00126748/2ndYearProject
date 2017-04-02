@@ -80,6 +80,19 @@ GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(i
 GET     /orderHistory                        controllers.ShoppingCtrl.orderHistory()
 GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
 
+# Stock
+GET     /Admin/showBasket                         controllers.StockCtrl.showBasket()
+GET     /Admin/addToBasket/:id                    controllers.StockCtrl.addToBasket(id: Long)
+GET     /Admin/addOne/:itemId                     controllers.StockCtrl.addOne(itemId: Long)
+GET     /Admin/removeOne/:itemId                  controllers.StockCtrl.removeOne(itemId: Long)
+GET     /Admin/setItemSize/:itemId                  controllers.StockCtrl.setItemSize(itemId: Long, size: String)
+GET     /Admin/emptyBasket                        controllers.StockCtrl.emptyBasket()
+GET     /Admin/placeOrder                         controllers.StockCtrl.placeOrder()
+GET     /Admin/viewOrder/:id                      controllers.StockCtrl.viewOrder(id: Long)
+GET     /Admin/orderHistory                        controllers.StockCtrl.orderHistory()
+GET     /Admin/cancelOrder/:id                     controllers.StockCtrl.cancelOrder(id: Long)
+
+
 # Product Administration
 GET		/Admin						        controllers.AdminProductCtrl.index()
 
@@ -117,6 +130,9 @@ GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHome
 
 GET     /Admin/reports                controllers.AdminHomeCtrl.reports()
 
+GET     /Admin/mostPopProducts                controllers.AdminHomeCtrl.mostPopProducts()
+
+GET     /Admin/leastPopProducts                controllers.AdminHomeCtrl.leastPopProducts()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)

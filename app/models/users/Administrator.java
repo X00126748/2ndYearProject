@@ -1,5 +1,7 @@
 package models.users;
 
+import models.stock.*;
+
 import java.util.*;
 import javax.persistence.*;
 import play.data.format.*;
@@ -13,6 +15,14 @@ import com.avaje.ebean.*;
 // Administrator inherits from the User class
 public class Administrator extends User{
 
+
+    //@OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
+    private StockBasket basket;
+
+   @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+   private List<StockOrder> orders;
+	
+
 	public Administrator() {
 
 	}
@@ -21,5 +31,22 @@ public class Administrator extends User{
 	{
 		super(email, role, name, password);
 	}
+
+
+         public StockBasket getBasket() {
+        return basket;
+    }
+
+    public void setBasket(StockBasket basket) {
+        this.basket = basket;
+    }
+
+    public List<StockOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<StockOrder> orders) {
+        this.orders = orders;
+    }
 	
 } 
