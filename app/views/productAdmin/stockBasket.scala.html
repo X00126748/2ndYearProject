@@ -34,9 +34,9 @@
 			</tr>
 			</thead>
 			<tbody>
-                @if(administrator.getBasket() != null) {
+                @if(administrator.getStockBasket() != null) {
                     <!-- Start of For loop - For each p in products add a row -->
-                    @for(i <- administrator.getBasket().getBasketItems()) {
+                    @for(i <- administrator.getStockBasket().getBasketItems()) {
                     <tr>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription()</td>
@@ -88,7 +88,7 @@
 		</table>
         <div class="row">
             <div class="col-md-12">
-                <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(administrator.getBasket.getBasketTotal))</strong></p>
+                <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(administrator.getStockBasket.getBasketTotal))</strong></p>
             </div>  
         </div>
         <div class="row">

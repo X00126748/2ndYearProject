@@ -91,6 +91,8 @@ GET     /Admin/placeOrder                         controllers.StockCtrl.placeOrd
 GET     /Admin/viewOrder/:id                      controllers.StockCtrl.viewOrder(id: Long)
 GET     /Admin/orderHistory                        controllers.StockCtrl.orderHistory()
 GET     /Admin/cancelOrder/:id                     controllers.StockCtrl.cancelOrder(id: Long)
+GET     /Admin/setStockOrderForDelivery/:id                     controllers.AdminHomeCtrl.setStockOrderForDelivery(id: Long)
+GET     /Admin/stockOrders                 controllers.AdminHomeCtrl.stockOrders()
 
 
 # Product Administration

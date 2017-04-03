@@ -2,9 +2,8 @@ package models.stock;
 
 import com.avaje.ebean.Model;
 import models.products.Product;
-import models.users.Customer;
+import models.users.Administrator;
 import models.products.*;
-import models.users.*;
 import models.shopping.*;
 import javax.persistence.*;
 import javax.persistence.Entity;

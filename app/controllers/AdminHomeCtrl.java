@@ -25,6 +25,7 @@ import org.im4java.core.IMOperation;
 import models.users.*;
 import models.products.*;
 import models.shopping.*;
+import models.stock.*;
 import models.*;
 
 import views.html.productAdmin.*;
@@ -253,6 +254,20 @@ public class AdminHomeCtrl extends Controller {
         return ok(orders.render(ordersList, getCurrentUser()));
     } 
 
+
+        // Get a list of orders
+    @Transactional
+    public Result stockOrders() {
+
+        List<StockOrder> ordersList = new ArrayList<StockOrder>();
+
+         
+            // Get the list of ALL products with filter
+            ordersList = StockOrder.findAll();
+        
+        // Render the list orders view, passing parameters
+        return ok(stockOrders.render(ordersList, getCurrentUser()));
+    } 
       
     @Transactional
     public Result setOrderForDelivery(Long id) {
@@ -285,6 +300,27 @@ for (OrderItem i: order.getItems()){
 
           return orders();
     } 
+
+
+
+      @Transactional
+    public Result setStockOrderForDelivery(Long id) {
+
+         StockOrder order = StockOrder.find.byId(id);
+
+         order.setOrderStatus("Order Complete");
+
+         order.save();
+
+	 order.update();
+
+
+        // Render the list orders view, passing parameters
+       // return ok(orders.render(ordersList, getCurrentUser()));
+
+          return stockOrders();
+    } 
+
         
           // Get reports
     @Transactional

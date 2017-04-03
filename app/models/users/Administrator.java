@@ -16,8 +16,8 @@ import com.avaje.ebean.*;
 public class Administrator extends User{
 
 
-    //@OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
-    private StockBasket basket;
+    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
+    private StockBasket stockbasket;
 
    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
    private List<StockOrder> orders;
@@ -33,12 +33,12 @@ public class Administrator extends User{
 	}
 
 
-         public StockBasket getBasket() {
-        return basket;
+         public StockBasket getStockBasket() {
+        return stockbasket;
     }
 
-    public void setBasket(StockBasket basket) {
-        this.basket = basket;
+    public void setStockBasket(StockBasket stockbasket) {
+        this.stockbasket = stockbasket;
     }
 
     public List<StockOrder> getOrders() {

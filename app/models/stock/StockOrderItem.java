@@ -39,7 +39,7 @@ public class StockOrderItem extends Model {
     public StockOrderItem(Product p) {
             product = p;
             quantity = 1;
-            product.decreaseStock();
+            product.increaseStock();
             product.update();
             price = p.getPrice();
             size = "No size selected";
@@ -48,14 +48,14 @@ public class StockOrderItem extends Model {
     // Increment quantity
     public void increaseQty() {
         quantity += 1;
-        product.decreaseStock();
+        product.increaseStock();
          product.update();
     }
     
     // Decrement quantity
     public void decreaseQty() {
         quantity -= 1;
-        product.increaseStock();
+        product.decreaseStock();
          product.update();
     }
     

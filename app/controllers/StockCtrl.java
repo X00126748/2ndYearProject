@@ -39,19 +39,19 @@ public class StockCtrl extends Controller {
         Product p = Product.find.byId(id);
         
         // Get basket for logged in Administrator
-        Administrator admin = (Administrator)User.getLoggedIn(session().get("email"));
+        Administrator admin = getCurrentUser();
         
         // Check if item in basket
-        if (admin.getBasket() == null) {
+        if (admin.getStockBasket() == null) {
             // If no basket, create one
-            admin.setBasket(new StockBasket());
-            admin.getBasket().setAdministrator(admin);
+            admin.setStockBasket(new StockBasket());
+            admin.getStockBasket().setAdministrator(admin);
             admin.update();
         }
 
         if (p.getStock() > 0){
         // Add product to the basket and save
-        admin.getBasket().addProduct(p);
+        admin.getStockBasket().addProduct(p);
         admin.update();
         } else {
 
@@ -99,8 +99,8 @@ public Result showBasket(){
         // Get user
         Administrator a = getCurrentUser();
         // Call basket remove item method
-        a.getBasket().removeItem(item);
-        a.getBasket().update();
+        a.getStockBasket().removeItem(item);
+        a.getStockBasket().update();
         // back to basket
         return ok(stockBasket.render(a));
     }
@@ -123,7 +123,7 @@ public Result showBasket(){
         item.setSize(size);
  
         item.update();
-        a.getBasket().update();
+        a.getStockBasket().update();
         // Show updated basket
         return redirect(routes.StockCtrl.showBasket());
     }
@@ -151,7 +151,7 @@ public Result showBasket(){
 
         order.setAdministrator(a);
 
-        order.setItems(a.getBasket().getBasketItems());
+        order.setItems(a.getStockBasket().getBasketItems());
 
         order.setOrderStatus("Processing Order");
 
@@ -168,8 +168,8 @@ for (StockOrderItem i: order.getItems()){
 
 order.update();
 
-a.getBasket().setBasketItems(null);
-a.getBasket().update();
+a.getStockBasket().setBasketItems(null);
+a.getStockBasket().update();
 
 return ok (orderConfirmed.render(a, order));
 }
@@ -182,8 +182,8 @@ return ok (orderConfirmed.render(a, order));
     public Result emptyBasket() {
         
        Administrator a = getCurrentUser();
-        a.getBasket().removeAllItems();
-        a.getBasket().update();
+        a.getStockBasket().removeAllItems();
+        a.getStockBasket().update();
         
         return ok(stockBasket.render(a));
     }
