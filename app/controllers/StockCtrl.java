@@ -171,6 +171,8 @@ order.update();
 a.getStockBasket().setBasketItems(null);
 a.getStockBasket().update();
 
+ // Set a success message in temporary flash
+        flash("success", "Stock Order has been created" );
 return ok (orderConfirmed.render(a, order));
 }
 
@@ -184,6 +186,9 @@ return ok (orderConfirmed.render(a, order));
        Administrator a = getCurrentUser();
         a.getStockBasket().removeAllItems();
         a.getStockBasket().update();
+
+      // Set a success message in temporary flash
+        flash("success", "Stock Basket has been emptied" );
         
         return ok(stockBasket.render(a));
     }
@@ -209,7 +214,7 @@ return ok (orderConfirmed.render(a, order));
         
        // List<ShopOrder> orders = c.getOrders();
 
-        for (StockOrder o: a.getOrders()){
+        for (StockOrder o: a.getStockOrders()){
 
             if (o.getOrderStatus().equals("Processing Order")){
 
@@ -241,6 +246,9 @@ return ok (orderConfirmed.render(a, order));
 
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
+
+          // Set a success message in temporary flash
+        flash("success", "Stock Order has been Cancelled" );
 
           return orderHistory();
     } 

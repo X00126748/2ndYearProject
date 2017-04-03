@@ -173,6 +173,8 @@ order.update();
 c.getBasket().setBasketItems(null);
 c.getBasket().update();
 
+ // Set a success message in temporary flash
+        flash("success", "Order has been Created" );
 
 return ok (orderConfirmed.render(c, order));
 }
@@ -187,6 +189,9 @@ return ok (orderConfirmed.render(c, order));
         Customer c = getCurrentUser();
         c.getBasket().removeAllItems();
         c.getBasket().update();
+
+         // Set a success message in temporary flash
+        flash("success", "Basket has been emptied" );
         
         return ok(basket.render(c));
     }
@@ -244,6 +249,9 @@ return ok (orderConfirmed.render(c, order));
 
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
+
+	 // Set a success message in temporary flash
+        flash("success", "Order has been Cancelled" );
 
           return orderHistory();
     } 

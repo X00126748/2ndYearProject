@@ -17,7 +17,7 @@
 			  </div>
 		} 
 
-        <h3>Current Orders</h3>
+        <h3>Current Stock Orders</h3>
 
         @for(o <- currentOrders) {
 
@@ -32,6 +32,7 @@
 				<th>Item Price</th>
 				<th>Quantity</th>
                 <th>Total</th>
+		<th>Supplier</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -45,6 +46,7 @@
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>@i.getQuantity()</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+			<td>@i.getProduct.getSupplier.getName</td>
                     </tr>
                     }<!-- End of For loop -->
               }
@@ -65,7 +67,7 @@
 
         }
 
-         <h3>Previous Orders</h3>
+         <h3>Previous Stock Orders</h3>
 
 
          @for(o <- previousOrders) {
@@ -81,6 +83,7 @@
 				<th>Item Price</th>
 				<th>Quantity</th>
                 <th>Total</th>
+<th>Supplier</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -94,6 +97,7 @@
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>@i.getQuantity()</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+			<td>@i.getProduct.getSupplier.getName</td>
                     </tr>
                     }<!-- End of For loop -->
               }

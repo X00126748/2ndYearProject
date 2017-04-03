@@ -20,7 +20,7 @@ public class Administrator extends User{
     private StockBasket stockbasket;
 
    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-   private List<StockOrder> orders;
+   private List<StockOrder> stockOrders;
 	
 
 	public Administrator() {
@@ -41,12 +41,12 @@ public class Administrator extends User{
         this.stockbasket = stockbasket;
     }
 
-    public List<StockOrder> getOrders() {
-        return orders;
+    public List<StockOrder> getStockOrders() {
+        return stockOrders;
     }
 
-    public void setOrders(List<StockOrder> orders) {
-        this.orders = orders;
+    public void setStockOrders(List<StockOrder> stockOrders) {
+        this.stockOrders = stockOrders;
     }
 	
 } 

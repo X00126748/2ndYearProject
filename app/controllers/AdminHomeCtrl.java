@@ -246,12 +246,28 @@ public class AdminHomeCtrl extends Controller {
 
         List<ShopOrder> ordersList = new ArrayList<ShopOrder>();
 
-         
-            // Get the list of ALL products with filter
+       // Get the list of ALL orders
             ordersList = ShopOrder.findAll();
+
+	List<ShopOrder> currentOrders = new ArrayList<ShopOrder>();
+        List<ShopOrder> previousOrders = new ArrayList<ShopOrder>();
         
+	
+        for (ShopOrder o: ordersList){
+
+            if (o.getOrderStatus().equals("Processing Order")){
+
+              currentOrders.add(o);
+
+		} else { 
+
+              previousOrders.add(o);
+
+		}
+ 
+			}	
         // Render the list orders view, passing parameters
-        return ok(orders.render(ordersList, getCurrentUser()));
+        return ok(orders.render(currentOrders,previousOrders, getCurrentUser()));
     } 
 
 
@@ -264,11 +280,30 @@ public class AdminHomeCtrl extends Controller {
          
             // Get the list of ALL products with filter
             ordersList = StockOrder.findAll();
+
+	List<StockOrder> currentOrders = new ArrayList<StockOrder>();
+        List<StockOrder> previousOrders = new ArrayList<StockOrder>();
+        
+	   for (StockOrder o: ordersList){
+
+            if (o.getOrderStatus().equals("Processing Order")){
+
+              currentOrders.add(o);
+
+		} else { 
+
+              previousOrders.add(o);
+
+		}
+ 
+			}	
         
         // Render the list orders view, passing parameters
-        return ok(stockOrders.render(ordersList, getCurrentUser()));
+        return ok(stockOrders.render(currentOrders,previousOrders, getCurrentUser()));
     } 
       
+
+
     @Transactional
     public Result setOrderForDelivery(Long id) {
 
@@ -294,6 +329,8 @@ for (OrderItem i: order.getItems()){
 
 }
 
+         // Set a success message in temporary flash
+        flash("success", "Order has been set for delivery" );
 
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
@@ -317,6 +354,9 @@ for (OrderItem i: order.getItems()){
 
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
+
+          // Set a success message in temporary flash
+        flash("success", "Stock Order has arrived" );
 
           return stockOrders();
     } 

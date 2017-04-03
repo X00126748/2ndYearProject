@@ -3,7 +3,7 @@
 @import models.products._
 @import models.stock._
 @import models.users.User
-@(ordersList: List[StockOrder], user: User)
+@(currentOrders: List[StockOrder], previousOrders: List[StockOrder], user: User)
 
 <!-- Pass page title and user on to main -->
 @productAdmin.main("Current Orders", user) {
@@ -18,7 +18,11 @@
 			  </div>
 		} 
 
-        @for(o <- ordersList) {
+
+	 <h3>Current Stock Orders</h3>
+	 @for(o <- currentOrders) {
+
+
 
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
@@ -29,10 +33,11 @@
 				<th>Item Price</th>
 				<th>Quantity</th>
                 <th>Total</th>
+		<th>Supplier</th>
 			</tr>
 			</thead>
 			<tbody>
-                @if(ordersList!= null) {
+                @if(currentOrders != null) {
 
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- o.getItems) {
@@ -42,6 +47,7 @@
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>@i.getQuantity()</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+			<td>@i.getProduct.getSupplier.getName</td>
                     </tr>
                     }<!-- End of For loop -->
               }
@@ -49,24 +55,75 @@
 		</table>
         <div class="row">
             <div class="col-md-12">
-		
-                <p ><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
-                <p ><strong>Order Date: @o.getOrderDate</strong></p>
+                <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+                <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
-                 
-                @if(o.getOrderStatus == "Processing Order"){
+
+                 @if(o.getOrderStatus == "Processing Order"){
                  <p class="text-right"><a href="@routes.AdminHomeCtrl.setStockOrderForDelivery(o.getId())">
 				<button class="btn btn-primary">Complete Order</button>
 			</a></p>
                 
                  }
             </div>  
-  
 
         
         </div>
-          <hr>
+      <hr>
+
         }
+
+
+	 <h3>Previous Stock Orders</h3>
+
+
+         @for(o <- previousOrders) {
+
+        
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Item Price</th>
+				<th>Quantity</th>
+                <th>Total</th>
+		<th>Supplier</th>
+			</tr>
+			</thead>
+			<tbody>
+                @if(previousOrders != null) {
+
+                    <!-- Start of For loop - For each p in products add a row -->
+                    @for(i <- o.getItems) {
+                    <tr>
+                        <td>@i.getProduct.getName</td>
+                        <td>@i.getProduct.getDescription</td>
+                        <td>&euro; @("%.2f".format(i.getPrice))</td>
+                        <td>@i.getQuantity()</td>
+                        <td>&euro; @("%.2f".format(i.getItemTotal))</td>
+			<td>@i.getProduct.getSupplier.getName</td>
+                    </tr>
+                    }<!-- End of For loop -->
+              }
+			</tbody>
+		</table>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+                <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
+                <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
+            </div>  
+
+        
+        </div>
+    <hr>
+        }
+
+
+
         </div>
 </div>
 }
