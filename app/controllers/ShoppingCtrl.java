@@ -173,6 +173,7 @@ order.update();
 c.getBasket().setBasketItems(null);
 c.getBasket().update();
 
+
 return ok (orderConfirmed.render(c, order));
 }
 
