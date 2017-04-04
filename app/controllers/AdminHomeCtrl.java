@@ -394,9 +394,24 @@ for (OrderItem i: order.getItems()){
         ordersTop3.add(customersOrders.get(0));
 	ordersTop3.add(customersOrders.get(1));
 	ordersTop3.add(customersOrders.get(2));
+
+        List<ForumMessage> custMostLiked = new ArrayList<ForumMessage>();
+        custMostLiked = ForumMessage.findMostLiked();
+	List<ForumMessage> likesTop3 = new ArrayList<ForumMessage>();
+        likesTop3.add(custMostLiked.get(0));
+	likesTop3.add(custMostLiked.get(1));
+	likesTop3.add(custMostLiked.get(2));
+       
+	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
+        custMostDisiked = ForumMessage.findMostDisliked();
+	List<ForumMessage> dislikesTop3 = new ArrayList<ForumMessage>();
+        dislikesTop3.add(custMostDisiked.get(0));
+	dislikesTop3.add(custMostDisiked.get(1));
+	dislikesTop3.add(custMostDisiked.get(2));
+       
        
 
-        return ok(reports.render(env,bestSellersTop3,lowSellersTop3, ordersTop3,  getCurrentUser()));
+        return ok(reports.render(env,bestSellersTop3,lowSellersTop3, ordersTop3, likesTop3, dislikesTop3, getCurrentUser()));
     } 
 
         // Get reports

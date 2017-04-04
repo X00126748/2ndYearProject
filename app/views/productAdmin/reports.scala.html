@@ -1,7 +1,7 @@
 @import models.products.Category
 @import models.products.Product
 @import models.users._
-@(env: play.api.Environment, bestSellersTop3: List[Product], lowSellersTop3: List[Product], ordersTop3: List[Customer], user: models.users.User)
+@(env: play.api.Environment, bestSellersTop3: List[Product], lowSellersTop3: List[Product], ordersTop3: List[Customer], likesTop3: List[ForumMessage], dislikesTop3: List[ForumMessage], user: models.users.User)
 @productAdmin.main("Reports", user) {
 
  <!-- HTML content for the error view -->
@@ -29,7 +29,9 @@
                                 </li>
 				<li><a href="#loyal" data-toggle="tab">Highest Loyality Points</a>
                                 </li>
-                                <li><a href="#settings" data-toggle="tab">Settings</a>
+                                <li><a href="#likes" data-toggle="tab">Most Liked Posts</a>
+                                </li>
+				 <li><a href="#dislikes" data-toggle="tab">Most Disliked Posts</a>
                                 </li>
                             </ul>
 
@@ -419,10 +421,72 @@
                                 </div>				
 
 
-                                <div class="tab-pane fade" id="settings">
-                                    <h4>Settings Tab</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <div class="tab-pane fade" id="likes">
+                                    <h4>Most Liked Posts</h4>
+                                    @for(m <- likesTop3) {
+                                   <div class="col-sm-4 col-lg-4 col-md-4">
+                                 
+<!-- Left-aligned media object -->
+  <div class="media">
+    <div class="media-left">
+	@if(env.resource("public/images/userIcons/" + m.getUser.getName + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getName).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+      
+      <p>@m.getUser.getRole</p>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">@m.getUser.getName</h4>
+	<h5>Subject: @m.getSubject</h5>
+      <p>@m.getMessageContent</p>
+      <p>@m.getMessageDate</p>
+    </div>
+ <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
+  </div>
+  <hr>
+  
+                                
+                                 </div>
+					}
+				 </div>
+
+				 <div class="tab-pane fade" id="dislikes">
+                                    <h4>Most Disliked Posts</h4>
+                                   @for(m <- dislikesTop3) {
+                                   <div class="col-sm-4 col-lg-4 col-md-4">
+                                 
+<!-- Left-aligned media object -->
+  <div class="media">
+    <div class="media-left">
+	@if(env.resource("public/images/userIcons/" + m.getUser.getName + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getName).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+      
+      <p>@m.getUser.getRole</p>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">@m.getUser.getName</h4>
+	<h5>Subject: @m.getSubject</h5>
+      <p>@m.getMessageContent</p>
+      <p>@m.getMessageDate</p>
+    </div>
+ <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
+  </div>
+  <hr>
+  
+                                
+                                 </div>
+					}
                                 </div>
+
                             </div>
                         </div>
                         <!-- /.panel-body -->

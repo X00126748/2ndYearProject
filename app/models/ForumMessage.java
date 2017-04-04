@@ -64,6 +64,18 @@ public class ForumMessage extends Model {
         return ForumMessage.find.all();
     }
 
+     public static List<ForumMessage> findMostLiked() {
+        return ForumMessage.find.where()
+                        .orderBy("likes desc")
+                        .findList();
+    }
+
+     public static List<ForumMessage> findMostDisliked() {
+        return ForumMessage.find.where()
+                        .orderBy("dislikes desc")
+                        .findList();
+    }
+
     public Long getId() {
         return id;
     }
