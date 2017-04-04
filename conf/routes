@@ -98,6 +98,8 @@ GET     /Admin/stockOrders                 controllers.AdminHomeCtrl.stockOrders
 # Product Administration
 GET		/Admin						        controllers.AdminProductCtrl.index()
 
+GET     /Admin/product/:id                    controllers.AdminProductCtrl.product(id: Long)
+
 GET     /Admin/listProducts                 controllers.AdminProductCtrl.listProducts(cat:Long ?= 0, filter?="")
 #GET     /Admin/listProducts/:cat            controllers.AdminProductCtrl.listProducts(cat: Long)
 

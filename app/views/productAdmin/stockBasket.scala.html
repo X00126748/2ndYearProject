@@ -29,8 +29,7 @@
 				<th>Quantity</th>
                 <th>dec.</th>
                 <th>inc.</th>
-                <th>Size</th>
-                <th>Size Value</th>
+                <th>Supplier</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -45,41 +44,7 @@
                         <td>@i.getQuantity()</td>
                         <td><a href="@routes.StockCtrl.removeOne(i.getId)"><span class="glyphicon glyphicon-minus-sign"></span></a></td>
                         <td><a href="@routes.StockCtrl.addOne(i.getId)"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
-
-                        <td>
-                     @if(i.getProduct().checkIfShoe() == true) {
-
-
-			<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Size
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "1")">1</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "2")">2</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "3")">3</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "4")">4</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "5")">5</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "6")">6</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "7")">7</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "8")">8</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "9")">9</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "10")">10</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "11")">11</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "12")">12</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "13")">13</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "14")">14</a></li>
-      <li><a href="@routes.StockCtrl.setItemSize(i.getId, "15")">15</a></li>
-    </ul>
-  </div>
-			} else {
-                    <a href="@routes.StockCtrl.setItemSize(i.getId, "Small")" class="btn btn-info btn-sm">
-                    S</a>
-                    <a href="@routes.StockCtrl.setItemSize(i.getId, "Medium")" class="btn btn-info btn-sm">
-                    M</a>
-                     <a href="@routes.StockCtrl.setItemSize(i.getId, "Large")" class="btn btn-info btn-sm">
-                    L</a>
-                       } </td>
-                        <td>@i.getSize()</td>
+			<td>@i.getProduct.getSupplier.getName</td>
 
                        </tr>
                     }<!-- End of For loop -->

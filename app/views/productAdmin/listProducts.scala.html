@@ -55,7 +55,7 @@
 				}
 			<div class="caption">
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
-				<h3><a href="#">@p.getName</a>
+				<h3><a href="@routes.AdminProductCtrl.product(p.getId)">@p.getName</a>
 				</h3>
 				<a href="@routes.HomeController.viewReview(p.getId)"
 				<p class="pull-right">
@@ -167,6 +167,7 @@
                                 </p>
 				}
 				<p>
+ <a href="@routes.StockCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 @if(user != null) {
 		<a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
 					<!-- Delete product button -->
@@ -176,7 +177,7 @@
 					}
 
 </p>
-				 <p> Add to Stock Cart <a href="@routes.StockCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				 
 				<p>@p.getDescription</p>
 			        <p>Stock: @p.getStock</p>
 				<p>Amount Sold: @p.getAmountSold</p>

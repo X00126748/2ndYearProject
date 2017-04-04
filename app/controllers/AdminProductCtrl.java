@@ -376,6 +376,19 @@ public class AdminProductCtrl extends Controller {
     }
 
 
+        @Transactional
+    public Result product(Long id) {
+         // Retrieve the product by id
+        Product p = Product.find.byId(id);
+
+        List<Review> reviews = p.getReviews();
+    
+
+        return ok(product.render(env, p, reviews, User.getLoggedIn(session().get("email"))));
+    }
+     
+
+
       
 
 
