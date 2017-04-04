@@ -24,14 +24,17 @@ public class Customer extends User{
 @Constraints.Required
     private String country;
     
-    
+     private int numOfOrders;
+
+
+
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Basket basket;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ShopOrder> orders;
 	
-	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country)
+	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country, int numOfOrders)
 	{
 		super(email, role, name, password);
         this.street1 = street1;
@@ -39,13 +42,18 @@ public class Customer extends User{
         this.town = town;
         this.postCode = postCode;
         this.country = country;
-		
+	this.numOfOrders = numOfOrders;	
 	}
 
     //Generic query helper for entity Computer with id Long
     public static Finder<String,Customer> find = new Finder<String,Customer>(Customer.class);
 
-   
+    public static List<Customer> findMostOrders() {
+        return Customer.find.where()
+                        .orderBy("numOfOrders desc")
+                        .findList();
+    }
+
 
     public String getStreet1() {
         return street1;
@@ -86,6 +94,25 @@ public class Customer extends User{
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+     public int getNumOfOrders() {
+        return numOfOrders;
+    }
+
+    public void setNumOfOrders(int numOfOrders) {
+        this.numOfOrders = numOfOrders;
+    }
+
+    // Add to amount NumOfOrders
+    public void addNumOfOrders() {
+        numOfOrders += 1;
+    }
+
+
+    // Add to amount NumOfOrders
+    public void minusNumOfOrders() {
+        numOfOrders -= 1;
     }
 
 

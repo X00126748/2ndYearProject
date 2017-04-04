@@ -92,6 +92,22 @@ public class Product extends Model {
                         .findList();
     }
 
+
+     // Find all Products in the database
+    public static List<Product> findLowSellers() {
+        return Product.find.where()
+                        .orderBy("amountSold asc")
+                        .findList();
+    }
+
+    // Find all Products in the database
+    public static List<Product> findBestSellers() {
+        return Product.find.where()
+                        .orderBy("amountSold desc")
+                        .findList();
+    }
+
+
     public Long getId() {
         return id;
     }

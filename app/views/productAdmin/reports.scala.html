@@ -1,15 +1,55 @@
 @import models.products.Category
 @import models.products.Product
-@import models.users.User
-@(env: play.api.Environment, MostPopular: List[Product], LeastPopular: List[Product], ms: Product, ls: Product, user: models.users.User)
+@import models.users._
+@(env: play.api.Environment, bestSellersTop3: List[Product], lowSellersTop3: List[Product], ordersTop3: List[Customer], user: models.users.User)
 @productAdmin.main("Reports", user) {
 
  <!-- HTML content for the error view -->
   <div class="row">
 <div class="row">
 
-    <h3>Most Popular Product</h3>
-        @for(mp <- MostPopular) {
+ 
+
+          <h3>Most Orders by Customer</h3>
+          <h3>Highest loyality points</h3>
+          
+          
+          
+        <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Report Tabs
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">Home</a>
+                                </li>
+                                <li><a href="#orders" data-toggle="tab">Most Orders By Customers</a>
+                                </li>
+				<li><a href="#bestsell" data-toggle="tab">Best Sellers</a>
+                                </li>
+                                <li><a href="#lowsell" data-toggle="tab">Lowest Sellers</a>
+                                </li>
+                                <li><a href="#settings" data-toggle="tab">Settings</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="home">
+                                    <h4>Home Tab</h4>
+                                    
+                                </div>
+                                <div class="tab-pane fade" id="profile">
+                                    <h4>Profile Tab</h4>
+                                   
+                                </div>
+
+	 <div class="tab-pane fade" id="bestsell">
+                                    <h4>Best Sellers Top 3</h4>
+                                    @for(mp <- bestSellersTop3) {
            <div class="col-sm-4 col-lg-4 col-md-4">
 
             
@@ -149,6 +189,7 @@
 				 
 				<p>@mp.getDescription</p>
 			        <p>Stock: @mp.getStock</p>
+				  <p>Amount Sold: @mp.getAmountSold</p>
 
 			</div>
 
@@ -158,34 +199,34 @@
 
 		   }
 
-        }  </div>
+        } 
+                                </div>
 
+                                <div class="tab-pane fade" id="lowsell">
+                                    <h4>Lowest Sellers Top 3</h4>
+                                    @for(mp <- lowSellersTop3) {
+           <div class="col-sm-4 col-lg-4 col-md-4">
 
-        <div class="row">
+            
 
-          <h3>Least Popular Product</h3>
-          
-		 @for(lp <- LeastPopular) {
-          <div class="col-sm-4 col-lg-4 col-md-4">
-
-                 @if(lp != null) {
+             @if(mp != null) {
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + lp.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(lp.getId).jpg"/>
+				@if(env.resource("public/images/productImages/thumbnails/" + mp.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(mp.getId).jpg"/>
 				} else {
 					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
 				}
 			<div class="caption">
-				<h3 class="pull-right">&euro; @("%.2f".format(lp.getPrice))</h3>
-				<h3><a href="#">@lp.getName</a>
+				<h3 class="pull-right">&euro; @("%.2f".format(mp.getPrice))</h3>
+				<h3><a href="#">@mp.getName</a>
 				</h3>
-				<a href="@routes.HomeController.viewReview(lp.getId)"
+				<a href="@routes.HomeController.viewReview(mp.getId)"
 				<p class="pull-right">
-                                  @lp.getReviews.size() Review(s)</p>
+                                  @mp.getReviews.size() Review(s)</p>
                 </a>
        
-       @if(lp.getNumStars() == 5) {
+       @if(mp.getNumStars() == 5) {
 
                                   <p>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -196,7 +237,7 @@
                                     
                                 </p>
                 } 
-	@if(lp.getNumStars() == 4.5) {
+	@if(mp.getNumStars() == 4.5) {
 
                                   <p>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -208,7 +249,7 @@
                                 </p>
                 }
                 
-                @if(lp.getNumStars() == 4){
+                @if(mp.getNumStars() == 4){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -217,7 +258,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-		@if(lp.getNumStars() == 3.5){
+		@if(mp.getNumStars() == 3.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -226,7 +267,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(lp.getNumStars() == 3){
+                @if(mp.getNumStars() == 3){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -235,7 +276,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-		 @if(lp.getNumStars() == 2.5){
+		 @if(mp.getNumStars() == 2.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -244,7 +285,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(lp.getNumStars() == 2){
+                @if(mp.getNumStars() == 2){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -253,7 +294,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                 @if(lp.getNumStars() == 1.5){
+                 @if(mp.getNumStars() == 1.5){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
@@ -262,7 +303,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }
-                @if(lp.getNumStars() == 1){
+                @if(mp.getNumStars() == 1){
                                  <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -271,7 +312,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }   
-		@if(lp.getNumStars() == 0.5){
+		@if(mp.getNumStars() == 0.5){
                                  <p>
                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -280,7 +321,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                 </p>
                     }   
-                @if(lp.getNumStars() == 0){
+                @if(mp.getNumStars() == 0){
                                  <p>
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
@@ -290,331 +331,40 @@
                                 </p>
 				}
 				<p>
-				<p><a href="@routes.ShoppingCtrl.addToBasket(lp.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+				<p><a href="@routes.ShoppingCtrl.addToBasket(mp.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 @if(user != null) {
-		<a href="@routes.AdminProductCtrl.updateProduct(lp.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+		<a href="@routes.AdminProductCtrl.updateProduct(mp.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
 					<!-- Delete product button -->
-<a href="@routes.AdminProductCtrl.deleteProduct(lp.getId)" class="btn-xs btn-danger"
+<a href="@routes.AdminProductCtrl.deleteProduct(mp.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a>
 					}
 
 </p>
 				 
-				<p>@lp.getDescription</p>
-			        <p>Stock: @lp.getStock</p>
-
+				<p>@mp.getDescription</p>
+			        <p>Stock: @mp.getStock</p>
+				  <p>Amount Sold: @mp.getAmountSold</p>
 			</div>
 
 			</div>
             </div> <!-- end of product-->
-
-         }
-         }
-
-         </div>
-
- <div class="col-sm-4 col-lg-4 col-md-4">
-          <h3>Best Sellers</h3>
-
-           @if(ms != null) {
-			<div class="thumbnail">
-
-				@if(env.resource("public/images/productImages/thumbnails/" + ms.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(ms.getId).jpg"/>
-				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
-				}
-			<div class="caption">
-				<h3 class="pull-right">&euro; @("%.2f".format(ms.getPrice))</h3>
-				<h3><a href="#">@ms.getName</a>
-				</h3>
-				<a href="@routes.HomeController.viewReview(ms.getId)"
-				<p class="pull-right">
-                                  @ms.getReviews.size() Review(s)</p>
-                </a>
-       
-       @if(ms.getNumStars() == 5) {
-
-                                  <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    
-                                </p>
-                } 
-	@if(ms.getNumStars() == 4.5) {
-
-                                  <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    
-                                </p>
-                }
-                
-                @if(ms.getNumStars() == 4){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-		@if(ms.getNumStars() == 3.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ms.getNumStars() == 3){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-		 @if(ms.getNumStars() == 2.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                  <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ms.getNumStars() == 2){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                 @if(ms.getNumStars() == 1.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ms.getNumStars() == 1){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }   
-		@if(ms.getNumStars() == 0.5){
-                                 <p>
-                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }   
-                @if(ms.getNumStars() == 0){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-				}
-				<p>
-				<p><a href="@routes.ShoppingCtrl.addToBasket(ms.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-@if(user != null) {
-		<a href="@routes.AdminProductCtrl.updateProduct(ms.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-					<!-- Delete product button -->
-<a href="@routes.AdminProductCtrl.deleteProduct(ms.getId)" class="btn-xs btn-danger"
-						onclick="return confirmDel();">
-	<span class="glyphicon glyphicon-trash"></span></a>
-					}
-
-</p>
-				 
-				<p>@ms.getDescription</p>
-			        <p>Stock: @ms.getStock</p>
-                                <p>Amount Sold: @ms.getAmountSold</p>
-			</div>
-
-			</div>
-            </div> <!-- end of product-->
+           
 
 		   }
 
-
-
-
-          <div class="col-sm-3 col-lg-3 col-md-3">
-          <h3>Lowest Sellers</h3>
-
-           @if(ls != null) {
-			<div class="thumbnail">
-
-				@if(env.resource("public/images/productImages/thumbnails/" + ls.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(ls.getId).jpg"/>
-				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
-				}
-			<div class="caption">
-				<h3 class="pull-right">&euro; @("%.2f".format(ls.getPrice))</h3>
-				<h3><a href="#">@ls.getName</a>
-				</h3>
-				<a href="@routes.HomeController.viewReview(ls.getId)"
-				<p class="pull-right">
-                                  @ls.getReviews.size() Review(s)</p>
-                </a>
-       
-       @if(ls.getNumStars() == 5) {
-
-                                  <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    
-                                </p>
-                } 
-	@if(ls.getNumStars() == 4.5) {
-
-                                  <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    
-                                </p>
-                }
-                
-                @if(ls.getNumStars() == 4){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-		@if(ls.getNumStars() == 3.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ls.getNumStars() == 3){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-		 @if(ls.getNumStars() == 2.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                  <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ls.getNumStars() == 2){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                 @if(ls.getNumStars() == 1.5){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }
-                @if(ls.getNumStars() == 1){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }   
-		@if(ls.getNumStars() == 0.5){
-                                 <p>
-                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                    }   
-                @if(ls.getNumStars() == 0){
-                                 <p>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-				}
-				<p>
-				<p><a href="@routes.ShoppingCtrl.addToBasket(ls.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-@if(user != null) {
-		<a href="@routes.AdminProductCtrl.updateProduct(ls.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-					<!-- Delete product button -->
-<a href="@routes.AdminProductCtrl.deleteProduct(ls.getId)" class="btn-xs btn-danger"
-						onclick="return confirmDel();">
-	<span class="glyphicon glyphicon-trash"></span></a>
-					}
-
-</p>
-				 
-				<p>@ls.getDescription</p>
-			    <p>Stock: @ls.getStock</p>
-                <p>Amount Sold: @ls.getAmountSold</p>
-			</div>
-
-			</div>
-            </div> <!-- end of product-->
-
-		   }
-
-          <h3>Most Orders by Customer</h3>
-          <h3>Highest loyality points</h3>
-          
-          
-          
-        
+        } 
+                                </div>
+                                <div class="tab-pane fade" id="settings">
+                                    <h4>Settings Tab</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
     
   
 

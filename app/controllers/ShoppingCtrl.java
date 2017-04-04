@@ -173,6 +173,10 @@ order.update();
 c.getBasket().setBasketItems(null);
 c.getBasket().update();
 
+c.addNumOfOrders();
+
+c.update();
+
  // Set a success message in temporary flash
         flash("success", "Order has been Created" );
 
@@ -246,7 +250,12 @@ return ok (orderConfirmed.render(c, order));
          order.save();
 
 	 order.update();
+   
+         Customer c = getCurrentUser();
 
+         c.minusNumOfOrders();
+
+         c.update();
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
 

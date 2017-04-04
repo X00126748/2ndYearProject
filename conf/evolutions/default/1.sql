@@ -141,6 +141,7 @@ create table user (
   town                          varchar(255),
   post_code                     varchar(255),
   country                       varchar(255),
+  num_of_orders                 integer,
   constraint pk_user primary key (email)
 );
 

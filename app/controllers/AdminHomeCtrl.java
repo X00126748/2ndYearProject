@@ -371,79 +371,32 @@ for (OrderItem i: order.getItems()){
      
 	products = Product.findAll("");
      
-        List<Product> mostPopular = new ArrayList<Product>(3);
-        mostPopular.add(null);
-        mostPopular.add(null);
-	mostPopular.add(null);
-       
-	 //Product mostPopular[] = new Product[3];
 
-        //Product mostPopular = products.get(0);
-       // List<Product> leastPopular = new ArrayList<Product>();
+        // Instantiate products, an Array list of products			
+        List<Product> lowSellers = new ArrayList<Product>();
+	lowSellers = Product.findLowSellers();
+        List<Product> lowSellersTop3 = new ArrayList<Product>();
+        lowSellersTop3.add(lowSellers.get(0));
+	lowSellersTop3.add(lowSellers.get(1));
+	lowSellersTop3.add(lowSellers.get(2));
 
-        List<Product> leastPopularFind = doSelectionSort(products);
+        // Instantiate products, an Array list of products			
+        List<Product> bestSellers = new ArrayList<Product>();
+	bestSellers = Product.findBestSellers();
+        List<Product> bestSellersTop3 = new ArrayList<Product>();
+        bestSellersTop3.add(bestSellers.get(0));
+	bestSellersTop3.add(bestSellers.get(1));
+	bestSellersTop3.add(bestSellers.get(2));
 
-        List<Product> leastPopular = new ArrayList<Product>(3);
-        leastPopular.add(leastPopularFind.get(0));
-        leastPopular.add(leastPopularFind.get(1));
-	leastPopular.add(leastPopularFind.get(2));
-        
-        
-        //Product leastPopular = products.get(0);
-        int mpIndex = 0;
-	int mp2Index = 0;
-	int mp3Index = 0;
-
-        int lpIndex = 0;
-
-        Product mostSold = products.get(0);
-        Product leastSold = products.get(0);
-        int msIndex = 0;
-        int lsIndex = 0;
-        
-        for (int i=0; i < products.size(); i++) {
-        
-        if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
-           mpIndex = i;
-           mostPopular.set(0, products.get(i));
-        } 
-
-        //else if (products.get(i).getAvgStars() == products.get(mpIndex).getAvgStars()){
-         //  mp2Index = i;
-           //mostPopular.set(1, products.get(i));
-        //}
-
-        
-        if (products.get(i).getAvgStars() > products.get(mp2Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mpIndex).getAvgStars()){
-           mp2Index = i;
-           mostPopular.set(1, products.get(i));
-        } 
-
-        if (products.get(i).getAvgStars() > products.get(mp3Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mp2Index).getAvgStars()){
-           mp3Index = i;
-           mostPopular.set(2, products.get(i));
-        }
-
-       /*
-        if (products.get(i).getAvgStars() < products.get(lpIndex).getAvgStars()){
-           lpIndex = i;
-           leastPopular = products.get(i);
-        }
-
-        */
-        if (products.get(i).getAmountSold() > products.get(msIndex).getAmountSold()){
-           msIndex = i;
-           mostSold = products.get(i);
-        }
-
-        if (products.get(i).getAmountSold() < products.get(lsIndex).getAmountSold()){
-           lsIndex = i;
-           leastSold = products.get(i);
-        }
-  }
+	List<Customer> customersOrders = new ArrayList<Customer>();
+        customersOrders = Customer.findMostOrders();
+	List<Customer> ordersTop3 = new ArrayList<Customer>();
+        ordersTop3.add(customersOrders.get(0));
+	ordersTop3.add(customersOrders.get(1));
+	ordersTop3.add(customersOrders.get(2));
        
 
-        return ok(reports.render(env,mostPopular,leastPopular, mostSold, leastSold,  getCurrentUser()));
+        return ok(reports.render(env,bestSellersTop3,lowSellersTop3, ordersTop3,  getCurrentUser()));
     } 
 
         // Get reports
@@ -459,7 +412,7 @@ for (OrderItem i: order.getItems()){
         mostPopular.add(null);
         mostPopular.add(null);
 	mostPopular.add(null);
-       
+     
 	 //Product mostPopular[] = new Product[3];
 
         //Product mostPopular = products.get(0);
