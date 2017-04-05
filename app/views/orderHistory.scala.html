@@ -57,7 +57,8 @@
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
-                <p class="text-right"><a href="@routes.ShoppingCtrl.cancelOrder(o.getId())">
+                 <p class="text-right"><strong>Loyalty Points: @o.getLoyaltyPointsEarned</strong></p>
+                <p class="text-right"><a href="@routes.ShoppingCtrl.cancelOrder(o.getId(),o.getLoyaltyPointsEarned())">
 				<button class="btn btn-primary">Cancel Order</button>
 			</a></p>
             </div>  

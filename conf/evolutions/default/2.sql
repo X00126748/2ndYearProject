@@ -117,9 +117,9 @@ insert into Review(id,product_id,name,description,stars) values
 insert into user (email,name,password,role) values ( 'Aidan@products.com', 'Aidan', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'Stephen@products.com', 'Stephen', 'password', 'admin' );
 insert into user (email,name,password,role) values ( 'Jordan@products.com', 'Jordan', 'password', 'admin' );
-insert into user (email,name,password,role, num_of_orders) values ( 'customer@products.com', 'Charlie Customer', 'password', 'customer' , 0);
-insert into user (email,name,password,role, num_of_orders) values ( 'customer2@products.com', 'John Smith', 'password', 'customer',0 );
-insert into user (email,name,password,role, num_of_orders) values ( 'customer3@products.com', 'Alice Ryan', 'password', 'customer', 0 );
+insert into user (email,name,password,role, num_of_orders,loyalty_points_earned ) values ( 'customer@products.com', 'Charlie Customer', 'password', 'customer' , 0, 0);
+insert into user (email,name,password,role, num_of_orders,loyalty_points_earned ) values ( 'customer2@products.com', 'John Smith', 'password', 'customer',0, 0 );
+insert into user (email,name,password,role, num_of_orders,loyalty_points_earned ) values ( 'customer3@products.com', 'Alice Ryan', 'password', 'customer', 0, 0);
 
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?', 1, 0);
 insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 3,1);

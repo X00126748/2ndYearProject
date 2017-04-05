@@ -261,6 +261,64 @@ public class HomeController extends Controller {
         return "image file missing";	
     }
 
+
+             @Transactional
+    public Result updateAddress() {
+         
+         // Retrieve the Customer by getCurrentUser
+        Customer c = (Customer)getCurrentUser();
+        // Create a form based on the Customer class and fill using c
+        Form<Customer> customerForm = Form.form(Customer.class).fill(c);
+        // Render the updateCustomer view
+        // pass the form as a parameter
+        return ok(updateAddress.render(customerForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+    @Transactional
+    public Result updateAddressSubmit() {
+
+        // Create a Customer form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Customer> updateAddressForm = formFactory.form(Customer.class).bindFromRequest();
+
+        // Check for errors (based on Customer class annotations)	
+        if(updateAddressForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateAddress.render(updateAddressForm, getCurrentUser()));
+        }
+        
+        // Update the Customer (using its ID to select the existing object))
+        Customer c = updateAddressForm.get();
+
+        //c.setId(id);
+       
+        // update (save) this Customer           
+        c.update();
+
+        
+        // Add a success message to the flash session
+        flash("success", "Delivery Address for " + updateAddressForm.get().getName() + " has been updated");
+            
+        // Return to admin home
+        return redirect(controllers.routes.HomeController.selectcard());
+    }
+
+
+
+       @Transactional
+     public Result selectcard(){
+      // Retrieve the Customer by getCurrentUser
+        Customer c = (Customer)getCurrentUser();
+        // Create a form based on the PaymentCard class
+       List<PaymentCard> cardList = PaymentCard.findAll();
+        // Render the addPaymentCard view
+        // pass the id and form as parameters
+        
+     return ok (selectcard.render(cardList,c));
+
+   }
+
+
      // Add Review by product ID
     // called when leave review button is pressed
     @Security.Authenticated(Secured.class)

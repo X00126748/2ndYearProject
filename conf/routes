@@ -25,6 +25,9 @@ POST	/addCustomerSubmit				controllers.HomeController.addCustomerSubmit()
 GET		/updateCustomer			controllers.HomeController.updateCustomer()
 POST	/updateCustomerSubmit		controllers.HomeController.updateCustomerSubmit()
 
+GET		/updateAddress			controllers.HomeController.updateAddress()
+POST	/updateAddressSubmit		controllers.HomeController.updateAddressSubmit()
+
 GET     /deleteCustomer             controllers.HomeController.deleteCustomer()
 
 GET     /accountDetails                        controllers.HomeController.accountDetails()
@@ -35,6 +38,8 @@ GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
 POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
+
+GET     /selectcard                         controllers.HomeController.selectcard()
 
 
 # Forum
@@ -75,10 +80,11 @@ GET     /addOne/:itemId                     controllers.ShoppingCtrl.addOne(item
 GET     /removeOne/:itemId                  controllers.ShoppingCtrl.removeOne(itemId: Long)
 GET     /setItemSize/:itemId                  controllers.ShoppingCtrl.setItemSize(itemId: Long, size: String)
 GET     /emptyBasket                        controllers.ShoppingCtrl.emptyBasket()
-GET     /placeOrder                         controllers.ShoppingCtrl.placeOrder()
+GET     /placeOrder/:card                   controllers.ShoppingCtrl.placeOrder(card: String)
 GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(id: Long)
 GET     /orderHistory                        controllers.ShoppingCtrl.orderHistory()
-GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
+#GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
+GET     /cancelOrder/:id/points              controllers.ShoppingCtrl.cancelOrder(id: Long, points: Int)
 
 # Stock
 GET     /Admin/showBasket                         controllers.StockCtrl.showBasket()
@@ -93,6 +99,7 @@ GET     /Admin/orderHistory                        controllers.StockCtrl.orderHi
 GET     /Admin/cancelOrder/:id                     controllers.StockCtrl.cancelOrder(id: Long)
 GET     /Admin/setStockOrderForDelivery/:id                     controllers.AdminHomeCtrl.setStockOrderForDelivery(id: Long)
 GET     /Admin/stockOrders                 controllers.AdminHomeCtrl.stockOrders()
+
 
 
 # Product Administration

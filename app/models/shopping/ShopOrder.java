@@ -18,6 +18,8 @@ public class ShopOrder extends Model {
 
     @Id
     private Long id;
+
+    private int LoyaltyPointsEarned;
     
     private Date OrderDate;
 
@@ -92,5 +94,26 @@ public class ShopOrder extends Model {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public int getLoyaltyPointsEarned() {
+        int total = 0;
+        int temp = 0;
+        
+
+        for (OrderItem i: items) {
+            total += i.getItemTotal();
+        }
+         
+        temp = (total/10);
+         
+        LoyaltyPointsEarned = temp;
+        
+        return LoyaltyPointsEarned;
+
+        
+   }
+
+
+
 }
 

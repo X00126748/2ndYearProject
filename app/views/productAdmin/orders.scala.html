@@ -57,6 +57,8 @@
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
+                 <p class="text-right"><strong>Loyalty Points Earned: @o.getLoyaltyPointsEarned</strong></p>
+                <p class="text-right"><strong>Customer Email: @o.getCustomer.getEmail</strong></p>
 
                  @if(o.getOrderStatus == "Processing Order"){
                  <p class="text-right"><a href="@routes.AdminHomeCtrl.setOrderForDelivery(o.getId())">

@@ -2,7 +2,7 @@ package models.users;
 
 import models.shopping.Basket;
 import models.shopping.ShopOrder;
-
+import models.shopping.OrderItem;
 import javax.persistence.*;
 import java.util.List;
 import play.data.validation.*;
@@ -23,6 +23,8 @@ public class Customer extends User{
     private String postCode;
 @Constraints.Required
     private String country;
+@Constraints.Required
+    private int LoyaltyPointsEarned;
     
      private int numOfOrders;
 
@@ -34,7 +36,7 @@ public class Customer extends User{
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ShopOrder> orders;
 	
-	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country, int numOfOrders)
+	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country, int LoyaltyPointsEarned, int numOfOrders)
 	{
 		super(email, role, name, password);
         this.street1 = street1;
@@ -42,6 +44,7 @@ public class Customer extends User{
         this.town = town;
         this.postCode = postCode;
         this.country = country;
+	this.LoyaltyPointsEarned = LoyaltyPointsEarned;
 	this.numOfOrders = numOfOrders;	
 	}
 
@@ -131,4 +134,20 @@ public class Customer extends User{
     public void setOrders(List<ShopOrder> orders) {
         this.orders = orders;
     }
+
+
+    public int getLoyaltyPointsEarned() {
+        
+        return LoyaltyPointsEarned;
+    }
+
+
+
+
+    public void setLoyaltyPointsEarned(int LoyaltyPointsEarned) {
+       this.LoyaltyPointsEarned = LoyaltyPointsEarned;
+     }
+
+
+
 }

@@ -146,7 +146,7 @@ public Result showBasket(){
     }
 
     @Transactional
-    public Result placeOrder() {
+    public Result placeOrder(String cards) {
         Customer c = getCurrentUser();
         
         ShopOrder order = new ShopOrder();
@@ -163,6 +163,8 @@ for (OrderItem i: order.getItems()){
      
      i.setOrder(order);
      
+      i.setselectedCard(cards);
+
      i.setBasket(null);
 
      i.update();
@@ -172,6 +174,8 @@ order.update();
 
 c.getBasket().setBasketItems(null);
 c.getBasket().update();
+
+AddLoyaltyPoints();
 
 c.addNumOfOrders();
 
@@ -241,7 +245,7 @@ return ok (orderConfirmed.render(c, order));
  
 
         @Transactional
-    public Result cancelOrder(Long id) {
+    public Result cancelOrder(Long id, int points) {
 
          ShopOrder order = ShopOrder.find.byId(id);
 
@@ -251,6 +255,8 @@ return ok (orderConfirmed.render(c, order));
 
 	 order.update();
    
+	DeleteLoyaltyPoints(points);
+
          Customer c = getCurrentUser();
 
          c.minusNumOfOrders();
@@ -265,6 +271,56 @@ return ok (orderConfirmed.render(c, order));
           return orderHistory();
     } 
         
+
+
+	@Transactional
+    public void DeleteLoyaltyPoints(int points) {
+
+         
+         
+        Customer c = getCurrentUser();
+        int LoyaltyPointsEarned = c.getLoyaltyPointsEarned();
+        int LoyaltyPointsLost =0;
+        int pointsLeft=0;
+         
+        LoyaltyPointsLost = points;
+        pointsLeft =(LoyaltyPointsEarned - LoyaltyPointsLost);
+
+        
+        c.setLoyaltyPointsEarned(pointsLeft);
+        c.update();
+  
+         
+        
+
+     }
+
+
+
+
+         @Transactional
+    public void AddLoyaltyPoints() {
+
+        
+        Customer c = getCurrentUser();
+        int LoyaltyPointsEarned = 0;
+        
+
+
+
+        for (ShopOrder o: c.getOrders()) {
+
+            LoyaltyPointsEarned =(c.getLoyaltyPointsEarned()+ o.getLoyaltyPointsEarned()); 
+
+        }
+        
+        c.setLoyaltyPointsEarned(LoyaltyPointsEarned);
+        c.update();
+
+   }
+
+
+
 
      
 

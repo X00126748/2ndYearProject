@@ -27,6 +27,7 @@
 				<th>Item Price</th>
 				<th>Quantity</th>
                                 <th>Size</th>
+				<th>Card Number</th>
                 <th>Total</th>
 			</tr>
 			</thead>
@@ -40,6 +41,7 @@
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>@i.getQuantity()</td>
 		        <td>@i.getSize()</td>
+			<td>@i.getselectedCard()</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
                     </tr>
                     }<!-- End of For loop -->
@@ -50,6 +52,7 @@
             <div class="col-md-12">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(order.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Status: @order.getOrderStatus</strong></p>
+		<p class="text-right"><strong>Loyalty Points: @order.getLoyaltyPointsEarned</strong></p>
             </div>  
         </div>
         </div>

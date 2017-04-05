@@ -1,0 +1,80 @@
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+@(selectcard: List [PaymentCard], customer: models.users.Customer)
+<!-- addPaymentCardForm defined above is the parameter
+ passed to this view by the controller -->
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Payment Cards", customer) {
+
+	<h3>Select a Payment Card</h3>
+	
+	<div class="row">
+
+	<div class="col-md-12">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+        <h3>Registered Cards</h3>
+
+        @for(s <- selectcard) {
+
+		<table class="table table-bordered table-hover table-condensed">
+			<thead>
+			<!-- The header row-->
+			<tr>
+				<th>card number</th>
+
+			</tr>
+			</thead>
+			<tbody>
+
+                    <!-- Start of For loop - For each p in products add a row -->
+                    
+                    <tr>
+                        <td>@s.getCardNumber</td>
+                         <td> <div class="col-md-6">
+                <p class="text-right">
+                    <a href="@routes.ShoppingCtrl.placeOrder(s.getCardNumber)" class="btn btn-success btn-sm">
+                     Select card</a></td>
+                </p>
+            </div>  
+                       
+                        
+                    </tr>
+           
+			</tbody>
+
+		</table>
+        
+
+        }
+
+         <div class="row">
+            <div class="col-md-6">
+                <p class="text-right">
+                    <a href="@routes.ShoppingCtrl.showBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
+                     Cancel</a>
+                </p>
+            </div>
+               <p class="text-right">
+	                    <a href="@routes.HomeController.addPaymentCard()" class="btn btn-primary">
+                     Add new card</a></td>
+                </p>
+
+            
+        </div>
+
+
+        </div>
+</div>
+}

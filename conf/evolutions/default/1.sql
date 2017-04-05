@@ -44,12 +44,13 @@ create table order_item (
   quantity                      integer,
   price                         double,
   size                          varchar(255),
+  selected_card                 varchar(255),
   constraint pk_order_item primary key (id)
 );
 create sequence order_item_seq;
 
 create table payment_card (
-  card_number                   bigint not null,
+  card_number                   varchar(255) not null,
   expiration_month              integer,
   expiration_year               integer,
   security_code                 integer,
@@ -57,7 +58,6 @@ create table payment_card (
   customer_email                varchar(255),
   constraint pk_payment_card primary key (card_number)
 );
-create sequence payment_card_seq;
 
 create table product (
   id                            bigint not null,
@@ -85,6 +85,7 @@ create sequence review_seq;
 
 create table shop_order (
   id                            bigint not null,
+  loyalty_points_earned         integer,
   order_date                    timestamp,
   order_status                  varchar(255),
   customer_email                varchar(255),
@@ -141,6 +142,7 @@ create table user (
   town                          varchar(255),
   post_code                     varchar(255),
   country                       varchar(255),
+  loyalty_points_earned         integer,
   num_of_orders                 integer,
   constraint pk_user primary key (email)
 );
@@ -255,7 +257,6 @@ drop table if exists order_item;
 drop sequence if exists order_item_seq;
 
 drop table if exists payment_card;
-drop sequence if exists payment_card_seq;
 
 drop table if exists product;
 drop sequence if exists product_seq;
