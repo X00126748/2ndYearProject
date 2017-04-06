@@ -88,11 +88,12 @@ public class ProductCtrl extends Controller {
      * @param order Sort order (either asc or desc)
      * @param filter Filter applied on computer names
      */
-    public Result list(int page, String sortBy, String order, String filter) {
+    public Result list(int page, String sortBy, String order, String filter, Long cat) {
+       List<Category> categories = Category.findAll();
         return ok(
             productsPageSpilt.render(
-                Product.page(page, 10, sortBy, order, filter),
-                sortBy, order, filter, getCurrentUser()
+                env, categories, Product.page( page, 10, sortBy, order, filter, cat),
+                sortBy, order, filter, cat, getCurrentUser()
             )
         );
     }

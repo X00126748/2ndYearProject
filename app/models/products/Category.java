@@ -45,6 +45,7 @@ public class Category extends Model {
         return Category.find.where().orderBy("name asc").findList();
     }
 
+
 	// Generate options for an HTML select control
     public static Map<String,String> options() {
         LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();

@@ -6,7 +6,7 @@
 
 
 # Computers list (look at the default values for pagination parameters)
-GET     /productPageSplit                 controllers.ProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+GET     /productPageSplit                 controllers.ProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
 
 
 # Home page
