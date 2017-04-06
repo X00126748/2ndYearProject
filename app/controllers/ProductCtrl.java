@@ -80,6 +80,24 @@ public class ProductCtrl extends Controller {
         return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
 
+ /**
+     * Display the paginated list of computers.
+     *
+     * @param page Current page number (starts from 0)
+     * @param sortBy Column to be sorted
+     * @param order Sort order (either asc or desc)
+     * @param filter Filter applied on computer names
+     */
+    public Result list(int page, String sortBy, String order, String filter) {
+        return ok(
+            productsPageSpilt.render(
+                Product.page(page, 10, sortBy, order, filter),
+                sortBy, order, filter, getCurrentUser()
+            )
+        );
+    }
+    
+
     @Transactional
     public Result product(Long id) {
          // Retrieve the product by id

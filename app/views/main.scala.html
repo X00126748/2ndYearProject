@@ -30,6 +30,8 @@
     <!-- Icons CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
+   <link href="@routes.Assets.versioned("stylesheets/pageSpilt.css")" rel="stylesheet"> 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -68,6 +70,11 @@
                         <li>
                             <a href="@routes.ProductCtrl.listProducts(0)">Products</a>
                         </li>
+
+			 <li>
+                            <a href="@routes.ProductCtrl.list()">Alt Products</a>
+                        </li>
+
 
                         <li>
                             <a href="@routes.HomeController.forum()">Forum</a>

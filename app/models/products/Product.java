@@ -8,6 +8,7 @@ import play.data.validation.*;
 
 import com.avaje.ebean.*;
 
+
 import models.shopping.*;
 import models.products.*;
 
@@ -68,6 +69,27 @@ public class Product extends Model {
 	
 	//Generic query helper for entity Computer with id Long
     public static Finder<Long,Product> find = new Finder<Long,Product>(Product.class);
+
+
+    /**
+     * Return a page of computer
+     *
+     * @param page Page to display
+     * @param pageSize Number of computers per page
+     * @param sortBy Computer property used for sorting
+     * @param order Sort order (either or asc or desc)
+     * @param filter Filter applied on the name column
+     */
+    public static PagedList<Product> page(int page, int pageSize, String sortBy, String order, String filter) {
+        return 
+            find.where()
+                .ilike("name", "%" + filter + "%")
+            .orderBy(sortBy + " " + order)
+            .fetch("categories")
+            .findPagedList(page, pageSize);
+    }
+    
+
 
     // Find all Products in the database
     // Filter product name 
