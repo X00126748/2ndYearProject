@@ -96,7 +96,24 @@ public class AdminProductCtrl extends Controller {
         return ok(listProducts.render(env, categories, products, cat, filter, getCurrentUser()));
     }
 
-
+     /**
+     * Display the paginated list of computers.
+     *
+     * @param page Current page number (starts from 0)
+     * @param sortBy Column to be sorted
+     * @param order Sort order (either asc or desc)
+     * @param filter Filter applied on computer names
+     */
+    public Result list(int page, String sortBy, String order, String filter, Long cat) {
+       List<Category> categories = Category.findAll();
+        return ok(
+            productsPageSpilt.render(
+                env, categories, Product.page( page, 10, sortBy, order, filter, cat),
+                sortBy, order, filter, cat, getCurrentUser()
+            )
+        );
+    }
+    
 
     	// Get a list of products
     // If cat parameter is 0 then return all products

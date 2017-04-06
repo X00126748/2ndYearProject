@@ -1,0 +1,309 @@
+@import models.products.Category
+@import models.products.Product
+@import models.users.User
+@(env: play.api.Environment, categories: List[Category], currentPage: com.avaje.ebean.PagedList[Product], currentSortBy: String, currentOrder: String, currentFilter: String, catId: Long, user: User)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+    
+    var sortBy = currentSortBy
+    var order = currentOrder
+    
+    if(newSortBy != null) {
+        sortBy = newSortBy
+        if(currentSortBy == newSortBy) {
+            if(currentOrder == "asc") {
+                order = "desc"
+            } else {
+                order = "asc"
+            }
+        } else {
+            order = "asc"
+        }
+    }
+    
+    // Generate the link
+    routes.ProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
+    
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, key)">@title</a>
+    </th>
+}
+
+@productAdmin.main("Products Page", user) {
+
+     <style>
+		form {
+			margin-bottom: 1em;
+		}
+                 .sortBy {
+			margin-bottom: 1em;
+		}
+	</style>
+
+
+     
+	<div class="row">
+
+	  <div class="col-md-3">
+
+      
+
+	<div class="list-group">
+	<a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
+	@for(c <- categories) {
+		<a href="@routes.AdminProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+			}
+	</div>
+	  </div>
+
+       <div class="col-md-9">
+			@if(flash.containsKey("success")) {
+				  <div class="alert alert-success">
+					  @flash.get("success")
+				  </div>
+			}
+
+               <div id="actions">
+        
+        <form action="@link(0, "name")" method="GET">
+            <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
+            <input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
+        </form>
+     
+    </div>
+
+
+		@if(currentPage.getTotalRowCount == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
+        
+        
+                  <p>
+                  <div class="dropdown sortBy">
+    <button class="btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort By
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li>@header("name", "Product name")</li>
+      <li>@header("description", "Description")</li>
+      <li> @header("price", "Price")</li>
+      <li> @header("amountSold", "Best Sellers")</li>
+    </ul>
+  </div>
+
+Search Results for Category: @catId, Sorted By: @currentSortBy (@currentOrder), Filter: @currentFilter 
+                  </p>
+              
+                @for(p <- currentPage.getList) {
+
+                   <div class="col-sm-4 col-lg-4 col-md-4">
+			<div class="thumbnail">
+
+				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				} else {
+					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+				}
+			<div class="caption">
+				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
+				<h3><a href="@routes.AdminProductCtrl.product(p.getId)">@p.getName</a>
+				</h3>
+				<a href="@routes.HomeController.viewReview(p.getId)"
+				<p class="pull-right">
+                                  @p.getReviews.size() Review(s)</p>
+                </a>
+       
+      @if(p.getNumStars() == 5) {
+
+                                  <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    
+                                </p>
+                } 
+	@if(p.getNumStars() == 4.5) {
+
+                                  <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
+                                    
+                                </p>
+                }
+                
+                @if(p.getNumStars() == 4){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+		@if(p.getNumStars() == 3.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 3){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+		 @if(p.getNumStars() == 2.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                  <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 2){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                 @if(p.getNumStars() == 1.5){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }
+                @if(p.getNumStars() == 1){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+		@if(p.getNumStars() == 0.5){
+                                 <p>
+                                   <i class="fa fa-star-half-o" style="color: #e67e22;" aria-hidden="true"></i>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                    }   
+                @if(p.getNumStars() == 0){
+                                 <p>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+				}
+	<p>
+ <a href="@routes.StockCtrl.addToBasket(p.getId)"  class="btn btn-default btn-xs"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+@if(user != null) {
+		<a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+					<!-- Delete product button -->
+<a href="@routes.AdminProductCtrl.deleteProduct(p.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a>
+					}
+
+</p>
+				 
+				<p>@p.getDescription</p>
+				<p>Stock: @p.getStock</p>
+				<p>Amount Sold: @p.getAmountSold</p>
+
+			</div>
+
+			</div>
+            </div>
+
+
+
+
+}
+
+           </div>
+
+      @if(user != null) {
+		<div>
+			<a href="@routes.AdminProductCtrl.addProduct()">
+				<button class="btn btn-primary">Add a Product</button>
+			</a>
+		</div>
+		}
+
+        <div id="pagination" class="pagination pull-right">
+            <ul class="pagination">
+                @if(currentPage.hasPrev) {
+                    <li class="prev">
+                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                    </li>
+                } else {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                    <li class="next">
+                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                    </li>
+                } else {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        
+    }
+
+
+</div>
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+        
+}
+
+
+            

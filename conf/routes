@@ -5,8 +5,10 @@
 # https://www.playframework.com/documentation/2.5.1/JavaRouting
 
 
-# Computers list (look at the default values for pagination parameters)
+# products list (look at the default values for pagination parameters)
 GET     /productPageSplit                 controllers.ProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
+
+GET     /Admin/productPageSplit                 controllers.AdminProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
 
 
 # Home page
