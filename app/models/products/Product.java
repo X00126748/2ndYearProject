@@ -52,6 +52,8 @@ public class Product extends Model {
 
     private int	amountSold;
 
+     private double rating;
+
     // Default constructor
     public  Product() {
     }
@@ -65,6 +67,7 @@ public class Product extends Model {
         this.price = price;
         this.reviews = reviews;
         this.amountSold = amountSold;
+        this.rating = getRating();
     }
 	
 	//Generic query helper for entity Computer with id Long
@@ -320,6 +323,20 @@ public class Product extends Model {
 
         return stars;
     }
+
+
+        public double getRating() {
+
+
+        rating = getAvgStars();
+     
+        return rating;
+    }
+
+    public void setRating() {
+        this.rating = getAvgStars();
+    }
+
 
 }
 

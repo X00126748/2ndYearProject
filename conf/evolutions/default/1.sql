@@ -67,6 +67,7 @@ create table product (
   stock                         integer,
   price                         double,
   amount_sold                   integer,
+  rating                        double,
   constraint pk_product primary key (id)
 );
 create sequence product_seq;

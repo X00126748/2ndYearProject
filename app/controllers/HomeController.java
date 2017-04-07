@@ -363,6 +363,10 @@ public class HomeController extends Controller {
 
         // Save product now to set id (needed to update manytomany)
         newReview.save();
+
+        p.setRating();
+
+        p.update();
         
         // Redirect to the admin home
         return redirect(routes.ProductCtrl.listProducts(0, ""));

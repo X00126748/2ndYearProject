@@ -55,7 +55,14 @@
 
 	  <div class="col-md-3">
 
-      
+          @if(user != null) {
+		<div class="sortBy">
+			<a href="@routes.AdminProductCtrl.addProduct()">
+				<button class="btn btn-primary btn-block">Add a Product</button>
+			</a>
+		</div>
+		}
+
 
 	<div class="list-group">
 	<a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
@@ -100,6 +107,8 @@
       <li>@header("description", "Description")</li>
       <li> @header("price", "Price")</li>
       <li> @header("amountSold", "Best Sellers")</li>
+      <li> @header("rating", "Most Popular")</li>
+      
     </ul>
   </div>
 
@@ -255,15 +264,11 @@ Search Results for Category: @catId, Sorted By: @currentSortBy (@currentOrder), 
 
 }
 
+
+
            </div>
 
-      @if(user != null) {
-		<div>
-			<a href="@routes.AdminProductCtrl.addProduct()">
-				<button class="btn btn-primary">Add a Product</button>
-			</a>
-		</div>
-		}
+
 
         <div id="pagination" class="pagination pull-right">
             <ul class="pagination">

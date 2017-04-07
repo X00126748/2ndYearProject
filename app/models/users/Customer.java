@@ -27,6 +27,8 @@ public class Customer extends User{
     private int LoyaltyPointsEarned;
     
      private int numOfOrders;
+    
+   
 
 
 
@@ -45,7 +47,8 @@ public class Customer extends User{
         this.postCode = postCode;
         this.country = country;
 	this.LoyaltyPointsEarned = LoyaltyPointsEarned;
-	this.numOfOrders = numOfOrders;	
+	this.numOfOrders = numOfOrders;
+   	
 	}
 
     //Generic query helper for entity Computer with id Long
@@ -149,5 +152,6 @@ public class Customer extends User{
      }
 
 
+   
 
 }
