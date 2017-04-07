@@ -251,9 +251,25 @@ return ok (orderConfirmed.render(c, order));
 
          order.setOrderStatus("Order Cancelled");
 
-         order.save();
+         //order.save();
 
 	 order.update();
+
+        int quantity;
+
+        Product p;
+
+        for (OrderItem i: order.getItems()){
+      
+	quantity = i.getQuantity();
+
+        p = i.getProduct();
+        p.reStock(quantity);
+	p.update();
+}
+
+order.update();
+
    
 	DeleteLoyaltyPoints(points);
 

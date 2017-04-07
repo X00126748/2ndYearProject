@@ -430,7 +430,7 @@ public class HomeController extends Controller {
         flash("success", "PaymentCard has been Created" );
             
         // Return to admin home
-        return redirect(controllers.routes.HomeController.home());
+        return redirect(controllers.routes.HomeController.selectcard());
     }
 
         

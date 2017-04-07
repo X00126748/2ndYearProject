@@ -244,6 +244,20 @@ return ok (orderConfirmed.render(a, order));
 
 	 order.update();
 
+	 int quantity;
+
+        Product p;
+
+         for (StockOrderItem i: order.getItems()){
+      
+	quantity = i.getQuantity();
+
+        p = i.getProduct();
+        p.deStock(quantity);
+	p.update();
+}
+
+
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
 

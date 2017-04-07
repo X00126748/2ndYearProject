@@ -57,8 +57,17 @@ public class Customer extends User{
     public static List<Customer> findMostOrders() {
         return Customer.find.where()
                         .orderBy("numOfOrders desc")
+			.setMaxRows(3)
                         .findList();
     }
+
+    public static List<Customer> findMostPoints() {
+        return Customer.find.where()
+                        .orderBy("LoyaltyPointsEarned desc")
+			.setMaxRows(3)
+                        .findList();
+    }
+
 
 
     public String getStreet1() {

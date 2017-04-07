@@ -133,6 +133,7 @@ public class Product extends Model {
     public static List<Product> findLowSellers() {
         return Product.find.where()
                         .orderBy("amountSold asc")
+                        .setMaxRows(3)
                         .findList();
     }
 
@@ -140,8 +141,27 @@ public class Product extends Model {
     public static List<Product> findBestSellers() {
         return Product.find.where()
                         .orderBy("amountSold desc")
+			.setMaxRows(3)
                         .findList();
     }
+
+
+    // Find all Products in the database
+    public static List<Product> findLowRatings() {
+        return Product.find.where()
+                        .orderBy("rating asc")
+			.setMaxRows(3)
+                        .findList();
+    }
+
+    // Find all Products in the database
+    public static List<Product> findBestRatings() {
+        return Product.find.where()
+                        .orderBy("rating desc")
+			.setMaxRows(3)
+                        .findList();
+    }
+
 
 
     public Long getId() {
@@ -219,6 +239,18 @@ public class Product extends Model {
     public void addStock(Long amount) {
         stock += amount;
     }
+
+    // Add Stock
+    public void reStock(int amount) {
+        stock += amount;
+    }
+
+
+    // Decrease Stock
+    public void deStock(int amount) {
+        stock -= amount;
+    }
+
 
     public double getPrice() {
         return price;

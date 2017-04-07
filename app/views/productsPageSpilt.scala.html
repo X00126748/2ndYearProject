@@ -59,8 +59,14 @@
 
 	<div class="list-group">
 	<a href="@routes.ProductCtrl.list()" class="list-group-item">All categories</a>
-	@for(c <- categories) {
+
+        @for(c <- categories) {
 		<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+			}
+
+ <!-- This Categories sometimes causes error when selected -->
+	@for(c <- categories) {
+		<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" @if(catId == c.getId) {class="list-group-item active"} else {class="list-group-item"}>@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 	</div>
 	  </div>
@@ -100,11 +106,11 @@
       <li>@header("description", "Description")</li>
       <li> @header("price", "Price")</li>
       <li> @header("amountSold", "Best Sellers")</li>
-       <li> @header("rating", "Most Popular")</li>
+       <li> @header("rating", "Rating")</li>
     </ul>
   </div>
 
-Search Results for Category: @catId, Sorted By: @currentSortBy (@currentOrder), Filter: @currentFilter 
+Showing the most relevant results @if(catId != 0){category:  <strong>@Category.find.byId(catId).getName() </strong>,} sorted by:  <strong>@currentSortBy (@currentOrder) </strong> @if(currentFilter != ""){, filter: <strong>"@currentFilter" </strong>} 
                   </p>
               
                 @for(p <- currentPage.getList) {

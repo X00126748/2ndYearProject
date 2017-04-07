@@ -106,6 +106,12 @@
 
             <div class="col-md-8">
 
+           @if(flash.containsKey("success")) {
+				  <div class="alert alert-success">
+					  @flash.get("success")
+				  </div>
+			}
+
                 <div class="well">
                     <h3>Customer Reviews </h3>
 
@@ -174,6 +180,11 @@
                             @r.getName()
                             <span class="pull-right">@r.getReviewDate()</span>
                             <p>@r.getDescription()</p>
+                         <!-- Delete product button -->
+<a href="@routes.AdminHomeCtrl.deleteReview(r.getId, p.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a>
+
                         </div>
                     </div>
 
@@ -192,4 +203,13 @@
 
 
         <hr>
+
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+        
 }

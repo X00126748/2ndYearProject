@@ -375,149 +375,40 @@ for (OrderItem i: order.getItems()){
         // Instantiate products, an Array list of products			
         List<Product> lowSellers = new ArrayList<Product>();
 	lowSellers = Product.findLowSellers();
-        List<Product> lowSellersTop3 = new ArrayList<Product>();
-        lowSellersTop3.add(lowSellers.get(0));
-	lowSellersTop3.add(lowSellers.get(1));
-	lowSellersTop3.add(lowSellers.get(2));
 
         // Instantiate products, an Array list of products			
         List<Product> bestSellers = new ArrayList<Product>();
 	bestSellers = Product.findBestSellers();
-        List<Product> bestSellersTop3 = new ArrayList<Product>();
-        bestSellersTop3.add(bestSellers.get(0));
-	bestSellersTop3.add(bestSellers.get(1));
-	bestSellersTop3.add(bestSellers.get(2));
+
+
+        // Instantiate products, an Array list of products			
+        List<Product> lowRatings = new ArrayList<Product>();
+	lowRatings = Product.findLowRatings();
+       
+
+        // Instantiate products, an Array list of products			
+        List<Product> bestRatings = new ArrayList<Product>();
+	bestRatings = Product.findBestRatings();
+
+        List<Customer> customersPoints = new ArrayList<Customer>();
+        customersPoints = Customer.findMostPoints();
+     
 
 	List<Customer> customersOrders = new ArrayList<Customer>();
         customersOrders = Customer.findMostOrders();
-	List<Customer> ordersTop3 = new ArrayList<Customer>();
-        ordersTop3.add(customersOrders.get(0));
-	ordersTop3.add(customersOrders.get(1));
-	ordersTop3.add(customersOrders.get(2));
+
 
         List<ForumMessage> custMostLiked = new ArrayList<ForumMessage>();
         custMostLiked = ForumMessage.findMostLiked();
-	List<ForumMessage> likesTop3 = new ArrayList<ForumMessage>();
-        likesTop3.add(custMostLiked.get(0));
-	likesTop3.add(custMostLiked.get(1));
-	likesTop3.add(custMostLiked.get(2));
+
        
 	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
         custMostDisiked = ForumMessage.findMostDisliked();
-	List<ForumMessage> dislikesTop3 = new ArrayList<ForumMessage>();
-        dislikesTop3.add(custMostDisiked.get(0));
-	dislikesTop3.add(custMostDisiked.get(1));
-	dislikesTop3.add(custMostDisiked.get(2));
-       
-       
 
-        return ok(reports.render(env,bestSellersTop3,lowSellersTop3, ordersTop3, likesTop3, dislikesTop3, getCurrentUser()));
+
+        return ok(reports.render(env,bestSellers,lowSellers, bestRatings, lowRatings, customersOrders, customersPoints,  custMostLiked, custMostDisiked, getCurrentUser()));
     } 
 
-        // Get reports
-    @Transactional
-    public Result mostPopProducts() {
-
-       // Instantiate products, an Array list of products			
-        List<Product> products = new ArrayList<Product>();
-     
-	products = Product.findAll("");
-     
-        List<Product> mostPopular = new ArrayList<Product>(3);
-        mostPopular.add(null);
-        mostPopular.add(null);
-	mostPopular.add(null);
-     
-	 //Product mostPopular[] = new Product[3];
-
-        //Product mostPopular = products.get(0);
-      
-        
-        //Product leastPopular = products.get(0);
-        int mpIndex = 0;
-	int mp2Index = 0;
-	int mp3Index = 0;
-
-        
-        for (int i=0; i < products.size(); i++) {
-        
-        if (products.get(i).getAvgStars() > products.get(mpIndex).getAvgStars()){
-           mpIndex = i;
-           mostPopular.set(0, products.get(i));
-        } 
-
-        else if (products.get(i).getAvgStars() == products.get(mpIndex).getAvgStars()){
-           mp2Index = i;
-           mostPopular.set(1, products.get(i));
-        } else if (products.get(i).getAvgStars() == products.get(mp2Index).getAvgStars()){
-           mp3Index = i;
-           mostPopular.set(2, products.get(i));
-        }
-
-
-        
-        if (products.get(i).getAvgStars() > products.get(mp2Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mpIndex).getAvgStars()){
-           mp2Index = i;
-           mostPopular.set(1, products.get(i));
-        } 
-
-        if (products.get(i).getAvgStars() > products.get(mp3Index).getAvgStars() && products.get(i).getAvgStars() < products.get(mp2Index).getAvgStars()){
-           mp3Index = i;
-           mostPopular.set(2, products.get(i));
-        }
-
-   
-  }
-       
-
-        return ok(mostPopProducts.render(env, mostPopular, getCurrentUser()));
-    } 
-
-	      // Get reports
-    @Transactional
-    public Result leastPopProducts() {
-
-       // Instantiate products, an Array list of products			
-        List<Product> products = new ArrayList<Product>();
-     
-	products = Product.findAll("");
-     
-        List<Product> leastPopularFind = doSelectionSort(products);
-
-        List<Product> leastPopular = new ArrayList<Product>(3);
-        leastPopular.add(leastPopularFind.get(0));
-        leastPopular.add(leastPopularFind.get(1));
-	leastPopular.add(leastPopularFind.get(2));
-       
-
-        return ok(leastPopProducts.render(env, leastPopularFind, getCurrentUser()));
-    } 
-
-
-       public static List<Product> doSelectionSort(List<Product> arr){
-         
-        int min;
-    for (int i = 0; i < arr.size(); i++) {
-        // Assume first element is min
-        min = i;
-        for (int j = i + 1; j < arr.size(); j++) {
-            if (arr.get(j).getAvgStars() < arr.get(min).getAvgStars()) {
-                min = j;
-
-            }
-        }
-       
-            if (min != i){
-            Product temp = arr.get(i);
-            arr.set(min, arr.get(i));
-            arr.set(i, temp);
-        }
-
-	}
-
-       return arr;
-     
-    }
 
 
     @Transactional
@@ -577,6 +468,28 @@ for (OrderItem i: order.getItems()){
     }
 
 
+	
+    // Delete Product
+    @Transactional
+    public Result deleteReview(Long id, Long product) {
+        // Call delete method
+        Review.find.ref(id).delete();
+
+        // Retrieve the product by id
+        Product p = Product.find.byId(product);
+
+        p.setRating();
+
+        p.update();
+        
+        // Add message to flash session 
+        flash("success", "Review has been deleted");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.product(product));
+    }
+
+    
+
          @Transactional
          public Result forum() {
 
@@ -587,6 +500,10 @@ for (OrderItem i: order.getItems()){
     
         return ok(forum.render(env, messages, getCurrentUser()));
     }
+
+
+
+
     
 
 }
