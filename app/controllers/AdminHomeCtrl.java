@@ -11,10 +11,14 @@ import play.mvc.Http.*;
 import play.mvc.Http.MultipartFormData.FilePart;
 
 import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import play.Logger;
+import java.util.Date;
+
+
 
 // File upload and image editing dependencies
 import org.im4java.core.ConvertCmd;
@@ -503,6 +507,40 @@ for (OrderItem i: order.getItems()){
 
 
 
+    public Result printToFile() {
+
+	 File outFile = new File("files/DislikedPosts", "Dislikes " + new Date() +".txt");        
+       
+
+	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
+        custMostDisiked = ForumMessage.findMostDisliked();
+
+        
+
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nMost Disliked Posts " + new Date());
+            for (ForumMessage m : custMostDisiked){
+            bWriter.write("\n********************");
+	    bWriter.write("\nUser: " + m.getUser().getName());
+            bWriter.write("\nSubject: " + m.getSubject());
+            bWriter.write("\nMessage: " + m.getMessageContent());
+	    bWriter.write("\nDate: " + m.getMessageDate());
+	    bWriter.write("\nLikes: " + m.getLikes());
+            bWriter.write("\nDislikes: " + m.getDislikes());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+
+	 return reports();
+
+    }
+
+ 
 
     
 

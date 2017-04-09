@@ -66,7 +66,9 @@
 
  <!-- This Categories sometimes causes error when selected -->
 	@for(c <- categories) {
-		<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" @if(catId == c.getId) {class="list-group-item active"} else {class="list-group-item"}>@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+         @if(catId == c.getId) {
+		<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item active"> @c.getName <span class="badge">@c.getProducts.size()</span> </a>
+} else {<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>}
 			}
 	</div>
 	  </div>

@@ -154,6 +154,8 @@ GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHome
 
 GET     /Admin/reports                controllers.AdminHomeCtrl.reports()
 
+GET     /Admin/printToFile             controllers.AdminHomeCtrl.printToFile()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
