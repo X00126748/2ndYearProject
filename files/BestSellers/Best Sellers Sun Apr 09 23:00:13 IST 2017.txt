@@ -1,0 +1,23 @@
+
+Best Sellers Sun Apr 09 23:00:14 IST 2017
+********************
+Product Name: Nike T-Shirt
+Price: 40.0
+Description: Mens Black Basketball Top
+Stock: 50
+Amount Sold: 0
+Rating: 4.0
+********************
+Product Name: Nike T-Shirt
+Price: 35.0
+Description: Mens Bring Your Game Basketball Top
+Stock: 50
+Amount Sold: 0
+Rating: 4.5
+********************
+Product Name: Nike T-Shirt
+Price: 35.0
+Description: Mens Black & White Basketball Top
+Stock: 50
+Amount Sold: 0
+Rating: 4.0

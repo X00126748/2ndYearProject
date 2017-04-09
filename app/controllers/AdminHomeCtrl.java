@@ -506,16 +506,223 @@ for (OrderItem i: order.getItems()){
     }
 
 
+        public Result printBestSellers() {
 
-    public Result printToFile() {
+	 File outFile = new File("files/BestSellers", "Best Sellers " + new Date() +".txt");        
 
-	 File outFile = new File("files/DislikedPosts", "Dislikes " + new Date() +".txt");        
+
+        // Instantiate products, an Array list of products			
+        List<Product> BestSellers = new ArrayList<Product>();
+	BestSellers = Product.findBestSellers();
        
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nBest Sellers " + new Date());
+            for (Product p : BestSellers){
+            bWriter.write("\n********************");
+	    bWriter.write("\nProduct Name: " + p.getName());
+            bWriter.write("\nPrice: " + p.getPrice());
+            bWriter.write("\nDescription: " + p.getDescription());
+            bWriter.write("\nStock: " + p.getStock());
+            bWriter.write("\nAmount Sold: " + p.getAmountSold());
+	    bWriter.write("\nRating: " + p.getRating());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Best Sellers have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+       public Result printWorstSellers() {
+
+	 File outFile = new File("files/WorstSellers", "Worst Sellers " + new Date() +".txt");        
+
+
+        // Instantiate products, an Array list of products			
+        List<Product> WorstSellers = new ArrayList<Product>();
+	WorstSellers = Product.findLowSellers();
+       
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nWorst Sellers " + new Date());
+            for (Product p : WorstSellers){
+            bWriter.write("\n********************");
+	    bWriter.write("\nProduct Name: " + p.getName());
+            bWriter.write("\nPrice: " + p.getPrice());
+            bWriter.write("\nDescription: " + p.getDescription());
+            bWriter.write("\nStock: " + p.getStock());
+            bWriter.write("\nAmount Sold: " + p.getAmountSold());
+	    bWriter.write("\nRating: " + p.getRating());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Worst Sellers have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+
+       public Result printHighestRated() {
+
+	 File outFile = new File("files/HighestRated", "Highest Rated " + new Date() +".txt");        
+
+
+        // Instantiate products, an Array list of products			
+        List<Product> HighestRated = new ArrayList<Product>();
+	HighestRated = Product.findBestRatings();
+       
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nHighest Rated " + new Date());
+            for (Product p : HighestRated){
+            bWriter.write("\n********************");
+	    bWriter.write("\nProduct Name: " + p.getName());
+            bWriter.write("\nPrice: " + p.getPrice());
+            bWriter.write("\nDescription: " + p.getDescription());
+            bWriter.write("\nStock: " + p.getStock());
+            bWriter.write("\nAmount Sold: " + p.getAmountSold());
+	    bWriter.write("\nRating: " + p.getRating());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Highest Rated have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+public Result printLowestRated() {
+
+	 File outFile = new File("files/LowestRated", "Lowest Rated " + new Date() +".txt");        
+
+
+        // Instantiate products, an Array list of products			
+        List<Product> LowestRated = new ArrayList<Product>();
+	LowestRated = Product.findLowRatings();
+       
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nLowest Rated " + new Date());
+            for (Product p : LowestRated){
+            bWriter.write("\n********************");
+	    bWriter.write("\nProduct Name: " + p.getName());
+            bWriter.write("\nPrice: " + p.getPrice());
+            bWriter.write("\nDescription: " + p.getDescription());
+            bWriter.write("\nStock: " + p.getStock());
+            bWriter.write("\nAmount Sold: " + p.getAmountSold());
+	    bWriter.write("\nRating: " + p.getRating());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Lowest Rated have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+
+
+public Result printMostOrders() {
+
+	 File outFile = new File("files/MostOrders", "Most Orders " + new Date() +".txt");        
+
+
+        List<Customer> MostOrders = new ArrayList<Customer>();
+        MostOrders = Customer.findMostOrders();
+
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nMost Orders " + new Date());
+            for (Customer c : MostOrders){
+            bWriter.write("\n********************");
+	    bWriter.write("\nCustomer: " + c.getName());
+            bWriter.write("\nEmail: " + c.getEmail());
+            bWriter.write("\nOrders Made: " + c.getNumOfOrders());
+	    bWriter.write("\nLoyalty Points: " + c.getLoyaltyPointsEarned());
+
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Most Orders have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+
+ public Result printMostLoyaltyPoints() {
+
+	 File outFile = new File("files/MostLoyaltyPoints", "Most Loyalty Points " + new Date() +".txt");        
+
+
+        List<Customer> MostLoyaltyPoints = new ArrayList<Customer>();
+        MostLoyaltyPoints = Customer.findMostPoints();
+
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nMost Loyalty Points " + new Date());
+            for (Customer c : MostLoyaltyPoints){
+            bWriter.write("\n********************");
+	    bWriter.write("\nCustomer: " + c.getName());
+            bWriter.write("\nEmail: " + c.getEmail());
+            bWriter.write("\nOrders Made: " + c.getNumOfOrders());
+	    bWriter.write("\nLoyalty Points: " + c.getLoyaltyPointsEarned());
+
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Most Loyalty Points have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
+
+
+
+    public Result printDislikedPosts() {
+
+	 File outFile = new File("files/DislikedPosts", "Most Disliked Posts " + new Date() +".txt");        
 
 	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
         custMostDisiked = ForumMessage.findMostDisliked();
-
-        
 
          try (BufferedWriter bWriter = new BufferedWriter
             (new FileWriter((outFile)))) {
@@ -535,11 +742,44 @@ for (OrderItem i: order.getItems()){
             System.out.println("Problem: " + ex.getMessage());
         }
 
-
-	 return reports();
+        // Add message to flash session 
+        flash("success", "Disliked Posts have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
 
     }
 
+              public Result printLikedPosts() {
+
+	 File outFile = new File("files/LikedPosts", "Most Liked Posts " + new Date() +".txt");        
+
+	List<ForumMessage> custLikedPosts = new ArrayList<ForumMessage>();
+        custLikedPosts = ForumMessage.findMostLiked();
+
+         try (BufferedWriter bWriter = new BufferedWriter
+            (new FileWriter((outFile)))) {
+	
+	    bWriter.write("\nMost Liked Posts " + new Date());
+            for (ForumMessage m : custLikedPosts){
+            bWriter.write("\n********************");
+	    bWriter.write("\nUser: " + m.getUser().getName());
+            bWriter.write("\nSubject: " + m.getSubject());
+            bWriter.write("\nMessage: " + m.getMessageContent());
+	    bWriter.write("\nDate: " + m.getMessageDate());
+	    bWriter.write("\nLikes: " + m.getLikes());
+            bWriter.write("\nDislikes: " + m.getDislikes());
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Problem: " + ex.getMessage());
+        }
+
+        // Add message to flash session 
+        flash("success", "Liked Posts have been written to file");
+        // Redirect home
+        return redirect(routes.AdminHomeCtrl.reports());
+
+    }
  
 
     

@@ -11,6 +11,12 @@
 
           
         <div class="col-lg-12">
+
+        @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             Report Tabs
@@ -194,6 +200,9 @@
 		   }
 
         } 
+
+  <a href="@routes.AdminHomeCtrl.printBestSellers()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>
 
                                 <div class="tab-pane fade" id="lowsell">
@@ -348,6 +357,8 @@
 		   }
 
         } 
+  <a href="@routes.AdminHomeCtrl.printWorstSellers()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>
 
   
@@ -504,6 +515,8 @@
 		   }
 
         } 
+  <a href="@routes.AdminHomeCtrl.printHighestRated()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>
 
                                 <div class="tab-pane fade" id="lowrating">
@@ -658,6 +671,9 @@
 		   }
 
         } 
+
+         <a href="@routes.AdminHomeCtrl.printLowestRated()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>
 
 
@@ -726,6 +742,8 @@
                             </div>
 
                           }
+        <a href="@routes.AdminHomeCtrl.printMostOrders()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>
 
 				
@@ -795,6 +813,8 @@
 
                           }
 
+<a href="@routes.AdminHomeCtrl.printMostLoyaltyPoints()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
                                 </div>				
 
 
@@ -829,6 +849,8 @@
                                 
                                  </div>
 					}
+           <a href="@routes.AdminHomeCtrl.printLikedPosts()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+
 				 </div>
 
 				 <div class="tab-pane fade" id="dislikes">
@@ -863,7 +885,7 @@
                                  </div>
 					}
 
-     <a href="@routes.AdminHomeCtrl.printToFile()" class="btn-xs btn-success btn-block"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
+     <a href="@routes.AdminHomeCtrl.printDislikedPosts()" class="btn-xs btn-success"> Write to file <span class="glyphicon glyphicon-pencil"></span></a>
                                 </div>
 
                             </div>

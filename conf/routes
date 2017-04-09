@@ -154,7 +154,22 @@ GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHome
 
 GET     /Admin/reports                controllers.AdminHomeCtrl.reports()
 
-GET     /Admin/printToFile             controllers.AdminHomeCtrl.printToFile()
+GET     /Admin/printDislikedPosts           controllers.AdminHomeCtrl.printDislikedPosts()
+
+GET     /Admin/printLikedPosts           controllers.AdminHomeCtrl.printLikedPosts()
+
+GET     /Admin/printMostLoyaltyPoints           controllers.AdminHomeCtrl.printMostLoyaltyPoints()
+
+GET     /Admin/printMostOrders           controllers.AdminHomeCtrl.printMostOrders()
+
+GET     /Admin/printLowestRated           controllers.AdminHomeCtrl.printLowestRated()
+
+GET     /Admin/printHighestRated           controllers.AdminHomeCtrl.printHighestRated()
+
+GET     /Admin/printBestSellers           controllers.AdminHomeCtrl.printBestSellers()
+
+GET     /Admin/printWorstSellers           controllers.AdminHomeCtrl.printWorstSellers()
+
 
 
 # Map static resources from the /public folder to the /assets URL path
