@@ -16,6 +16,8 @@ import play.mvc.Security;
 import play.mvc.With;
 import views.html.*;
 
+import play.api.Environment;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -27,6 +29,16 @@ import javax.inject.Inject;
 @Security.Authenticated(Secured.class)
 @With(CheckIfCustomer.class)
 public class ShoppingCtrl extends Controller {
+
+
+        /** http://stackoverflow.com/a/37024198 **/
+    private Environment env;
+
+    /** http://stackoverflow.com/a/10159220/6322856 **/
+    @Inject
+    public ShoppingCtrl(Environment e) {
+        this.env = e;
+    }
     
     // Get a user - if logged in email will be set in the session
 	private Customer getCurrentUser() {
@@ -61,13 +73,24 @@ public class ShoppingCtrl extends Controller {
 
         }
         // Show the basket contents     
-        return ok(basket.render(customer));
+        return ok(basket.render(env, customer));
     }
     
 
      @Transactional
 public Result showBasket(){
-      return ok(basket.render(getCurrentUser()));
+
+        Customer customer = (Customer)User.getLoggedIn(session().get("email"));
+        
+        // Check if item in basket
+        if (customer.getBasket() == null) {
+            // If no basket, create one
+            customer.setBasket(new Basket());
+            customer.getBasket().setCustomer(customer);
+            customer.update();
+        }
+
+      return ok(basket.render(env, getCurrentUser()));
 
 }
 
@@ -104,7 +127,7 @@ public Result showBasket(){
         c.getBasket().removeItem(item);
         c.getBasket().update();
         // back to basket
-        return ok(basket.render(c));
+        return ok(basket.render(env, c));
     }
 
 
@@ -201,7 +224,7 @@ return ok (orderConfirmed.render(c, order));
          // Set a success message in temporary flash
         flash("success", "Basket has been emptied" );
         
-        return ok(basket.render(c));
+        return ok(basket.render(env, c));
     }
 
 

@@ -170,7 +170,9 @@ GET     /Admin/printBestSellers           controllers.AdminHomeCtrl.printBestSel
 
 GET     /Admin/printWorstSellers           controllers.AdminHomeCtrl.printWorstSellers()
 
+GET     /send           controllers.MyComponent.send()
 
+GET     /sendEmail           controllers.MyComponent.sendEmail()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)

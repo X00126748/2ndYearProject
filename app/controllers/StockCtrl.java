@@ -25,6 +25,16 @@ import javax.inject.Inject;
 @Security.Authenticated(Secured.class)
 @With(CheckIfAdmin.class)
 public class StockCtrl extends Controller {
+
+        /** http://stackoverflow.com/a/37024198 **/
+    private Environment env;
+
+    /** http://stackoverflow.com/a/10159220/6322856 **/
+    @Inject
+    public StockCtrl(Environment e) {
+        this.env = e;
+    }
+    
     
     // Get a user - if logged in email will be set in the session
 	private Administrator getCurrentUser() {
@@ -59,13 +69,25 @@ public class StockCtrl extends Controller {
 
         }
         // Show the basket contents     
-        return ok(stockBasket.render(admin));
+        return ok(stockBasket.render(env, admin));
     }
     
 
      @Transactional
 public Result showBasket(){
-      return ok(stockBasket.render(getCurrentUser()));
+
+      // Get basket for logged in Administrator
+        Administrator admin = getCurrentUser();
+        
+        // Check if item in basket
+        if (admin.getStockBasket() == null) {
+            // If no basket, create one
+            admin.setStockBasket(new StockBasket());
+            admin.getStockBasket().setAdministrator(admin);
+            admin.update();
+        }
+
+      return ok(stockBasket.render(env, getCurrentUser()));
 
 }
 
@@ -102,7 +124,7 @@ public Result showBasket(){
         a.getStockBasket().removeItem(item);
         a.getStockBasket().update();
         // back to basket
-        return ok(stockBasket.render(a));
+        return ok(stockBasket.render(env, a));
     }
 
 
@@ -190,7 +212,7 @@ return ok (orderConfirmed.render(a, order));
       // Set a success message in temporary flash
         flash("success", "Stock Basket has been emptied" );
         
-        return ok(stockBasket.render(a));
+        return ok(stockBasket.render(env, a));
     }
 
 

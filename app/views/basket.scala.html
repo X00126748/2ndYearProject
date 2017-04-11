@@ -1,4 +1,4 @@
-@(customer: models.users.Customer)
+@(env: play.api.Environment, customer: models.users.Customer)
 
 @import play.api.Play.resource
 @import play.api.Play.current
@@ -22,6 +22,7 @@
 			<thead>
 			<!-- The header row-->
 			<tr>
+				<th> </th>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Item Price</th>
@@ -38,6 +39,14 @@
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- customer.getBasket().getBasketItems()) {
                     <tr>
+
+                        <td> 
+				@if(env.resource("public/images/productImages/thumbnails/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(i.getProduct.getId).jpg" style="width: 3em;" />
+				} else {
+					<img src="/assets/images/productImages/thumbnails/noImage.png" style="width: 3em;"/>
+				}
+		        </td>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription()</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
