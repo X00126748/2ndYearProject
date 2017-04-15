@@ -18,11 +18,12 @@
 			  </div>
 		} 
 
-
-          <h3>Account Details</h3> 
-
-    				@if(env.resource("public/images/userIcons/" + customer.getName + ".png").isDefined) {
-					<img src="/assets/images/userIcons/@(customer.getName).png" height="200" width="200"/>
+<div class="panel panel-success">
+	<div class="panel-heading">
+          <h4>Account Details <span class="glyphicon glyphicon-th-list"></span></h4> </div>
+          <div class="panel-body">
+    				@if(env.resource("public/images/userIcons/" + customer.getEmail + ".png").isDefined) {
+					<img src="/assets/images/userIcons/@(customer.getEmail).png" height="200" width="200"/>
 				} else {
 					<img src="/assets/images/userIcons/noImage.png" height="200" width="200"/>
 				}
@@ -32,7 +33,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th><strong>@customer.getName</strong></th>
+        <th><strong>@customer.getTitle @customer.getName @customer.getSurname</strong></th>
        
       </tr>
     </thead>
@@ -40,6 +41,10 @@
       <tr>
         <td>Email</td>
         <td>@customer.getEmail</td>
+      </tr>
+       <tr>
+        <td>Phone Number</td>
+        <td>@customer.getNumber</td>
       </tr>
       <tr>
         <td>Street1</td>
@@ -53,7 +58,10 @@
         <td>Town</td>
         <td>@customer.getTown</td>
       </tr>
-      
+      <tr>
+        <td>County</td>
+        <td>@customer.getCounty</td>
+      </tr>
       <tr>
         <td>PostCode</td>
         <td>@customer.getPostCode</td>
@@ -75,9 +83,11 @@
 				<button class="btn btn-primary">Edit Details</button>
 			</a>
                         <a href="@routes.HomeController.deleteCustomer()">
-				<button class="btn btn-danger">Delete Account</button>
+				<button class="btn btn-danger" onclick="return confirmDel();"><span class="glyphicon glyphicon-trash"></span> Delete Account</button>
 			</a>
 		</div>
+
+</div>
 
 <div class="col-md-3">
 
@@ -85,4 +95,13 @@
 
 
 </div>
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+
+
 }

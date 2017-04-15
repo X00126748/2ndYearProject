@@ -101,6 +101,18 @@ public class AdminHomeCtrl extends Controller {
      
         Administrator newAdministrator = newAdministratorForm.get();
 
+          List<User> users = User.findAll();
+
+        for (User u : users) {
+            if (newAdministrator.getEmail().equals(u.getEmail())){
+              // Add a warning message to the flash session
+        flash("warning", "Administrator email already exits");
+            
+        // Return to admin home
+        return redirect(controllers.routes.AdminHomeCtrl.addAdministrator());
+            }
+        }
+
         newAdministrator.setRole("admin");
         
         // Save Administrator now to set id ()
@@ -112,7 +124,7 @@ public class AdminHomeCtrl extends Controller {
         MultipartFormData data = request().body().asMultipartFormData();
         FilePart image = data.getFile("upload");
 
-        saveImageMsg = saveFile(newAdministrator.getName(), image);
+        saveImageMsg = saveFile(newAdministrator.getEmail(), image);
 
         // Set a success message in temporary flash
         flash("success", "Administrator " + newAdministrator.getName() + " has been created" + " " + saveImageMsg);
@@ -205,7 +217,7 @@ public class AdminHomeCtrl extends Controller {
         MultipartFormData data = request().body().asMultipartFormData();
         FilePart image = data.getFile("upload");
 
-        saveImageMsg = saveFile(a.getName(), image);
+        saveImageMsg = saveFile(a.getEmail(), image);
       
         // Add a success message to the flash session
         flash("success", "Administrator " + updateAdministratorForm.get().getName() + " has been updated" + " " + saveImageMsg);
@@ -271,7 +283,7 @@ public class AdminHomeCtrl extends Controller {
  
 			}	
         // Render the list orders view, passing parameters
-        return ok(orders.render(currentOrders,previousOrders, getCurrentUser()));
+        return ok(orders.render(env, currentOrders,previousOrders, getCurrentUser()));
     } 
 
 
@@ -303,7 +315,7 @@ public class AdminHomeCtrl extends Controller {
 			}	
         
         // Render the list orders view, passing parameters
-        return ok(stockOrders.render(currentOrders,previousOrders, getCurrentUser()));
+        return ok(stockOrders.render(env, currentOrders,previousOrders, getCurrentUser()));
     } 
       
 
@@ -338,8 +350,8 @@ for (OrderItem i: order.getItems()){
 
         // Render the list orders view, passing parameters
        // return ok(orders.render(ordersList, getCurrentUser()));
-
-          return orders();
+	 return redirect(routes.AdminHomeCtrl.orders());
+          
     } 
 
 
@@ -362,7 +374,7 @@ for (OrderItem i: order.getItems()){
           // Set a success message in temporary flash
         flash("success", "Stock Order has arrived" );
 
-          return stockOrders();
+	 return redirect(routes.AdminHomeCtrl.stockOrders());
     } 
 
         

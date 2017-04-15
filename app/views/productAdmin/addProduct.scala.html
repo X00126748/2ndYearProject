@@ -10,8 +10,34 @@ though a static HTML form would also work -->
 <!-- The page will be based on the main template -->
 @productAdmin.main("New Product", user) {
 
-	<h3>Add a new Product</h3>
-	
+
+<div class="row">
+
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	<div class="panel-heading">
+	<h4>Add a new Product</h4></div>
+	<div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.AdminProductCtrl.addProductSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
@@ -20,15 +46,16 @@ though a static HTML form would also work -->
 		@inputText(addProductForm("name"), '_label -> "Name",'class -> "form-control")
 		@inputText(addProductForm("description"), '_label -> "Description",'class -> "form-control")
 
+                <h5><strong>Categories</strong></h5>
         <!-- Checkboxes for categories - current categories for this product are checked -->
         <!-- Category.options provides a hashmap of value, name pairs -->
         @for((value, name) <- Category.options) {
             <input type="checkbox" name="catSelect[]" value="@value" />@name<br>        
         }
-
+                <br>
 		@inputText(addProductForm("stock"), '_label -> "Stock",'class -> "form-control")
-		@inputText(addProductForm("price"), '_label -> "Price",'class -> "form-control")
-
+		@inputText(addProductForm("price"), '_label -> "Retail Price",'class -> "form-control")
+		@inputText(addProductForm("supplierPrice"), '_label -> "Supplier Price",'class -> "form-control")
 		<!-- Image upload input -->
 		<label>Image</label>
     <input class="btn-sm btn-default" type="file" name="upload">
@@ -43,6 +70,20 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
 
 } <!-- End of page content -->
 

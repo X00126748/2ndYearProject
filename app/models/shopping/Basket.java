@@ -32,6 +32,8 @@ public class Basket extends Model {
 
     public void removeAllItems() {
         for(OrderItem i: this.basketItems) {
+	    i.getProduct().reStock(i.getQuantity());
+            i.getProduct().update();
             i.delete();
         }
         this.basketItems = null;

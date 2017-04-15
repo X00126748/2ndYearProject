@@ -14,7 +14,7 @@
   <div class="carousel-inner" role="listbox">
     <div class="item active">
       <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/bball1.3.jpg")" alt="Chania">
+      <img src="@routes.Assets.versioned("images/pageImages/bball1.3.jpg")" alt="JAS Basketball">
       <div class="carousel-caption">
         <h3></h3>
         <p>  </p>
@@ -24,7 +24,7 @@
 
      <div class="item">
        <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/bball2.jpg")" alt="Chania">
+      <img src="@routes.Assets.versioned("images/pageImages/bball2.jpg")" alt="JAS Basketball">
       <div class="carousel-caption">
         <h3></h3>
         <p>  </p>
@@ -35,7 +35,7 @@
 
     <div class="item">
       <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/bball5.jpg")" alt="Chania">
+      <img src="@routes.Assets.versioned("images/pageImages/bball5.jpg")" alt="JAS Basketball">
       <div class="carousel-caption">
         <h3></h3>
         <p> </p>
@@ -45,7 +45,7 @@
 
 <div class="item">
   <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/bball4.1.jpg")" alt="Chania">
+      <img src="@routes.Assets.versioned("images/pageImages/bball4.1.jpg")" alt="JAS Basketball">
       <div class="carousel-caption">
         
         <h3></h3>
@@ -108,8 +108,8 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/mensTs.jpg")" alt="Chania">
+      <a href="@routes.ProductCtrl.list(0, "", "", "", 9)"> 
+      <img src="@routes.Assets.versioned("images/pageImages/mensTs.jpg")" alt="Mens">
       <div class="carousel-caption">
         <h3></h3>
         <p>  </p>
@@ -118,8 +118,8 @@
     </div>
 
      <div class="item">
-       <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/womensTs.jpg")" alt="Chania">
+       <a href="@routes.ProductCtrl.list(0, "", "", "", 10)"> 
+      <img src="@routes.Assets.versioned("images/pageImages/womensTs.jpg")" alt="Womens">
       <div class="carousel-caption">
         <h3></h3>
         <p>  </p>
@@ -129,8 +129,8 @@
 
 
     <div class="item">
-      <a href="#">
-      <img src="@routes.Assets.versioned("images/pageImages/footwear.jpg")" alt="Chania">
+      <a href="@routes.ProductCtrl.list(0, "", "", "", 1)"> 
+      <img src="@routes.Assets.versioned("images/pageImages/footwear.jpg")" alt="Footwear">
       <div class="carousel-caption">
         <h3></h3>
         <p> </p>
@@ -139,8 +139,8 @@
     </div>
 
 <div class="item">
-  <a href="#">
-       <img src="@routes.Assets.versioned("images/pageImages/hats.jpg")" alt="Chania">
+  <a href="@routes.ProductCtrl.list(0, "", "", "", 6)"> 
+       <img src="@routes.Assets.versioned("images/pageImages/hats.jpg")" alt="Hats">
       <div class="carousel-caption">
         
         <h3></h3>
@@ -172,19 +172,19 @@
                 
             </div>
             <div class="col-sm-4">
-                <a href="@routes.ProductCtrl.listProducts(9)">
+                <a href="@routes.ProductCtrl.list(0, "", "", "", 9)">
                 <img class="img-rounded img-responsive img-center" style="width: 100%; " src="@routes.Assets.versioned("images/pageImages/shopMens.jpg")" alt="">
                 </a>
 
                 <br>
 
-                <a href="@routes.ProductCtrl.listProducts(10)">
+                <a href="@routes.ProductCtrl.list(0, "", "", "", 10)">
                 <img class="img-rounded img-responsive img-center" style="width: 100%; " src="@routes.Assets.versioned("images/pageImages/shopWomens.jpg")" alt="">
                 </a>
 
                 <br>
 
-                <a href="@routes.ProductCtrl.listProducts(0)">
+                <a href="@routes.ProductCtrl.list(0, "", "", "",0)">
                 <button type="button" class="btn btn-success btn-lg btn-block">Visit our shop</button>
                 </a>
 

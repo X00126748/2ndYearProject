@@ -10,20 +10,52 @@ though a static HTML form would also work -->
 
 <!-- The page will be based on the main template -->
 @main("Update Customer", user) {
+<div class="row">
 
-	<h3>Update Customer</h3>
-	
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	<div class="panel-heading"><h4>Update Customer <span class="glyphicon glyphicon-user"></span></h4></div>
+	<div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.HomeController.updateCustomerSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
 		@inputText(updateCustomerForm("email"), '_label -> "Email",'class -> "form-control")
-                @inputText(updateCustomerForm("name"), '_label -> "Name",'class -> "form-control")
+		 @select(
+                updateCustomerForm("title"), 
+                options(User.titleOptions), 
+                '_label -> "Title", '_default -> "-- Choose a Title--",
+                '_showConstraints -> false
+            )
+                @inputText(updateCustomerForm("name"), '_label -> "First Name",'class -> "form-control")
+		@inputText(updateCustomerForm("surname"), '_label -> "Last Name",'class -> "form-control")
 		@inputText(updateCustomerForm("password"), '_label -> "Password",'class -> "form-control")
+		@inputText(updateCustomerForm("number"), '_label -> "Phone Number",'class -> "form-control")
                 @inputText(updateCustomerForm("street1"), '_label -> "Street1",'class -> "form-control")
 		@inputText(updateCustomerForm("street2"), '_label -> "Street2",'class -> "form-control")
                 @inputText(updateCustomerForm("town"), '_label -> "Town",'class -> "form-control")
+		@inputText(updateCustomerForm("county"), '_label -> "County",'class -> "form-control")
                 @inputText(updateCustomerForm("postCode"), '_label -> "PostCode",'class -> "form-control")
                 @inputText(updateCustomerForm("country"), '_label -> "Country",'class -> "form-control")
 		
@@ -41,6 +73,21 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
+
 
 } <!-- End of page content -->
 

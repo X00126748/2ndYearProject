@@ -136,7 +136,7 @@ public class HomeController extends Controller {
         FilePart image = data.getFile("upload");
         
         // Save the image file
-        saveImageMsg = saveFile(newCustomer.getName(), image);
+        saveImageMsg = saveFile(newCustomer.getEmail(), image);
 
         // Set a success message in temporary flash
         flash("success", "Customer " + newCustomerForm.get().getName() + " has been created" + " " + saveImageMsg);
@@ -190,7 +190,7 @@ public class HomeController extends Controller {
         MultipartFormData data = request().body().asMultipartFormData();
         FilePart image = data.getFile("upload");
 
-        saveImageMsg = saveFile(c.getName(), image);
+        saveImageMsg = saveFile(c.getEmail(), image);
       
         // Add a success message to the flash session
         flash("success", "Customer " + updateCustomerForm.get().getName() + " has been updated" + " " + saveImageMsg);
@@ -355,11 +355,9 @@ public class HomeController extends Controller {
 
         newReview.setProduct(p);
 
-        User u = getCurrentUser();
+        Customer c = (Customer)getCurrentUser();
 
-        String name = u.getName();
-
-        newReview.setName(name);
+        newReview.setCustomer(c);
 
         // Save product now to set id (needed to update manytomany)
         newReview.save();

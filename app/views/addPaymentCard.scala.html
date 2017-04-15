@@ -10,19 +10,60 @@ though a static HTML form would also work -->
 <!-- The page will be based on the main template -->
 @main("New PaymentCard", user) {
 
-	<h3>Add a new PaymentCard</h3>
-	
+<div class="row">
+
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	 <div class="panel-heading"><h4>Add a new Payment Card <i class="fa fa-credit-card" aria-hidden="true"></i></h4></div>
+	<div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.HomeController.addPaymentCardSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
+
+                 @select(
+                addPaymentCardForm("type"), 
+                options(PaymentCard.cardOptions), 
+                '_label -> "Card Type", '_default -> "-- Choose a Card Type--",
+                '_showConstraints -> false
+            )
 		@inputText(addPaymentCardForm("cardNumber"), '_label -> "Card Number",'class -> "form-control")
-		@inputDate(addPaymentCardForm("expirationMonth"), '_label -> "Expiration Month",'class -> "form-control")
-                @inputDate(addPaymentCardForm("expirationYear"), '_label -> "Expiration Year",'class -> "form-control")
-		@inputText(addPaymentCardForm("securityCode"), '_label -> "Security Code",'class -> "form-control")
-		@inputText(addPaymentCardForm("type"), '_label -> "Type",'class -> "form-control")
-	
+		  @select(
+                addPaymentCardForm("expirationMonth"), 
+                options(PaymentCard.monthOptions), 
+                '_label -> "Expiration Month", '_default -> "-- Choose a Month--",
+                '_showConstraints -> false
+            )
+		 @select(
+                addPaymentCardForm("expirationYear"), 
+                options(PaymentCard.yearOptions), 
+                '_label -> "Expiration Year", '_default -> "-- Choose a Year--",
+                '_showConstraints -> false
+            )
+            
+		@inputText(addPaymentCardForm("securityCode"), '_label -> "Security Code (3 Digit Number)",'class -> "form-control", '_showConstraints -> false)
+
 		<br><br>
 
 	<!-- Add a submit button -->
@@ -33,6 +74,19 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
 
 } <!-- End of page content -->
 

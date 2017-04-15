@@ -17,6 +17,16 @@
 			      @flash.get("success")
 			  </div>
 		} 
+		@if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+		} 
+
+              <div class="panel panel-default">
+	<div class="panel-heading">
+          <h4>My Basket <span class="glyphicon glyphicon-shopping-cart"></span> </h4> </div>
+          <div class="panel-body">
 
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
@@ -41,10 +51,10 @@
                     <tr>
 
                         <td> 
-				@if(env.resource("public/images/productImages/thumbnails/" + i.getProduct.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(i.getProduct.getId).jpg" style="width: 3em;" />
+				@if(env.resource("public/images/productImages/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(i.getProduct.getId).jpg" style="width: 3em;" />
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png" style="width: 3em;"/>
+					<img src="/assets/images/productImages/noImage.png" style="width: 3em;"/>
 				}
 		        </td>
                         <td>@i.getProduct.getName</td>
@@ -60,7 +70,7 @@
 
 
 			<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Size
+    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Choose Size
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li><a href="@routes.ShoppingCtrl.setItemSize(i.getId, "1")">1</a></li>
@@ -81,11 +91,11 @@
     </ul>
   </div>
 			} else {
-                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Small")" class="btn btn-info btn-sm">
+                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Small")" class="btn btn-primary btn-xs">
                     S</a>
-                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Medium")" class="btn btn-info btn-sm">
+                    <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Medium")" class="btn btn-primary btn-xs">
                     M</a>
-                     <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Large")" class="btn btn-info btn-sm">
+                     <a href="@routes.ShoppingCtrl.setItemSize(i.getId, "Large")" class="btn btn-primary btn-xs">
                     L</a>
                        } </td>
                         <td>@i.getSize()</td>
@@ -101,13 +111,20 @@
             </div>  
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <p class="text-right">
+            <div class="col-md-4">
+                <p>
                     <a href="@routes.ShoppingCtrl.emptyBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
                     <span class="glyphicon glyphicon-trash"></span> Empty Basket</a>
                 </p>
+
             </div>  
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <p class="text-center">
+                    <a href="@routes.ProductCtrl.list()" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Return to Shop</a>
+                </p>
+            </div>  
+            <div class="col-md-4">
                 <p class="text-right">
                     <a href="@routes.HomeController.updateAddress()" class="btn btn-success btn-sm"> 
                     <span class="glyphicon glyphicon-euro"></span> Proceed</a>
@@ -115,6 +132,8 @@
             </div>  
         </div>
     </div>
+</div>
+
 </div>
 
 <script>

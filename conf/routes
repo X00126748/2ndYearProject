@@ -102,6 +102,8 @@ GET     /cancelOrder/:id/points              controllers.ShoppingCtrl.cancelOrde
 # Stock
 GET     /Admin/showBasket                         controllers.StockCtrl.showBasket()
 GET     /Admin/addToBasket/:id                    controllers.StockCtrl.addToBasket(id: Long)
+GET     /Admin/addAmountToBasket/:id              controllers.StockCtrl.addAmountToBasket(id: Long, amount:Integer ?= 0)
+GET     /Admin/addAllAmountToBasket           controllers.StockCtrl.addAllAmountToBasket(amount:Integer ?= 0)
 GET     /Admin/addOne/:itemId                     controllers.StockCtrl.addOne(itemId: Long)
 GET     /Admin/removeOne/:itemId                  controllers.StockCtrl.removeOne(itemId: Long)
 GET     /Admin/setItemSize/:itemId                  controllers.StockCtrl.setItemSize(itemId: Long, size: String)

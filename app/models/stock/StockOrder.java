@@ -48,6 +48,22 @@ public class StockOrder extends Model {
         return total;
     }
 	
+
+    public double getProfitTotal() {
+        
+        double totalS = 0;
+	double totalR = 0;
+        double result = 0;
+        
+        for (StockOrderItem i: items) {
+            totalS += i.getItemTotal();
+            totalR += i.getRetailTotal();
+        }
+
+         result = totalR - totalS;
+        return result;
+    }
+
 	//Generic query helper
     public static Finder<Long,StockOrder> find = new Finder<Long,StockOrder>(StockOrder.class);
 

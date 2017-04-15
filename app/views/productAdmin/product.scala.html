@@ -16,10 +16,10 @@
             <div class="col-md-4">
 
                 <div class="thumbnail">
-	          @if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+	          @if(env.resource("public/images/productImages/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(p.getId).jpg"/>
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+					<img src="/assets/images/productImages/noImage.jpg"/>
 				}
                     <!--<img class="img-responsive" src="http://placehold.it/800x300" alt=""> -->
                     <div class="caption-full">
@@ -177,8 +177,8 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                
 				}
-                            @r.getName()
-                            <span class="pull-right">@r.getReviewDate()</span>
+                            @r.getCustomer().getName()
+                            <span class="pull-right">@r.getReviewDate().format("dd MMM yy")</span>
                             <p>@r.getDescription()</p>
                          <!-- Delete product button -->
 <a href="@routes.AdminHomeCtrl.deleteReview(r.getId, p.getId)" class="btn-xs btn-danger"

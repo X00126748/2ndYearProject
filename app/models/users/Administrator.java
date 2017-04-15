@@ -27,9 +27,9 @@ public class Administrator extends User{
 
 	}
 
-	public Administrator(String email, String role, String name, String password)
+	public Administrator(String email, String role, String title, String name, String surname, String password)
 	{
-		super(email, role, name, password);
+		super(email,role,title, name, surname, password);
 	}
 
 

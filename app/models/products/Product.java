@@ -47,8 +47,12 @@ public class Product extends Model {
     @Constraints.Required
     private int	stock;
 
+
     @Constraints.Required
     private double price;
+
+    @Constraints.Required
+    private double supplierPrice;
 
     private int	amountSold;
 
@@ -59,12 +63,13 @@ public class Product extends Model {
     }
 
     // Constructor to initialise object
-    public  Product(Long id, String name, String description, int stock, double price, List<Review> reviews, int amountSold){
+    public  Product(Long id, String name, String description, int stock, double price, double supplierPrice, List<Review> reviews, int amountSold){
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+	this.supplierPrice = supplierPrice;
         this.reviews = reviews;
         this.amountSold = amountSold;
         this.rating = getRating();
@@ -258,6 +263,14 @@ public class Product extends Model {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getSupplierPrice() {
+        return supplierPrice;
+    }
+
+    public void setSupplierPrice(double supplierPrice) {
+        this.supplierPrice = supplierPrice;
     }
 
 

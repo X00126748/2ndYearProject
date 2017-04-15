@@ -3,7 +3,7 @@
 @import models.products._
 @import models.stock._
 @import models.users.User
-@(currentOrders: List[StockOrder], previousOrders: List[StockOrder], user: User)
+@(env: play.api.Environment,currentOrders: List[StockOrder], previousOrders: List[StockOrder], user: User)
 
 <!-- Pass page title and user on to main -->
 @productAdmin.main("Current Orders", user) {
@@ -18,8 +18,14 @@
 			  </div>
 		} 
 
+         <h4>Manage Stock Orders</h4>
 
-	 <h3>Current Stock Orders</h3>
+
+	<div class="panel panel-success">
+	<div class="panel-heading">
+	 <h4>Current Stock Orders <i class="fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i>
+<span class="sr-only">Loading...</span></h4></div>
+	<div class="panel-body">
 	 @for(o <- currentOrders) {
 
 
@@ -27,7 +33,8 @@
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
 			<!-- The header row-->
-			<tr>
+			<tr class="active">
+				<th></th>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Item Price</th>
@@ -42,6 +49,13 @@
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- o.getItems) {
                     <tr>
+			 <td>
+			@if(env.resource("public/images/productImages/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(i.getProduct.getId).jpg" style="width: 3em;" />
+				} else {
+					<img src="/assets/images/productImages/noImage.jpg" style="width: 3em;"/>
+				}
+			</td>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
@@ -54,14 +68,19 @@
 			</tbody>
 		</table>
         <div class="row">
-            <div class="col-md-12">
+	    <div class="col-md-6">
+              <p><strong>Administrator Details</strong></p>
+        	<p><strong>Name: @o.getAdministrator.getName @o.getAdministrator.getSurname</strong></p>
+		<p><strong>Email: @o.getAdministrator.getEmail</strong></p>
+            </div> 
+            <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
 
                  @if(o.getOrderStatus == "Processing Order"){
                  <p class="text-right"><a href="@routes.AdminHomeCtrl.setStockOrderForDelivery(o.getId())">
-				<button class="btn btn-primary">Complete Order</button>
+				<button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Complete Order</button>
 			</a></p>
                 
                  }
@@ -73,9 +92,13 @@
 
         }
 
+</div>
+</div>
 
-	 <h3>Previous Stock Orders</h3>
-
+	<div class="panel panel-success">
+	<div class="panel-heading">
+	 <h4>Previous Stock Orders <span class="glyphicon glyphicon-th-list"></span></h4></div>
+	<div class="panel-body">
 
          @for(o <- previousOrders) {
 
@@ -84,7 +107,8 @@
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
 			<!-- The header row-->
-			<tr>
+			<tr class="active">
+				<th></th>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Item Price</th>
@@ -99,6 +123,13 @@
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- o.getItems) {
                     <tr>
+			 <td>
+			@if(env.resource("public/images/productImages/thumbnails/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/thumbnails/@(i.getProduct.getId).jpg" style="width: 3em;" />
+				} else {
+					<img src="/assets/images/productImages/thumbnails/noImage.png" style="width: 3em;"/>
+				}
+			</td>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
@@ -111,7 +142,12 @@
 			</tbody>
 		</table>
         <div class="row">
-            <div class="col-md-12">
+	    <div class="col-md-6">
+              <p><strong>Administrator Details</strong></p>
+        	<p><strong>Name: @o.getAdministrator.getName @o.getAdministrator.getSurname</strong></p>
+		<p><strong>Email: @o.getAdministrator.getEmail</strong></p>
+            </div> 
+            <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
@@ -121,7 +157,7 @@
         </div>
     <hr>
         }
-
+</div>
 
 
         </div>

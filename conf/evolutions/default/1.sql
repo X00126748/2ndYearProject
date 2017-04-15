@@ -66,6 +66,7 @@ create table product (
   description                   varchar(255),
   stock                         integer,
   price                         double,
+  supplier_price                double,
   amount_sold                   integer,
   rating                        double,
   constraint pk_product primary key (id)
@@ -74,7 +75,7 @@ create sequence product_seq;
 
 create table review (
   id                            bigint not null,
-  name                          varchar(255),
+  customer_email                varchar(255),
   product_id                    bigint,
   description                   varchar(255),
   review_date                   timestamp,
@@ -135,12 +136,15 @@ create sequence supplier_seq;
 create table user (
   role                          varchar(255),
   email                         varchar(255) not null,
+  title                         varchar(255),
   name                          varchar(255),
+  surname                       varchar(255),
   password                      varchar(255),
-  department                    varchar(255),
+  number                        varchar(255),
   street1                       varchar(255),
   street2                       varchar(255),
   town                          varchar(255),
+  county                        varchar(255),
   post_code                     varchar(255),
   country                       varchar(255),
   loyalty_points_earned         integer,
@@ -173,6 +177,9 @@ create index ix_payment_card_customer_email on payment_card (customer_email);
 
 alter table product add constraint fk_product_supplier_id foreign key (supplier_id) references supplier (id) on delete restrict on update restrict;
 create index ix_product_supplier_id on product (supplier_id);
+
+alter table review add constraint fk_review_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
+create index ix_review_customer_email on review (customer_email);
 
 alter table review add constraint fk_review_product_id foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_review_product_id on review (product_id);
@@ -222,6 +229,9 @@ drop index if exists ix_payment_card_customer_email;
 
 alter table product drop constraint if exists fk_product_supplier_id;
 drop index if exists ix_product_supplier_id;
+
+alter table review drop constraint if exists fk_review_customer_email;
+drop index if exists ix_review_customer_email;
 
 alter table review drop constraint if exists fk_review_product_id;
 drop index if exists ix_review_product_id;

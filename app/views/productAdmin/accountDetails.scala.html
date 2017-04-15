@@ -18,11 +18,12 @@
 			  </div>
 		} 
 
-
-          <h3>Account Details</h3> 
-
-    				@if(env.resource("public/images/userIcons/" + admin.getName + ".png").isDefined) {
-					<img src="/assets/images/userIcons/@(admin.getName).png" height="200" width="200"/>
+	<div class="panel panel-success">
+	<div class="panel-heading">
+          <h4>Account Details <span class="glyphicon glyphicon-th-list"></span></h4> </div>
+	 <div class="panel-body">
+    				@if(env.resource("public/images/userIcons/" + admin.getEmail + ".png").isDefined) {
+					<img src="/assets/images/userIcons/@(admin.getEmail).png" height="200" width="200"/>
 				} else {
 					<img src="/assets/images/userIcons/noImage.png" height="200" width="200"/>
 				}
@@ -32,7 +33,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th><strong>@admin.getName</strong></th>
+        <th><strong>@admin.getTitle @admin.getName @admin.getSurname</strong></th>
        
       </tr>
     </thead>
@@ -50,9 +51,10 @@
 				<button class="btn btn-primary">Edit Details</button>
 			</a>
                         <a href="@routes.AdminHomeCtrl.deleteAdministrator()">
-				<button class="btn btn-danger">Delete Account</button>
+				<button class="btn btn-danger" onclick="return confirmDel();"><span class="glyphicon glyphicon-trash"></span> Delete Account</button>
 			</a>
 		</div>
+</div>
 
 <div class="col-md-3">
 
@@ -60,4 +62,13 @@
 
 
 </div>
+
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+
 }

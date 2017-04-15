@@ -1,4 +1,4 @@
-@(customer: models.users.Customer, order: models.shopping.ShopOrder)
+@(env: play.api.Environment, customer: models.users.Customer, order: models.shopping.ShopOrder)
 
 @import play.api.Play.resource
 @import play.api.Play.current
@@ -21,7 +21,8 @@
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
 			<!-- The header row-->
-			<tr>
+			<tr class="active">
+				<th> </th>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Item Price</th>
@@ -36,6 +37,13 @@
                     <!-- Start of For loop - For each p in products add a row -->
                     @for(i <- order.getItems) {
                     <tr>
+			<td>
+			@if(env.resource("public/images/productImages/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(i.getProduct.getId).jpg" style="width: 3em;" />
+				} else {
+					<img src="/assets/images/productImages/noImage.jpg" style="width: 3em;"/>
+				}
+			</td>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
@@ -49,7 +57,14 @@
 			</tbody>
 		</table>
         <div class="row">
-            <div class="col-md-12">
+	    <div class="col-md-6">
+              <p><strong>Customer Details</strong></p>
+        	<p><strong>Name: @order.getCustomer.getName @order.getCustomer.getSurname</strong></p>
+		<p><strong>Email: @order.getCustomer.getEmail</strong></p>
+		<p><strong>Phone Num: @order.getCustomer.getNumber</strong></p>
+		<p><strong>Address: @order.getCustomer.getStreet1, @if(order.getCustomer.getStreet2 != "") {@order.getCustomer.getStreet2,} @order.getCustomer.getTown, @if(order.getCustomer.getCounty != "") {@order.getCustomer.getCounty,} @order.getCustomer.getPostCode, @order.getCustomer.getCountry  </strong></p>
+            </div> 
+            <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(order.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Status: @order.getOrderStatus</strong></p>
 		<p class="text-right"><strong>Loyalty Points: @order.getLoyaltyPointsEarned</strong></p>

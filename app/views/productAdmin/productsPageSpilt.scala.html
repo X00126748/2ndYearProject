@@ -25,7 +25,7 @@
     }
     
     // Generate the link
-    routes.ProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
+    routes.AdminProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
     
 }
 
@@ -66,9 +66,10 @@
 
 	<div class="list-group">
 	<a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
-	@for(c <- categories) {
-		<a href="@routes.AdminProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" @if(catId == c.getId) {class="list-group-item active"} else {class="list-group-item"}>@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+	  @for(c <- categories) {
+		<a href="@routes.AdminProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
+
 	</div>
 	  </div>
 
@@ -100,7 +101,7 @@
         
                   <p>
                   <div class="dropdown sortBy">
-    <button class="btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort By
+    <button class="btn-md btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li>@header("name", "Product name")</li>
@@ -120,12 +121,12 @@ Showing the most relevant results @if(catId != 0){category:  <strong>@Category.f
                    <div class="col-sm-4 col-lg-4 col-md-4">
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				@if(env.resource("public/images/productImages/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(p.getId).jpg"/>
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+					<img src="/assets/images/productImages/noImage.jpg"/>
 				}
-			<div class="caption">
+			<div class="caption" style="height: 21em;">
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
 				<h3><a href="@routes.AdminProductCtrl.product(p.getId)">@p.getName</a>
 				</h3>
@@ -253,7 +254,7 @@ Showing the most relevant results @if(catId != 0){category:  <strong>@Category.f
 				<p>@p.getDescription</p>
 				<p>Stock: @p.getStock</p>
 				<p>Amount Sold: @p.getAmountSold</p>
-
+                                <p>Supplier Price: @p.getSupplierPrice</p>
 			</div>
 
 			</div>

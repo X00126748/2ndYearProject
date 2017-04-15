@@ -34,6 +34,8 @@ public class PaymentCard extends Model {
     private Integer expirationYear;
 
     @Constraints.Required
+   // @Constraints.Min(3)
+    //@Constraints.Max(3)
     private Integer securityCode;
 
     @Constraints.Required
@@ -71,6 +73,56 @@ public class PaymentCard extends Model {
     public static List<PaymentCard> findAll() {
         return PaymentCard.find.all();
     }
+
+
+    public static List<String> monthOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("01");
+        tmp.add("02");
+        tmp.add("03");
+	tmp.add("04");
+        tmp.add("05");
+        tmp.add("06");
+	tmp.add("07");
+        tmp.add("08");
+        tmp.add("09");
+	tmp.add("10");
+        tmp.add("11");
+        tmp.add("12");
+
+        return tmp;
+    }
+
+     public static List<String> yearOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("2017");
+        tmp.add("2018");
+        tmp.add("2019");
+	tmp.add("2020");
+        tmp.add("2021");
+        tmp.add("2022");
+	tmp.add("2023");
+        tmp.add("2024");
+        tmp.add("2025");
+	tmp.add("2026");
+        tmp.add("2027");
+        tmp.add("2028");
+
+        return tmp;
+    }
+
+    public static List<String> cardOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("Debit Card");
+        tmp.add("Credit Card");
+  
+
+        return tmp;
+    }
+
 
     public String getCardNumber() {
         return cardNumber;

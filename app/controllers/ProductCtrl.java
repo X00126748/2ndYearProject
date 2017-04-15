@@ -46,10 +46,10 @@ public class ProductCtrl extends Controller {
 
              if (u != null){
                 if (u.getRole().equalsIgnoreCase("admin")){
-                return redirect(routes.AdminProductCtrl.listProducts(0, ""));
+                return redirect(routes.AdminProductCtrl.list(0, "", "", "", 0));
 		}          	
 	     }
-		return redirect(routes.ProductCtrl.listProducts(0, ""));
+		return redirect(routes.ProductCtrl.list(0, "", "", "", 0));
 
     }
 

@@ -3,8 +3,10 @@ package models.users;
 import models.shopping.Basket;
 import models.shopping.ShopOrder;
 import models.shopping.OrderItem;
+import models.products.Review;
 import javax.persistence.*;
 import java.util.List;
+import java.util.*;
 import play.data.validation.*;
 
 @Entity
@@ -14,11 +16,17 @@ import play.data.validation.*;
 
 // Customer inherits from the User class
 public class Customer extends User{
+ 
+        @Constraints.Required
+	private String number;
 	@Constraints.Required
 	private String street1;
 	private String street2;
 @Constraints.Required
     private String town;
+
+    private String county;
+
 @Constraints.Required
     private String postCode;
 @Constraints.Required
@@ -37,13 +45,18 @@ public class Customer extends User{
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<ShopOrder> orders;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 	
-	public Customer(String email, String role, String name, String password, String street1, String street2, String town, String postCode, String country, int LoyaltyPointsEarned, int numOfOrders)
+	public Customer(String email, String role, String title, String name, String surname, String password, String number, String street1, String street2, String town, String county, String postCode, String country, int LoyaltyPointsEarned, int numOfOrders)
 	{
-		super(email, role, name, password);
+		super(email,role,title, name, surname, password);
+        this.number = number;
         this.street1 = street1;
         this.street2 = street2;
         this.town = town;
+	this.county = county;
         this.postCode = postCode;
         this.country = country;
 	this.LoyaltyPointsEarned = LoyaltyPointsEarned;
@@ -69,6 +82,47 @@ public class Customer extends User{
     }
 
 
+    public static List<String> countryOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("Austria");
+        tmp.add("Belgium");
+        tmp.add("Croatia");
+	tmp.add("Czech Republic");
+        tmp.add("Denmark");
+        tmp.add("Finland");
+	tmp.add("France");
+	tmp.add("Germany");
+        tmp.add("Greece");
+        tmp.add("Hungary");
+	tmp.add("Iceland");
+        tmp.add("Ireland");
+        tmp.add("Italy");
+	tmp.add("Netherlands");
+        tmp.add("Poland");
+	tmp.add("Portugal");
+	tmp.add("Russia");
+        tmp.add("Serbia");
+        tmp.add("Spain");
+	tmp.add("Sweden");
+        tmp.add("Switzerland");
+        tmp.add("Turkey");
+	tmp.add("United Kingdom (UK)");
+
+
+        return tmp;
+    }
+
+
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
 
     public String getStreet1() {
         return street1;
@@ -93,6 +147,15 @@ public class Customer extends User{
     public void setTown(String town) {
         this.town = town;
     }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
 
     public String getPostCode() {
         return postCode;
@@ -145,6 +208,14 @@ public class Customer extends User{
 
     public void setOrders(List<ShopOrder> orders) {
         this.orders = orders;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 

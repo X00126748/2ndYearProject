@@ -41,7 +41,7 @@ public class StockOrderItem extends Model {
             quantity = 1;
             product.increaseStock();
             product.update();
-            price = p.getPrice();
+            price = p.getSupplierPrice();
             size = "No size selected";
     }
     
@@ -62,6 +62,10 @@ public class StockOrderItem extends Model {
     // Calculate and return total price for this order item
     public double getItemTotal() {
         return this.price * this.quantity;
+    }
+
+    public double getRetailTotal() {
+        return this.product.getPrice() * this.quantity;
     }
 	
 	//Generic query helper

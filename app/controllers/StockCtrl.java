@@ -59,19 +59,103 @@ public class StockCtrl extends Controller {
             admin.update();
         }
 
-        if (p.getStock() > 0){
+     
         // Add product to the basket and save
         admin.getStockBasket().addProduct(p);
         admin.update();
-        } else {
+        
+        // Show the basket contents     
+        return ok(stockBasket.render(env, admin));
+    }
 
-        return redirect(routes.HomeController.error());
 
+
+       @Transactional
+    public Result addAmountToBasket(Long id, int amount) {
+        
+        // Find the product
+        Product p = Product.find.byId(id);
+        
+        // Get basket for logged in Administrator
+        Administrator admin = getCurrentUser();
+        
+        // Check if item in basket
+        if (admin.getStockBasket() == null) {
+            // If no basket, create one
+            admin.setStockBasket(new StockBasket());
+            admin.getStockBasket().setAdministrator(admin);
+            admin.update();
         }
+
+        for (int i=0; i < amount; i++){
+        // Add product to the basket and save
+        admin.getStockBasket().addProduct(p);
+	}
+	
+	 admin.update();
         // Show the basket contents     
         return ok(stockBasket.render(env, admin));
     }
     
+
+         @Transactional
+    public Result addAllAmountToBasket(int amount) {
+        
+        // Get basket for logged in Administrator
+        Administrator admin = getCurrentUser();
+        
+        // Check if item in basket
+        if (admin.getStockBasket() == null) {
+            // If no basket, create one
+            admin.setStockBasket(new StockBasket());
+            admin.getStockBasket().setAdministrator(admin);
+            admin.update();
+        }
+
+
+        if(amount < 1){
+           // Add message to flash session 
+        flash("warning", "Cannot add stock less than 1");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.lowStock(0, ""));
+        }
+        
+        // Instantiate products, an Array list of products			
+        List<Product> products = new ArrayList<Product>();
+        // Instantiate lowStock, an Array list of low stock products			
+        List<Product> lowProducts = new ArrayList<Product>();
+
+            // Get the list of ALL products with filter
+            products = Product.findAll("");
+        
+
+        for (Product p : products) {
+            if (p.getStock() < 10){
+             lowProducts.add(p);
+            }
+        }
+
+        for (Product p : lowProducts) {
+            
+              for (int i=0; i < amount; i++){
+        // Add product to the basket and save
+        admin.getStockBasket().addProduct(p);
+	}
+
+        }
+
+	 admin.update();
+
+        // Add message to flash session 
+        flash("success", "All Product Stock added");
+
+      // Show the basket contents     
+       return redirect(routes.StockCtrl.showBasket());
+
+        
+    }
+    
+
 
      @Transactional
 public Result showBasket(){
@@ -99,14 +183,9 @@ public Result showBasket(){
         // Get the order item
         StockOrderItem item = StockOrderItem.find.byId(itemId);
         
-        if (checkStock(itemId) == true){
-           // Increment quantity
+       
         item.increaseQty();
 
-        } else {
-           return redirect(routes.HomeController.error());
-
-        }
        
         item.update();
         // Show updated basket
@@ -150,25 +229,12 @@ public Result showBasket(){
         return redirect(routes.StockCtrl.showBasket());
     }
 
-    public boolean checkStock(Long itemId){
-
-         // Get the order item
-        StockOrderItem item = StockOrderItem.find.byId(itemId);
-
-        if (item.getProduct().getStock() > 0){
-           return true;
-
-        } else {
-           return false;
-
-        }
-
-    }
 
     @Transactional
     public Result placeOrder() {
         Administrator a = getCurrentUser();
-        
+    
+
         StockOrder order = new StockOrder();
 
         order.setAdministrator(a);
@@ -195,7 +261,7 @@ a.getStockBasket().update();
 
  // Set a success message in temporary flash
         flash("success", "Stock Order has been created" );
-return ok (orderConfirmed.render(a, order));
+return ok (orderConfirmed.render(env, a, order));
 }
 
 
@@ -211,8 +277,8 @@ return ok (orderConfirmed.render(a, order));
 
       // Set a success message in temporary flash
         flash("success", "Stock Basket has been emptied" );
+        return redirect(routes.StockCtrl.showBasket());
         
-        return ok(stockBasket.render(env, a));
     }
 
 
@@ -221,7 +287,7 @@ return ok (orderConfirmed.render(a, order));
     @Transactional
     public Result viewOrder(long id) {
         StockOrder order = StockOrder.find.byId(id);
-        return ok(orderConfirmed.render(getCurrentUser(), order));
+        return ok(orderConfirmed.render(env, getCurrentUser(), order));
     }
 
    
@@ -251,7 +317,7 @@ return ok (orderConfirmed.render(a, order));
 			}	
 
       
-        return ok(orderHistory.render(currentOrders,previousOrders, a));
+        return ok(orderHistory.render(env, currentOrders,previousOrders, a));
     }
  
 
@@ -285,8 +351,7 @@ return ok (orderConfirmed.render(a, order));
 
           // Set a success message in temporary flash
         flash("success", "Stock Order has been Cancelled" );
-
-          return orderHistory();
+           return redirect(routes.StockCtrl.orderHistory());
     } 
         
 

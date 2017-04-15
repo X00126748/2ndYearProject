@@ -18,6 +18,11 @@
 			  </div>
 		} 
 
+		<div class="panel panel-default">
+	<div class="panel-heading">
+          <h4>My Stock Basket <span class="glyphicon glyphicon-shopping-cart"></span> </h4> </div>
+		<div class="panel-body">
+
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
 			<!-- The header row-->
@@ -25,8 +30,9 @@
 				<th> </th>
 				<th>Name</th>
 				<th>Description</th>
-				<th>Item Price</th>
-				<th>Total</th>
+				<th>Retail Price</th>
+				<th>Supplier Price</th>
+				<th>Total Cost</th>
 				<th>Quantity</th>
                 <th>dec.</th>
                 <th>inc.</th>
@@ -39,14 +45,15 @@
                     @for(i <- administrator.getStockBasket().getBasketItems()) {
                     <tr>
 			<td>
-			@if(env.resource("public/images/productImages/thumbnails/" + i.getProduct.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(i.getProduct.getId).jpg" style="width: 3em;" />
+			@if(env.resource("public/images/productImages/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(i.getProduct.getId).jpg" style="width: 3em;" />
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png" style="width: 3em;"/>
+					<img src="/assets/images/productImages/noImage.jpg" style="width: 3em;"/>
 				}
 			</td>
                         <td>@i.getProduct.getName</td>
                         <td>@i.getProduct.getDescription()</td>
+                         <td>&euro; @("%.2f".format(i.getProduct.getPrice))</td>
                         <td>&euro; @("%.2f".format(i.getPrice))</td>
                         <td>&euro; @("%.2f".format(i.getItemTotal))</td>
                         <td>@i.getQuantity()</td>
@@ -62,16 +69,23 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(administrator.getStockBasket.getBasketTotal))</strong></p>
+               <p class="text-right"><strong>Potential Profit: &euro; @("%.2f".format(administrator.getStockBasket.getProfitTotal))</strong></p>
             </div>  
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <p class="text-right">
+            <div class="col-md-4">
+                <p>
                     <a href="@routes.StockCtrl.emptyBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
                     <span class="glyphicon glyphicon-trash"></span> Empty Basket</a>
                 </p>
             </div>  
-            <div class="col-md-6">
+	    <div class="col-md-4">
+                <p class="text-center">
+                    <a href="@routes.AdminProductCtrl.list()" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Return to Products</a>
+                </p>
+            </div>  
+            <div class="col-md-4">
                 <p class="text-right">
                     <a href="@routes.StockCtrl.placeOrder()" class="btn btn-success btn-sm">
                     <span class="glyphicon glyphicon-euro"></span> Place Order</a>
@@ -79,6 +93,7 @@
             </div>  
         </div>
     </div>
+</div>
 </div>
 
 <script>

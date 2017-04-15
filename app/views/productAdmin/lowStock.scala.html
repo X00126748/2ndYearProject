@@ -53,7 +53,7 @@
 
                          <!-- orderAllStock Form -->
 			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.orderAllStock()" method="GET">
+			 <form action="@routes.StockCtrl.addAllAmountToBasket()" method="GET">
 				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Order amt for all products...">
 				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
 			 </form>
@@ -68,12 +68,12 @@
 		    <div class="col-sm-4 col-lg-4 col-md-4">
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				@if(env.resource("public/images/productImages/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(p.getId).jpg"/>
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+					<img src="/assets/images/productImages/noImage.jpg"/>
 				}
-			<div class="caption" style = "height: 20em;">
+			<div class="caption" style = "height: 21em;">
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>
 				<h3><a href="@routes.AdminProductCtrl.product(p.getId)">@p.getName</a>
 				</h3>
@@ -200,13 +200,14 @@
 				 
 				<p>@p.getDescription</p>
 			        <p>Stock: @p.getStock</p>
+                                <p>Supplier Price: @p.getSupplierPrice</p>
                     <!-- <a href="@routes.AdminProductCtrl.orderStock(p.getId)">
 				<button class="btn btn-primary">Order Stock</button>
 			</a> -->
                        
                        <!-- orderStock Form -->
 			<div id="actions">
-			 <form action="@routes.AdminProductCtrl.orderStock(p.getId)" method="GET">
+			 <form action="@routes.StockCtrl.addAmountToBasket(p.getId)" method="GET">
 				<input type="search" id="searchbox" name="amount" value="@amount" placeholder="Enter amount to order...">
 				<input type="submit" id="searchsubmit" value="Submit" class="btn-md btn-primary" onclick="return confirmDel();">
 			 </form>

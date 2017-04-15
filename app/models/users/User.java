@@ -5,6 +5,7 @@ import javax.persistence.*;
 import play.data.format.*;
 import play.data.validation.*;
 import com.avaje.ebean.*;
+import models.*;
 
 //https://www.playframework.com/documentation/2.2.x/JavaGuide4
 
@@ -34,20 +35,32 @@ public class User extends Model {
     private String role;
 
     @Constraints.Required
+    private String title;
+
+    @Constraints.Required
     private String name;
 
     @Constraints.Required
+    private String surname;
+
+    @Constraints.Required
+    @Constraints.MinLength(5)
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ForumMessage> messages;
 
 
     // Default constructor
     public  User() {
     }
     // Constructor to initialise object
-    public  User(String email, String role, String name, String password) {
+    public  User(String email, String role, String title, String name, String surname, String password) {
         this.email = email;
         this.role = role;
+        this.title = title;
         this.name = name;
+        this.surname = surname;
         this.password = password;
     }
 
@@ -76,6 +89,22 @@ public class User extends Model {
             return find.byId(id);
     }
 
+
+    public static List<String> titleOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("Mr");
+        tmp.add("Mrs");
+        tmp.add("Miss");
+	tmp.add("Ms");
+        tmp.add("Dr");
+        tmp.add("Rev");
+	tmp.add("Other");
+
+        return tmp;
+    }
+
+
     public String getEmail() {
         return email;
     }
@@ -92,6 +121,15 @@ public class User extends Model {
         return role;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -100,12 +138,28 @@ public class User extends Model {
         this.name = name;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+    
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<ForumMessage> getMessages() {
+        return messages;
+    }
+
+    public void setForumMessages(List<ForumMessage> messages) {
+        this.messages = messages;
     }
 
 }

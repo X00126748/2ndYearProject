@@ -48,10 +48,10 @@
 		    <div class="col-sm-4 col-lg-4 col-md-4">
 			<div class="thumbnail">
 
-				@if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(p.getId).jpg"/>
+				@if(env.resource("public/images/productImages/" + p.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(p.getId).jpg"/>
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png"/>
+					<img src="/assets/images/productImages/noImage.jpg"/>
 				}
 			<div class="caption">
 				<h3 class="pull-right">&euro; @("%.2f".format(p.getPrice))</h3>

@@ -10,8 +10,34 @@ though a static HTML form would also work -->
 <!-- The page will be based on the main template -->
 @main("Create Review", user) {
 
-	<h3>Create Review</h3>
-	
+
+<div class="row">
+
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	<div class="panel-heading">
+	<h3>Create Review  <span class="glyphicon glyphicon-pencil"></span></h3></div>
+	<div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.HomeController.addReviewSubmit(id), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
@@ -19,8 +45,14 @@ though a static HTML form would also work -->
 		<!-- Note the label parameter -->
 		
 		@inputText(addReviewForm("description"), '_label -> "Description",'class -> "form-control")
-                @inputText(addReviewForm("stars"), '_label -> "Stars",'class -> "form-control")
-		
+               
+		 @select(
+                addReviewForm("stars"), 
+                options(Review.starOptions), 
+                '_label -> "Rating", '_default -> "-- Choose a Star Rating--",
+                '_showConstraints -> false
+            )
+ 		
 	
 		<br><br>
 
@@ -32,6 +64,20 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
 
 } <!-- End of page content -->
 

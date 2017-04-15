@@ -172,6 +172,17 @@ public Result showBasket(){
     public Result placeOrder(String cards) {
         Customer c = getCurrentUser();
         
+        for (OrderItem i: c.getBasket().getBasketItems()){
+     
+         if(i.getSize().equalsIgnoreCase("No size selected")){
+	    // Set a success message in temporary flash
+        flash("warning", "Please select a size" );
+           
+        return redirect(routes.ShoppingCtrl.showBasket());
+         }
+}
+
+
         ShopOrder order = new ShopOrder();
 
         order.setCustomer(c);
@@ -207,7 +218,7 @@ c.update();
  // Set a success message in temporary flash
         flash("success", "Order has been Created" );
 
-return ok (orderConfirmed.render(c, order));
+return ok (orderConfirmed.render(env, c, order));
 }
 
 
@@ -224,7 +235,8 @@ return ok (orderConfirmed.render(c, order));
          // Set a success message in temporary flash
         flash("success", "Basket has been emptied" );
         
-        return ok(basket.render(env, c));
+        
+        return redirect(routes.ShoppingCtrl.showBasket());
     }
 
 
@@ -233,7 +245,7 @@ return ok (orderConfirmed.render(c, order));
     @Transactional
     public Result viewOrder(long id) {
         ShopOrder order = ShopOrder.find.byId(id);
-        return ok(orderConfirmed.render(getCurrentUser(), order));
+        return ok(orderConfirmed.render(env, getCurrentUser(), order));
     }
 
    
@@ -263,7 +275,7 @@ return ok (orderConfirmed.render(c, order));
 			}	
 
       
-        return ok(orderHistory.render(currentOrders,previousOrders, c));
+        return ok(orderHistory.render(env, currentOrders,previousOrders, c));
     }
  
 
@@ -307,7 +319,8 @@ order.update();
 	 // Set a success message in temporary flash
         flash("success", "Order has been Cancelled" );
 
-          return orderHistory();
+  return redirect(routes.ShoppingCtrl.orderHistory());
+
     } 
         
 

@@ -34,6 +34,9 @@ public class StockBasket extends Model {
 
     public void removeAllItems() {
         for(StockOrderItem i: this.basketItems) {
+            
+            i.getProduct().deStock(i.getQuantity());
+            i.getProduct().update();
             i.delete();
         }
         this.basketItems = null;
@@ -49,6 +52,22 @@ public class StockBasket extends Model {
         return total;
     }
 	
+
+    public double getProfitTotal() {
+        
+        double totalS = 0;
+	double totalR = 0;
+        double result = 0;
+        
+        for (StockOrderItem i: basketItems) {
+            totalS += i.getItemTotal();
+            totalR += i.getRetailTotal();
+        }
+
+         result = totalR - totalS;
+        return result;
+    }
+
 	//Generic query helper
     public static Finder<Long,StockBasket> find = new Finder<Long,StockBasket>(StockBasket.class);
 

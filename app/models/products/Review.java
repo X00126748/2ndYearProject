@@ -9,6 +9,8 @@ import com.avaje.ebean.Model;
 import play.data.format.*;
 import play.data.validation.*;
 
+import models.users.*;
+
 // Product Entity managed by the ORM
 @Entity
 public class Review extends Model {
@@ -20,7 +22,8 @@ public class Review extends Model {
 
     // Other fields marked as being required (for validation purposes)
     
-    private String name;
+    @ManyToOne
+    private Customer customer;
 
     @ManyToOne
     private Product product;
@@ -42,9 +45,8 @@ public class Review extends Model {
     }
 
     // Constructor to initialise object
-    public  Review(Long id, String name, String description, Integer stars) {
+    public  Review(Long id, String description, Integer stars) {
         this.id = id;
-        this.name = name;
         this.description = description;
         this.stars = stars;
         reviewCount++;
@@ -59,6 +61,19 @@ public class Review extends Model {
         return Review.find.all();
     }
 
+      public static List<String> starOptions(){
+        List<String> tmp = new ArrayList();
+
+        tmp.add("1");
+        tmp.add("2");
+	tmp.add("3");
+        tmp.add("4");
+        tmp.add("5");
+
+        return tmp;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -67,13 +82,6 @@ public class Review extends Model {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getDescription() {
         return description;
     }
@@ -113,4 +121,15 @@ public class Review extends Model {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+
+
 }

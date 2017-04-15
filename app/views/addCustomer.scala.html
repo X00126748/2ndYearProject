@@ -34,21 +34,38 @@ though a static HTML form would also work -->
 	<div class="col-md-6">
 
          <div class="panel panel-success">
-      <div class="panel-heading"><h4>Create Account</h4></div>
+      <div class="panel-heading"><h4>Create Account <span class="glyphicon glyphicon-user"></span></h4></div>
 	 <div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.HomeController.addCustomerSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
-		@inputText(addCustomerForm("email"), '_label -> "Email",'class -> "form-control")
-                @inputText(addCustomerForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(addCustomerForm("email"), '_label -> "Email",'class -> "form-control" )
+              
+                @select(
+                addCustomerForm("title"), 
+                options(User.titleOptions), 
+                '_label -> "Title", '_default -> "-- Choose a Title--",
+                '_showConstraints -> false
+            )
+		
+                @inputText(addCustomerForm("name"), '_label -> "First Name",'class -> "form-control") 
+		@inputText(addCustomerForm("surname"), '_label -> "Last Name",'class -> "form-control")
 		@inputText(addCustomerForm("password"), '_label -> "Password",'class -> "form-control")
+		@inputText(addCustomerForm("number"), '_label -> "Phone Number",'class -> "form-control")
                 @inputText(addCustomerForm("street1"), '_label -> "Street1",'class -> "form-control")
 		@inputText(addCustomerForm("street2"), '_label -> "Street2",'class -> "form-control")
                 @inputText(addCustomerForm("town"), '_label -> "Town",'class -> "form-control")
+		@inputText(addCustomerForm("county"), '_label -> "County",'class -> "form-control")
                 @inputText(addCustomerForm("postCode"), '_label -> "PostCode",'class -> "form-control")
-                @inputText(addCustomerForm("country"), '_label -> "Country",'class -> "form-control")
+		
+                  @select(
+                addCustomerForm("country"), 
+                options(Customer.countryOptions), 
+                '_label -> "Country", '_default -> "-- Choose a Country-",
+                '_showConstraints -> false
+            )
 		
 		<!-- Image upload input -->
 		<label>Image</label>

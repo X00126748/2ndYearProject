@@ -1,8 +1,11 @@
 @(form: Form[models.users.Login], user: models.users.User)
 
 @main("Login Required", user) {
-<div class="col-xs-4">
-  <h3>Sign in</h3>
+<div class="col-md-5">
+<div class="panel panel-success">
+      <div class="panel-heading">
+  <h4>Sign in <span class="glyphicon glyphicon-user"></span></h4></div>
+  <div class="panel-body">
 	<!-- Display login errors if they exist -->
 	@if(form.hasGlobalErrors) {
 		  <p class="alert alert-warning">
@@ -14,11 +17,16 @@
 		      @flash.get("loginRequired")
 		  </div>
 	}
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
 	<!-- The login form -->
 	@helper.form(action = controllers.security.routes.LoginCtrl.loginSubmit()) {
 
     <div class="form-group">
-        <input type="text" name="email" class="form-control input-xs" placeholder="Email" value="@form("email").value">
+        <input type="text" name="email" class="form-control input-xs" placeholder="Email" value="@form("email").value" > 
     </div>
     <div class="form-group">
         <input type="password" name="password" class="form-control input-xs" placeholder="Password">
@@ -29,5 +37,6 @@
 		    <input type="submit" value="Sign In" class="btn btn-primary">
 		</div>
 		}
+</div>
 </div>
 }

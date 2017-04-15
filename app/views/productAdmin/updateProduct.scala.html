@@ -10,8 +10,33 @@ though a static HTML form would also work -->
 <!-- The page will be based on the main template -->
 @productAdmin.main("Update Product", user) {
 
-	<h3>Update Product</h3>
-	
+<div class="row">
+
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	<div class="panel-heading">
+	<h4>Update Product</h4></div>
+	<div class="panel-body">
 	<!-- Use the views.html.helpers package to create the form -->
 	@form(action = routes.AdminProductCtrl.updateProductSubmit(id), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
 		
@@ -24,17 +49,18 @@ though a static HTML form would also work -->
         <!-- Category.options provides a hashmap of value, name pairs -->
         <!-- If product (id) is in catagory - mark it as checked -->
         <!-- Checkbox name is catSelect[],  selected values will be stored in form object using catSelect defined in Product  -->
-        @for((value, name) <- Category.options) {
+  	<h5><strong>Categories</strong></h5>       
+	@for((value, name) <- Category.options) {
             <input type="checkbox" name="catSelect[]" value="@value"
             @if(Category.inCategory(value.toLong, id)) {
                 checked
             }
             />@name<br>        
         }
-
+		<br>
 		@inputText(updateProductForm("stock"), '_label -> "Stock",'class -> "form-control")
-		@inputText(updateProductForm("price"), '_label -> "Price",'class -> "form-control")
-
+		@inputText(updateProductForm("price"), '_label -> "Retail Price",'class -> "form-control")
+		@inputText(updateProductForm("supplierPrice"), '_label -> "Supplier Price",'class -> "form-control")
 		<!-- Image upload input -->
 		<label>Image</label>
     <input class="btn-sm btn-default" type="file" name="upload">
@@ -49,6 +75,20 @@ though a static HTML form would also work -->
 			</a>
   </div>
 	} <!-- End Form definition -->
+
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
 
 } <!-- End of page content -->
 
