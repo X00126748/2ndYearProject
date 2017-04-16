@@ -1,0 +1,205 @@
+@import play.api.Play.resource
+@import play.api.Play.current
+@import models.shopping._
+@import models.products._
+@(env: play.api.Environment, reviews: List[Review], messages: List[ForumMessage], customer: models.users.Customer)
+
+<!-- Pass page title and user on to main -->
+@main("My Posts", customer) {
+
+
+<div class="row">
+
+	<div class="col-md-6">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+
+        <div class="panel panel-success">
+	<div class="panel-heading">
+        <h4>Reviews Made <span class="glyphicon glyphicon-pencil"></span></i>
+<span class="sr-only">Loading...</span></h4></div>
+       <div class="panel-body">
+       @for(r <- reviews) {
+                    <div class="row">
+                       <div class="col-md-12">
+			@if(env.resource("public/images/userIcons/" + r.getCustomer.getEmail + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(r.getCustomer.getEmail).png" class="media-object" style="width:50px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:50px"/>
+				}
+                       </div>
+                        <div class="col-md-12">
+
+                 <a href="@routes.ProductCtrl.product(r.getProduct.getId)"> <h5>@r.getProduct.getName</h5> </a>
+                         
+                           @if(r.getStars() == 5) {
+
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    
+                                
+                } 
+                
+                @if(r.getStars() == 4){
+                                 
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                
+                    }
+                @if(r.getStars() == 3){
+                                 
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                
+                    }
+                @if(r.getStars() == 2){
+                                
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                              
+                    }
+                @if(r.getStars() == 1){
+                                 
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                
+                    }   
+                @if(r.getStars() == 0){
+                                 
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                               
+				}
+                            by <strong>@r.getCustomer().getName()</strong>
+                            <span class="pull-right">@r.getReviewDate().format("dd MMM yy")</span>
+                            <p>@r.getDescription()</p>
+                      @if(customer != null){
+                      @if(customer.getEmail().equals(r.getCustomer().getEmail())){
+                             <!-- Delete product button -->
+<a href="@routes.HomeController.deleteReview(r.getId, r.getProduct().getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a>
+			}	
+			}
+                        </div>
+                    </div>
+
+                    <hr>
+                    }
+                    
+
+</div>
+</div>
+
+</div>
+
+<div class="col-md-6">
+		@if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
+
+ <div class="panel panel-success">
+	<div class="panel-heading">
+         <h4>Forum Posts <span class="glyphicon glyphicon-envelope"></span></h4></div>
+
+	  <div class="panel-body">
+        @for(m <- messages) {
+
+ @if(m.getUser.getRole().equalsIgnoreCase("customer")) {
+<!-- Left-aligned media object -->
+  <div class="media">
+    <div class="media-left">
+	@if(env.resource("public/images/userIcons/" + m.getUser.getEmail + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getEmail).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+      
+      <p>Customer</p>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
+	<h5>Subject: @m.getSubject</h5>
+      <p>@m.getMessageContent</p>
+      <p>@m.getMessageDate.format("dd MMM yy")</p>
+        @if(customer != null){
+                      @if(customer.getEmail().equals(m.getUser().getEmail())){
+      <p><a href="@routes.HomeController.deleteMessage(m.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a></p>
+	}	
+			}
+     <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
+    </div>
+ 
+  </div>
+  <hr>
+  } @if(m.getUser.getRole().equalsIgnoreCase("admin")){
+  <!-- Right-aligned media object -->
+  <div class="media">
+    <div class="media-body">
+     <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
+	<h5>Subject: @m.getSubject</h5>
+      <p>@m.getMessageContent</p>
+        <p>@m.getMessageDate.format("dd MMM yy")</p>
+
+    </div>
+    <div class="media-right">
+	@if(env.resource("public/images/userIcons/" + m.getUser.getEmail + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(m.getUser.getEmail).png" class="media-object" style="width:60px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:60px"/>
+				}
+
+      <p>Administrator</p>
+    </div>
+ <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
+  </div>
+  <hr>
+}
+
+}
+
+      </div>
+
+     
+
+        </div>
+</div>
+
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+}

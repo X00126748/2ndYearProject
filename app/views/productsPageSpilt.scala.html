@@ -6,7 +6,7 @@
 @****************************************
 * Helper generating navigation links    *
 ****************************************@
-@link(newPage:Int, newSortBy:String) = @{
+@link(newPage:Int, newSortBy:String, catId: Long) = @{
     
     var sortBy = currentSortBy
     var order = currentOrder
@@ -38,7 +38,7 @@
 ***********************************@
 @header(key:String, title:String) = {
     <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
-        <a href="@link(0, key)">@title</a>
+        <a href="@link(0, key, catId)">@title</a>
     </th>
 }
 
@@ -68,6 +68,10 @@
 		<a href="@routes.ProductCtrl.listCat(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 
+        @for(c <- categories) {
+		<a href="@link(0, "name", c.getId())" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+			}
+
 
 	</div>
 	  </div>
@@ -81,7 +85,7 @@
 
                <div id="actions">
         
-        <form action="@link(0, "name")" method="GET">
+        <form action="@link(0, "name", catId)" method="GET">
             <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by product name...">
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
         </form>
@@ -267,7 +271,7 @@ Showing the most relevant results @if(catId != 0){category:  <strong>@Category.f
             <ul class="pagination">
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                        <a href="@link(currentPage.getPageIndex - 1, null, catId)">&larr; Previous</a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -279,7 +283,7 @@ Showing the most relevant results @if(catId != 0){category:  <strong>@Category.f
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                        <a href="@link(currentPage.getPageIndex + 1, null, catId)">Next &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">

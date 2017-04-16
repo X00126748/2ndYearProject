@@ -615,7 +615,24 @@ public class HomeController extends Controller {
         return ok(accountDetails.render(env, c));
     }
 
+    // Get a list of orders
+    @Transactional
+    public Result myPosts() {
 
+        Customer c = (Customer)getCurrentUser();
+
+        List<Review> reviews = new ArrayList<Review>();
+        List<ForumMessage> messages = new ArrayList<ForumMessage>();
+        
+        reviews = c.getReviews();
+
+        messages = c.getMessages();
+	
+
+      
+        return ok(myPosts.render(env, reviews,messages, c));
+    }
+ 
 
 
 }

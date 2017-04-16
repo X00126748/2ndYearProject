@@ -43,7 +43,7 @@ POST	/updateAddressSubmit		controllers.HomeController.updateAddressSubmit()
 GET     /deleteCustomer             controllers.HomeController.deleteCustomer()
 
 GET     /accountDetails                        controllers.HomeController.accountDetails()
-
+GET     /myPosts                        controllers.HomeController.myPosts()
 
 # Review
 GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
