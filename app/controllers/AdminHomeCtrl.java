@@ -377,53 +377,6 @@ for (OrderItem i: order.getItems()){
 	 return redirect(routes.AdminHomeCtrl.stockOrders());
     } 
 
-        
-          // Get reports
-    @Transactional
-    public Result reports() {
-
-       // Instantiate products, an Array list of products			
-        List<Product> products = new ArrayList<Product>();
-     
-	products = Product.findAll("");
-     
-
-        // Instantiate products, an Array list of products			
-        List<Product> lowSellers = new ArrayList<Product>();
-	lowSellers = Product.findLowSellers();
-
-        // Instantiate products, an Array list of products			
-        List<Product> bestSellers = new ArrayList<Product>();
-	bestSellers = Product.findBestSellers();
-
-
-        // Instantiate products, an Array list of products			
-        List<Product> lowRatings = new ArrayList<Product>();
-	lowRatings = Product.findLowRatings();
-       
-
-        // Instantiate products, an Array list of products			
-        List<Product> bestRatings = new ArrayList<Product>();
-	bestRatings = Product.findBestRatings();
-
-        List<Customer> customersPoints = new ArrayList<Customer>();
-        customersPoints = Customer.findMostPoints();
-     
-
-	List<Customer> customersOrders = new ArrayList<Customer>();
-        customersOrders = Customer.findMostOrders();
-
-
-        List<ForumMessage> custMostLiked = new ArrayList<ForumMessage>();
-        custMostLiked = ForumMessage.findMostLiked();
-
-       
-	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
-        custMostDisiked = ForumMessage.findMostDisliked();
-
-
-        return ok(reports.render(env,bestSellers,lowSellers, bestRatings, lowRatings, customersOrders, customersPoints,  custMostLiked, custMostDisiked, getCurrentUser()));
-    } 
 
 
 
@@ -485,7 +438,7 @@ for (OrderItem i: order.getItems()){
 
 
 	
-    // Delete Product
+    // Delete Review
     @Transactional
     public Result deleteReview(Long id, Long product) {
         // Call delete method
@@ -517,282 +470,54 @@ for (OrderItem i: order.getItems()){
         return ok(forum.render(env, messages, getCurrentUser()));
     }
 
+            // Thumbs up message
+    @Transactional
+    public Result like(Long messageId) {
+        
+        // Get the message
+        ForumMessage m = ForumMessage.find.byId(messageId);
+        
+        User u = getCurrentUser();
 
-        public Result printBestSellers() {
-
-	 File outFile = new File("files/BestSellers", "Best Sellers " + new Date() +".txt");        
-
-
-        // Instantiate products, an Array list of products			
-        List<Product> BestSellers = new ArrayList<Product>();
-	BestSellers = Product.findBestSellers();
+        if(m.getUser() != u){
+         
+           //add like
+        m.addLike();
+}  else {
+         // Add message to flash session 
+        flash("warning", "Cannot like your own posts");
+	return redirect(routes.AdminHomeCtrl.forum());
+         }
        
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nBest Sellers " + new Date());
-            for (Product p : BestSellers){
-            bWriter.write("\n********************");
-	    bWriter.write("\nProduct Name: " + p.getName());
-            bWriter.write("\nPrice: " + p.getPrice());
-            bWriter.write("\nDescription: " + p.getDescription());
-            bWriter.write("\nStock: " + p.getStock());
-            bWriter.write("\nAmount Sold: " + p.getAmountSold());
-	    bWriter.write("\nRating: " + p.getRating());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Best Sellers have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
+        m.update();
+        // Show updated forum
+        return redirect(routes.AdminHomeCtrl.forum());
     }
 
 
-       public Result printWorstSellers() {
+    @Transactional
+    public Result dislike(Long messageId) {
+        
+        // Get the message
+        ForumMessage m = ForumMessage.find.byId(messageId);
+        
+	 User u = getCurrentUser();
 
-	 File outFile = new File("files/WorstSellers", "Worst Sellers " + new Date() +".txt");        
+        if(m.getUser() != u){
+         
+        //add dislike
+        m.addDislike();
+}  else {
+         // Add message to flash session 
+        flash("warning", "Cannot dislike your own posts");
+	return redirect(routes.AdminHomeCtrl.forum());
+         }
 
-
-        // Instantiate products, an Array list of products			
-        List<Product> WorstSellers = new ArrayList<Product>();
-	WorstSellers = Product.findLowSellers();
-       
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nWorst Sellers " + new Date());
-            for (Product p : WorstSellers){
-            bWriter.write("\n********************");
-	    bWriter.write("\nProduct Name: " + p.getName());
-            bWriter.write("\nPrice: " + p.getPrice());
-            bWriter.write("\nDescription: " + p.getDescription());
-            bWriter.write("\nStock: " + p.getStock());
-            bWriter.write("\nAmount Sold: " + p.getAmountSold());
-	    bWriter.write("\nRating: " + p.getRating());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Worst Sellers have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
+        m.update();
+        // Show updated forum
+        return redirect(routes.AdminHomeCtrl.forum());
     }
 
-
-
-       public Result printHighestRated() {
-
-	 File outFile = new File("files/HighestRated", "Highest Rated " + new Date() +".txt");        
-
-
-        // Instantiate products, an Array list of products			
-        List<Product> HighestRated = new ArrayList<Product>();
-	HighestRated = Product.findBestRatings();
-       
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nHighest Rated " + new Date());
-            for (Product p : HighestRated){
-            bWriter.write("\n********************");
-	    bWriter.write("\nProduct Name: " + p.getName());
-            bWriter.write("\nPrice: " + p.getPrice());
-            bWriter.write("\nDescription: " + p.getDescription());
-            bWriter.write("\nStock: " + p.getStock());
-            bWriter.write("\nAmount Sold: " + p.getAmountSold());
-	    bWriter.write("\nRating: " + p.getRating());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Highest Rated have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
-
-
-public Result printLowestRated() {
-
-	 File outFile = new File("files/LowestRated", "Lowest Rated " + new Date() +".txt");        
-
-
-        // Instantiate products, an Array list of products			
-        List<Product> LowestRated = new ArrayList<Product>();
-	LowestRated = Product.findLowRatings();
-       
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nLowest Rated " + new Date());
-            for (Product p : LowestRated){
-            bWriter.write("\n********************");
-	    bWriter.write("\nProduct Name: " + p.getName());
-            bWriter.write("\nPrice: " + p.getPrice());
-            bWriter.write("\nDescription: " + p.getDescription());
-            bWriter.write("\nStock: " + p.getStock());
-            bWriter.write("\nAmount Sold: " + p.getAmountSold());
-	    bWriter.write("\nRating: " + p.getRating());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Lowest Rated have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
-
-
-
-
-public Result printMostOrders() {
-
-	 File outFile = new File("files/MostOrders", "Most Orders " + new Date() +".txt");        
-
-
-        List<Customer> MostOrders = new ArrayList<Customer>();
-        MostOrders = Customer.findMostOrders();
-
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nMost Orders " + new Date());
-            for (Customer c : MostOrders){
-            bWriter.write("\n********************");
-	    bWriter.write("\nCustomer: " + c.getName());
-            bWriter.write("\nEmail: " + c.getEmail());
-            bWriter.write("\nOrders Made: " + c.getNumOfOrders());
-	    bWriter.write("\nLoyalty Points: " + c.getLoyaltyPointsEarned());
-
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Most Orders have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
-
-
-
- public Result printMostLoyaltyPoints() {
-
-	 File outFile = new File("files/MostLoyaltyPoints", "Most Loyalty Points " + new Date() +".txt");        
-
-
-        List<Customer> MostLoyaltyPoints = new ArrayList<Customer>();
-        MostLoyaltyPoints = Customer.findMostPoints();
-
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nMost Loyalty Points " + new Date());
-            for (Customer c : MostLoyaltyPoints){
-            bWriter.write("\n********************");
-	    bWriter.write("\nCustomer: " + c.getName());
-            bWriter.write("\nEmail: " + c.getEmail());
-            bWriter.write("\nOrders Made: " + c.getNumOfOrders());
-	    bWriter.write("\nLoyalty Points: " + c.getLoyaltyPointsEarned());
-
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Most Loyalty Points have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
-
-
-
-    public Result printDislikedPosts() {
-
-	 File outFile = new File("files/DislikedPosts", "Most Disliked Posts " + new Date() +".txt");        
-
-	List<ForumMessage> custMostDisiked = new ArrayList<ForumMessage>();
-        custMostDisiked = ForumMessage.findMostDisliked();
-
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nMost Disliked Posts " + new Date());
-            for (ForumMessage m : custMostDisiked){
-            bWriter.write("\n********************");
-	    bWriter.write("\nUser: " + m.getUser().getName());
-            bWriter.write("\nSubject: " + m.getSubject());
-            bWriter.write("\nMessage: " + m.getMessageContent());
-	    bWriter.write("\nDate: " + m.getMessageDate());
-	    bWriter.write("\nLikes: " + m.getLikes());
-            bWriter.write("\nDislikes: " + m.getDislikes());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Disliked Posts have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
-
-              public Result printLikedPosts() {
-
-	 File outFile = new File("files/LikedPosts", "Most Liked Posts " + new Date() +".txt");        
-
-	List<ForumMessage> custLikedPosts = new ArrayList<ForumMessage>();
-        custLikedPosts = ForumMessage.findMostLiked();
-
-         try (BufferedWriter bWriter = new BufferedWriter
-            (new FileWriter((outFile)))) {
-	
-	    bWriter.write("\nMost Liked Posts " + new Date());
-            for (ForumMessage m : custLikedPosts){
-            bWriter.write("\n********************");
-	    bWriter.write("\nUser: " + m.getUser().getName());
-            bWriter.write("\nSubject: " + m.getSubject());
-            bWriter.write("\nMessage: " + m.getMessageContent());
-	    bWriter.write("\nDate: " + m.getMessageDate());
-	    bWriter.write("\nLikes: " + m.getLikes());
-            bWriter.write("\nDislikes: " + m.getDislikes());
-
-            }
-        } catch (IOException ex) {
-            System.out.println("Problem: " + ex.getMessage());
-        }
-
-        // Add message to flash session 
-        flash("success", "Liked Posts have been written to file");
-        // Redirect home
-        return redirect(routes.AdminHomeCtrl.reports());
-
-    }
- 
 
     
 

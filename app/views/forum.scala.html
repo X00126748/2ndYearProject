@@ -12,16 +12,20 @@
 	<div class="row">
 
         <div class="col-md-3">
-
-
-        </div>
-	<div class="col-md-6">
-		@if(flash.containsKey("success")) {
+          @if(flash.containsKey("success")) {
 			  <div class="alert alert-success">
 			      @flash.get("success")
 			  </div>
 		} 
+	 @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+		} 
 
+        </div>
+	<div class="col-md-6">
+		
 
  <div class="panel panel-success">
       <div class="panel-heading"><h4>Forum <span class="glyphicon glyphicon-envelope"></span> </h4></div>
@@ -43,10 +47,17 @@
       <p>Customer</p>
     </div>
     <div class="media-body">
-      <h4 class="media-heading">@m.getUser.getName</h4>
+      <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
-      <p>@m.getMessageDate</p>
+      <p>@m.getMessageDate.format("dd MMM yy")</p>
+        @if(user != null){
+                      @if(user.getEmail().equals(m.getUser().getEmail())){
+      <p><a href="@routes.HomeController.deleteMessage(m.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a></p>
+	}	
+			}
     </div>
  <p><a href="@routes.HomeController.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
       <a href="@routes.HomeController.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
@@ -57,10 +68,10 @@
   <!-- Right-aligned media object -->
   <div class="media">
     <div class="media-body">
-     <h4 class="media-heading">@m.getUser.getName</h4>
+     <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
-        <p>@m.getMessageDate</p>
+        <p>@m.getMessageDate.format("dd MMM yy")</p>
 
     </div>
     <div class="media-right">

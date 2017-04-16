@@ -97,6 +97,19 @@ public class ProductCtrl extends Controller {
             )
         );
     }
+
+   public Result listCat(int page, String sortBy, String order, String filter, Long cat) {
+       List<Category> categories = Category.findAll();
+        return ok(
+            productsPageSpilt.render(
+                env, categories, Product.pageCat( page, 10, sortBy, order, filter, cat),
+                sortBy, order, filter, cat, getCurrentUser()
+            )
+        );
+    }
+
+    
+
     
 
     @Transactional

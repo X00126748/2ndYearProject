@@ -71,12 +71,12 @@ insert into user (email,title,name,surname,password,role,number, street1, town,c
 insert into user (email,title,name,surname,password,role,number, street1, town,county,post_code,country, num_of_orders,loyalty_points_earned ) values ( 'customer3@products.com', 'Mr', 'Alice', 'Ryan', 'password', 'customer', '0834726863','97 Oakwood','Easthill','Cork','14','Ireland', 0, 0);
 
 
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?', 1, 0);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 3,1);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (3,  'customer@products.com','Delivery', 'Thank you',0,0);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (4, 'customer2@products.com', 'Account details', 'How do i edit my address?', 1, 0);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (5,  'Jordan@products.com', 'Account details', 'Editing of your acount can be done on the account details page.', 2,0);
-insert into forum_message (id, user_email,subject,message_content, likes, dislikes) values (6,  'customer3@products.com','Cavs vs Warriors', 'Anyone see the game?',0,0);
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (1, 'customer@products.com', 'Delivery', 'How long does delivery normally take?', 1, 0, GETDATE());
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (2,  'Stephen@products.com', 'Delivery', 'Your Order should be delivered within 5 working days.', 3,1, GETDATE());
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (3,  'customer@products.com','Delivery', 'Thank you',0,0, GETDATE());
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (4, 'customer2@products.com', 'Account details', 'How do i edit my address?', 1, 0, GETDATE());
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (5,  'Jordan@products.com', 'Account details', 'Editing of your acount can be done on the account details page.', 2,0, GETDATE());
+insert into forum_message (id, user_email,subject,message_content, likes, dislikes,message_date) values (6,  'customer3@products.com','Cavs vs Warriors', 'Anyone see the game?',0,0, GETDATE());
 
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 1,1,'customer@products.com','Great buy', 4, GETDATE());

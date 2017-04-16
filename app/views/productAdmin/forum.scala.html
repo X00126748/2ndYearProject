@@ -18,6 +18,11 @@
 			      @flash.get("success")
 			  </div>
 		} 
+	 @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+		} 
 
 
         </div>
@@ -44,25 +49,28 @@
       <p>Customer</p>
     </div>
     <div class="media-body">
-      <h4 class="media-heading">@m.getUser.getName</h4>
+      <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
 
-      <p>@m.getMessageDate</p>
+      <p>@m.getMessageDate.format("dd MMM yy")</p>
      <p><a href="@routes.AdminHomeCtrl.deleteMessage(m.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a></p>
     </div>
+<p><a href="@routes.AdminHomeCtrl.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.AdminHomeCtrl.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
   </div>
   <hr>
   } @if(m.getUser.getRole().equalsIgnoreCase("admin")){
   <!-- Right-aligned media object -->
   <div class="media">
     <div class="media-body">
-     <h4 class="media-heading">@m.getUser.getName</h4>
+     <h4 class="media-heading">@m.getUser.getName @m.getUser.getSurname</h4>
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
-        <p>@m.getMessageDate</p>
+        <p>@m.getMessageDate.format("dd MMM yy")</p>
         <!-- Delete product button -->
 <p><a href="@routes.AdminHomeCtrl.deleteMessage(m.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
@@ -77,6 +85,9 @@
       
       <p>Administrator</p>
     </div>
+<p><a href="@routes.AdminHomeCtrl.like(m.getId())"><span class="glyphicon glyphicon-thumbs-up"></span></a> @m.getLikes() Likes
+      <a href="@routes.AdminHomeCtrl.dislike(m.getId())"><span class="glyphicon glyphicon-thumbs-down"></span></a> @m.getDislikes() Dislikes
+      </p>
   </div>
   <hr>
 }

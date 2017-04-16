@@ -23,9 +23,14 @@
             order = "asc"
         }
     }
+
+  if (catId != 0){
+       routes.AdminProductCtrl.listCat(newPage, sortBy, order, currentFilter, catId)
+    } else {
     
     // Generate the link
-    routes.AdminProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
+     routes.AdminProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
+    }
     
 }
 
@@ -67,7 +72,7 @@
 	<div class="list-group">
 	<a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
 	  @for(c <- categories) {
-		<a href="@routes.AdminProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+		<a href="@routes.AdminProductCtrl.listCat(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 
 	</div>

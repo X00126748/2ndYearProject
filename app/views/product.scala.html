@@ -97,7 +97,7 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                
 				}
-                       @("%.2f".format(p.getAvgStars()))
+                        Avg Rating: @("%.2f".format(p.getAvgStars()))
                         </p>
                     </div>
                 </div>
@@ -117,7 +117,15 @@
 
                     @for(r <- reviews) {
                     <div class="row">
+                       <div class="col-md-12">
+			@if(env.resource("public/images/userIcons/" + r.getCustomer.getEmail + ".png").isDefined) {
+      <img src="/assets/images/userIcons/@(r.getCustomer.getEmail).png" class="media-object" style="width:50px">
+}      else {
+	<img src="/assets/images/userIcons/noImage.png" style="width:50px"/>
+				}
+                       </div>
                         <div class="col-md-12">
+                         
                            @if(r.getStars() == 5) {
 
                                     <span class="glyphicon glyphicon-star"></span>
@@ -174,9 +182,17 @@
                                     <span class="glyphicon glyphicon-star-empty"></span>
                                
 				}
-                            @r.getCustomer().getName()
+                            by <strong>@r.getCustomer().getName()</strong>
                             <span class="pull-right">@r.getReviewDate().format("dd MMM yy")</span>
                             <p>@r.getDescription()</p>
+                      @if(user != null){
+                      @if(user.getEmail().equals(r.getCustomer().getEmail())){
+                             <!-- Delete product button -->
+<a href="@routes.HomeController.deleteReview(r.getId, p.getId)" class="btn-xs btn-danger"
+						onclick="return confirmDel();">
+	<span class="glyphicon glyphicon-trash"></span></a>
+			}	
+			}
                         </div>
                     </div>
 

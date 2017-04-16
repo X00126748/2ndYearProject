@@ -89,25 +89,28 @@ public class Product extends Model {
      * @param filter Filter applied on the name column
      */
     public static PagedList<Product> page(int page, int pageSize, String sortBy, String order, String filter, Long catID) {
-        
-        if (catID != 0) {
-           return 
-            find.where()
-                 .eq("categories.id", catID)
-                .ilike("name", "%" + filter + "%")
-            .orderBy(sortBy + " " + order)
-            .fetch("categories")
-            .findPagedList(page, pageSize);
-          }
 
 	 return 
             find.where()
                 .ilike("name", "%" + filter + "%")
             .orderBy(sortBy + " " + order)
-            .fetch("categories")
+           // .fetch("categories")
             .findPagedList(page, pageSize);
+
     }
     
+
+    public static PagedList<Product> pageCat(int page, int pageSize, String sortBy, String order, String filter, Long catID) {
+        
+        return 
+            find.where()
+                 .eq("categories.id", catID)
+                .ilike("name", "%" + filter + "%")
+            .orderBy(sortBy + " " + order)
+           // .fetch("categories")
+            .findPagedList(page, pageSize);
+
+    }
 
 
     // Find all Products in the database

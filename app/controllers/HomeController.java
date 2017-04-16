@@ -480,14 +480,79 @@ public class HomeController extends Controller {
     }
 
 
+
         // Thumbs up message
+    @Security.Authenticated(Secured.class)
+    @With(CheckIfCustomer.class)
     @Transactional
     public Result like(Long messageId) {
         
         // Get the message
-        ForumMessage message = ForumMessage.find.byId(messageId);
+        ForumMessage m = ForumMessage.find.byId(messageId);
         
+        User u = getCurrentUser();
 
+        if(m.getUser() != u){
+         
+           //add like
+        m.addLike();
+}  else {
+         // Add message to flash session 
+        flash("warning", "Cannot like your own posts");
+	return redirect(routes.HomeController.forum());
+         }
+       
+        m.update();
+        // Show updated forum
+        return redirect(routes.HomeController.forum());
+    }
+
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    @With(CheckIfCustomer.class)
+    public Result dislike(Long messageId) {
+        
+        // Get the message
+        ForumMessage m = ForumMessage.find.byId(messageId);
+        
+	 User u = getCurrentUser();
+
+        if(m.getUser() != u){
+         
+        //add dislike
+        m.addDislike();
+}  else {
+         // Add message to flash session 
+        flash("warning", "Cannot dislike your own posts");
+	return redirect(routes.HomeController.forum());
+         }
+
+        m.update();
+        // Show updated forum
+        return redirect(routes.HomeController.forum());
+    }
+
+
+        // Thumbs up message
+    
+    @Transactional
+    public Result liked(Long messageId) {
+
+        Reaction r = new Reaction();
+        
+        // Get the message
+        ForumMessage message = ForumMessage.find.byId(messageId);
+
+        User u = getCurrentUser();
+        
+        r.setMessage(message);
+
+	r.setUser(u);
+
+        r.setLiked(true);
+
+        r.save();
            //add like
         message.addLike();
        
@@ -495,22 +560,6 @@ public class HomeController extends Controller {
         // Show updated forum
         return redirect(routes.HomeController.forum());
     }
-
-    @Transactional
-    public Result dislike(Long messageId) {
-        
-        // Get the message
-        ForumMessage message = ForumMessage.find.byId(messageId);
-        
-
-           //add dislike
-        message.addDislike();
-       
-        message.update();
-        // Show updated forum
-        return redirect(routes.HomeController.forum());
-    }
-
 
 
         @Transactional
@@ -524,6 +573,39 @@ public class HomeController extends Controller {
         return ok(forum.render(env, messages, getCurrentUser()));
     }
     
+
+         // Delete message
+    @Transactional
+    public Result deleteMessage(Long id) {
+        // Call delete method
+        ForumMessage.find.ref(id).delete();
+        // Add message to flash session 
+        flash("success", "Message has been deleted");
+        // Redirect to admin forum
+        return redirect(routes.HomeController.forum());
+    }
+
+
+      // Delete Review
+    @Transactional
+    public Result deleteReview(Long id, Long product) {
+        // Call delete method
+        Review.find.ref(id).delete();
+
+        // Retrieve the product by id
+        Product p = Product.find.byId(product);
+
+        p.setRating();
+
+        p.update();
+        
+        // Add message to flash session 
+        flash("success", "Review has been deleted");
+        // Redirect home
+        return redirect(routes.ProductCtrl.product(product));
+    }
+
+
 
     @Transactional
     public Result accountDetails(){

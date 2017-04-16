@@ -23,10 +23,14 @@
             order = "asc"
         }
     }
+
+   if (catId != 0){
+     routes.ProductCtrl.listCat(newPage, sortBy, order, currentFilter, catId)
+} else {
     
     // Generate the link
     routes.ProductCtrl.list(newPage, sortBy, order, currentFilter, catId)
-    
+    }
 }
 
 @**********************************
@@ -61,7 +65,7 @@
 	<a href="@routes.ProductCtrl.list()" class="list-group-item">All categories</a>
 
         @for(c <- categories) {
-		<a href="@routes.ProductCtrl.list(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+		<a href="@routes.ProductCtrl.listCat(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 
 

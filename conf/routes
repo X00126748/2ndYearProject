@@ -8,7 +8,11 @@
 # products list (look at the default values for pagination parameters)
 GET     /productPageSplit                 controllers.ProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
 
+GET     /productPageSplitCat                 controllers.ProductCtrl.listCat(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
+
 GET     /Admin/productPageSplit                 controllers.AdminProductCtrl.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
+
+GET     /Admin/productPageSplitCat                 controllers.AdminProductCtrl.listCat(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "", cat:Long ?= 0)
 
 
 # Home page
@@ -46,13 +50,8 @@ GET		/addReview/:id					controllers.HomeController.addReview(id:Long)
 POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
-
+GET     /delReview/:id/product               controllers.HomeController.deleteReview(id:Long, product:Long)
 GET     /Admin/delReview/:id/product               controllers.AdminHomeCtrl.deleteReview(id:Long, product:Long)
-
-
-
-
-GET     /selectcard                         controllers.HomeController.selectcard()
 
 
 # Forum
@@ -61,8 +60,10 @@ POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit
 
 GET     /forum                      controllers.HomeController.forum()
 
+GET     /deleteMessage/:id               controllers.HomeController.deleteMessage(id:Long)
 GET     /like/:messageId                     controllers.HomeController.like(messageId: Long)
 GET     /dislike/:messageId                  controllers.HomeController.dislike(messageId: Long)
+GET     /liked/:messageId                     controllers.HomeController.liked(messageId: Long)
 
 #Admin Forum
 GET		/Admin/addForumMessage/					controllers.AdminHomeCtrl.addForumMessage()
@@ -70,6 +71,8 @@ POST	/Admin/addForumMessageSubmit/				controllers.AdminHomeCtrl.addForumMessageS
 
 GET     /Admin/forum                      controllers.AdminHomeCtrl.forum()
 GET     /Admin/deleteMessage/:id               controllers.AdminHomeCtrl.deleteMessage(id:Long)
+GET     /Admin/like/:messageId                     controllers.AdminHomeCtrl.like(messageId: Long)
+GET     /Admin/dislike/:messageId                  controllers.AdminHomeCtrl.dislike(messageId: Long)
 
 # Payment Card
 GET		/addPaymentCard					controllers.HomeController.addPaymentCard()
@@ -98,6 +101,8 @@ GET     /viewOrder/:id                      controllers.ShoppingCtrl.viewOrder(i
 GET     /orderHistory                        controllers.ShoppingCtrl.orderHistory()
 #GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
 GET     /cancelOrder/:id/points              controllers.ShoppingCtrl.cancelOrder(id: Long, points: Int)
+GET     /selectcard                         controllers.HomeController.selectcard()
+
 
 # Stock
 GET     /Admin/showBasket                         controllers.StockCtrl.showBasket()
@@ -154,23 +159,16 @@ GET     /Admin/orders                 controllers.AdminHomeCtrl.orders()
 
 GET     /Admin/setOrderForDelivery/:id                     controllers.AdminHomeCtrl.setOrderForDelivery(id: Long)
 
-GET     /Admin/reports                controllers.AdminHomeCtrl.reports()
-
-GET     /Admin/printDislikedPosts           controllers.AdminHomeCtrl.printDislikedPosts()
-
-GET     /Admin/printLikedPosts           controllers.AdminHomeCtrl.printLikedPosts()
-
-GET     /Admin/printMostLoyaltyPoints           controllers.AdminHomeCtrl.printMostLoyaltyPoints()
-
-GET     /Admin/printMostOrders           controllers.AdminHomeCtrl.printMostOrders()
-
-GET     /Admin/printLowestRated           controllers.AdminHomeCtrl.printLowestRated()
-
-GET     /Admin/printHighestRated           controllers.AdminHomeCtrl.printHighestRated()
-
-GET     /Admin/printBestSellers           controllers.AdminHomeCtrl.printBestSellers()
-
-GET     /Admin/printWorstSellers           controllers.AdminHomeCtrl.printWorstSellers()
+#Reports
+GET     /Admin/reports                controllers.ReportCtrl.reports()
+GET     /Admin/printDislikedPosts           controllers.ReportCtrl.printDislikedPosts()
+GET     /Admin/printLikedPosts           controllers.ReportCtrl.printLikedPosts()
+GET     /Admin/printMostLoyaltyPoints           controllers.ReportCtrl.printMostLoyaltyPoints()
+GET     /Admin/printMostOrders           controllers.ReportCtrl.printMostOrders()
+GET     /Admin/printLowestRated           controllers.ReportCtrl.printLowestRated()
+GET     /Admin/printHighestRated           controllers.ReportCtrl.printHighestRated()
+GET     /Admin/printBestSellers           controllers.ReportCtrl.printBestSellers()
+GET     /Admin/printWorstSellers           controllers.ReportCtrl.printWorstSellers()
 
 GET     /send           controllers.MyComponent.send()
 
