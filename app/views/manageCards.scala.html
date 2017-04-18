@@ -11,9 +11,8 @@ though a static HTML form would also work -->
 @import helper._
 
 <!-- The page will be based on the main template -->
-@main("Payment Cards", customer) {
+@main("Manage Payment Cards", customer) {
 
-	<h3>Select a Payment Card to make payment</h3>
 	
 	<div class="row">
 
@@ -24,14 +23,17 @@ though a static HTML form would also work -->
 			  </div>
 		} 
 
-        <h3>Registered Cards</h3>
-
+        <div class="panel panel-success">
+	<div class="panel-heading">
+        <h4>Registered Cards</h4> </div>
+        <div class="panel-body">
         <table class="table table-bordered table-hover table-condensed">
 			<thead>
 			<!-- The header row-->
-			<tr>
+			<tr class="active">
 				<th>Card Number</th>
-
+                                <th>Card Type</th>
+				<th></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -40,16 +42,13 @@ though a static HTML form would also work -->
                     
                     <tr>
                         <td>************@s.getShortCardNumber</td>
+			<td>@s.getType</td>
+
                          <td> 
-
-
-            <div class="col-md-6">
-                <p class="text-right">
-                    <a href="@routes.ShoppingCtrl.placeOrder(s.getCardNumber)" class="btn btn-success btn-sm">
-                     Select card</a></td>
-                </p>
-            </div>  
-                       
+                 <a href="@routes.HomeController.deleteCard(s.getCardNumber)">
+				<button class="btn btn-danger btn-sm" onclick="return confirmDel();"><span class="glyphicon glyphicon-trash"></span> Delete Card</button>
+			</a>
+                       </td>  
                         
                     </tr>
            }
@@ -59,20 +58,24 @@ though a static HTML form would also work -->
 
          <div class="row">
             <div class="col-md-6">
-                <p class="text-right">
-                    <a href="@routes.ShoppingCtrl.showBasket()" class="btn btn-danger btn-sm" >
-                     Cancel</a>
-                </p>
-            </div>
-               <p class="text-right">
+                <p>
 	                    <a href="@routes.HomeController.addPaymentCard()" class="btn btn-primary">
                      Add new card</a></td>
                 </p>
 
+            </div>
             
         </div>
-
+       </div>
 
         </div>
 </div>
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
+
+
 }

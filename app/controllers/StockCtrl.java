@@ -44,6 +44,12 @@ public class StockCtrl extends Controller {
 
     @Transactional
     public Result addToBasket(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
         
         // Find the product
         Product p = Product.find.byId(id);
@@ -72,6 +78,13 @@ public class StockCtrl extends Controller {
 
        @Transactional
     public Result addAmountToBasket(Long id, int amount) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Find the product
         Product p = Product.find.byId(id);
@@ -100,6 +113,13 @@ public class StockCtrl extends Controller {
 
          @Transactional
     public Result addAllAmountToBasket(int amount) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Get basket for logged in Administrator
         Administrator admin = getCurrentUser();
@@ -160,6 +180,13 @@ public class StockCtrl extends Controller {
      @Transactional
 public Result showBasket(){
 
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+
       // Get basket for logged in Administrator
         Administrator admin = getCurrentUser();
         
@@ -194,6 +221,13 @@ public Result showBasket(){
 
     @Transactional
     public Result removeOne(Long itemId) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Get the order item
         StockOrderItem item = StockOrderItem.find.byId(itemId);
@@ -210,6 +244,13 @@ public Result showBasket(){
        // Add an item to the basket
     @Transactional
     public Result setItemSize(Long itemId, String size) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Get the order item
         StockOrderItem item = StockOrderItem.find.byId(itemId);
@@ -232,8 +273,20 @@ public Result showBasket(){
 
     @Transactional
     public Result placeOrder() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         Administrator a = getCurrentUser();
     
+        if(a.getStockBasket().getBasketItems().size() == 0){
+          flash("warning", "Basket is empty" );
+           
+        return redirect(routes.StockCtrl.showBasket());
+      }
 
         StockOrder order = new StockOrder();
 
@@ -270,6 +323,13 @@ return ok (orderConfirmed.render(env, a, order));
     // Empty Basket
     @Transactional
     public Result emptyBasket() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
        Administrator a = getCurrentUser();
         a.getStockBasket().removeAllItems();
@@ -294,6 +354,13 @@ return ok (orderConfirmed.render(env, a, order));
 	// Get a list of orders
     @Transactional
     public Result orderHistory() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
 
         Administrator a = getCurrentUser();
 
@@ -323,6 +390,13 @@ return ok (orderConfirmed.render(env, a, order));
 
         @Transactional
     public Result cancelOrder(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
 
          StockOrder order = StockOrder.find.byId(id);
 

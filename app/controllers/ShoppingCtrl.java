@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.security.CheckIfCustomer;
 import controllers.security.Secured;
+import controllers.security.LoginCtrl;
 import models.products.Product;
 import models.shopping.Basket;
 import models.shopping.OrderItem;
@@ -48,6 +49,13 @@ public class ShoppingCtrl extends Controller {
 
     @Transactional
     public Result addToBasket(Long id) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         
         // Find the product
         Product p = Product.find.byId(id);
@@ -79,6 +87,13 @@ public class ShoppingCtrl extends Controller {
 
      @Transactional
 public Result showBasket(){
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
         Customer customer = (Customer)User.getLoggedIn(session().get("email"));
         
@@ -118,6 +133,12 @@ public Result showBasket(){
 
     @Transactional
     public Result removeOne(Long itemId) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
         
         // Get the order item
         OrderItem item = OrderItem.find.byId(itemId);
@@ -134,6 +155,13 @@ public Result showBasket(){
        // Add an item to the basket
     @Transactional
     public Result setItemSize(Long itemId, String size) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         
         // Get the order item
         OrderItem item = OrderItem.find.byId(itemId);
@@ -169,8 +197,21 @@ public Result showBasket(){
     }
 
     @Transactional
-    public Result placeOrder(String cards) {
+    public Result placeOrder(String card) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         Customer c = getCurrentUser();
+
+       if(c.getBasket().getBasketItems().size() == 0){
+          flash("warning", "Basket is empty" );
+           
+        return redirect(routes.ShoppingCtrl.showBasket());
+      }
         
         for (OrderItem i: c.getBasket().getBasketItems()){
      
@@ -187,6 +228,10 @@ public Result showBasket(){
 
         order.setCustomer(c);
 
+        PaymentCard pCard = PaymentCard.find.byId(card);
+
+        order.setCard(pCard);
+
         order.setItems(c.getBasket().getBasketItems());
 
         order.setOrderStatus("Processing Order");
@@ -196,8 +241,6 @@ public Result showBasket(){
 for (OrderItem i: order.getItems()){
      
      i.setOrder(order);
-     
-      i.setselectedCard(cards);
 
      i.setBasket(null);
 
@@ -227,6 +270,13 @@ return ok (orderConfirmed.render(env, c, order));
     // Empty Basket
     @Transactional
     public Result emptyBasket() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         
         Customer c = getCurrentUser();
         c.getBasket().removeAllItems();
@@ -252,6 +302,13 @@ return ok (orderConfirmed.render(env, c, order));
 	// Get a list of orders
     @Transactional
     public Result orderHistory() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
         Customer c = getCurrentUser();
 
@@ -281,6 +338,13 @@ return ok (orderConfirmed.render(env, c, order));
 
         @Transactional
     public Result cancelOrder(Long id, int points) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
          ShopOrder order = ShopOrder.find.byId(id);
 
@@ -328,6 +392,7 @@ order.update();
 	@Transactional
     public void DeleteLoyaltyPoints(int points) {
 
+          
          
          
         Customer c = getCurrentUser();
@@ -352,6 +417,7 @@ order.update();
 
          @Transactional
     public void AddLoyaltyPoints() {
+
 
         
         Customer c = getCurrentUser();

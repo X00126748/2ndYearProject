@@ -3,6 +3,7 @@ package models.users;
 import models.shopping.Basket;
 import models.shopping.ShopOrder;
 import models.shopping.OrderItem;
+import models.shopping.PaymentCard;
 import models.products.Review;
 import javax.persistence.*;
 import java.util.List;
@@ -36,9 +37,6 @@ public class Customer extends User{
     
      private int numOfOrders;
     
-   
-
-
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Basket basket;
@@ -48,6 +46,9 @@ public class Customer extends User{
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<PaymentCard> cards;
 	
 	public Customer(String email, String role, String title, String name, String surname, String password, String number, String street1, String street2, String town, String county, String postCode, String country, int LoyaltyPointsEarned, int numOfOrders)
 	{
@@ -216,6 +217,14 @@ public class Customer extends User{
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<PaymentCard> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<PaymentCard> cards) {
+        this.cards = cards;
     }
 
 

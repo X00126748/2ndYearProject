@@ -32,7 +32,6 @@ public class OrderItem extends Model {
   
     private String size;
 
-     private String selectedCard;
 
     // Default constructor
     public  OrderItem() {
@@ -130,13 +129,6 @@ public class OrderItem extends Model {
         this.size = size;
     }
 
-     public String getselectedCard() {
-        return selectedCard;
-    }
-
-    public void setselectedCard(String selectedCard) {
-        this.selectedCard = selectedCard;
-    }
-
+   
 }
 

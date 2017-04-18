@@ -102,7 +102,8 @@ GET     /orderHistory                        controllers.ShoppingCtrl.orderHisto
 #GET     /cancelOrder/:id                     controllers.ShoppingCtrl.cancelOrder(id: Long)
 GET     /cancelOrder/:id/points              controllers.ShoppingCtrl.cancelOrder(id: Long, points: Int)
 GET     /selectcard                         controllers.HomeController.selectcard()
-
+GET     /deleteCard                         controllers.HomeController.deleteCard(card: String)
+GET     /manageCards                         controllers.HomeController.manageCards()
 
 # Stock
 GET     /Admin/showBasket                         controllers.StockCtrl.showBasket()

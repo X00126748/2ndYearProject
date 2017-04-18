@@ -7,6 +7,8 @@ import play.db.ebean.Transactional;
 import controllers.security.CheckIfCustomer;
 import controllers.security.CheckIfAdmin;
 import controllers.security.Secured;
+import controllers.security.LoginCtrl;
+import controllers.security.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -152,6 +154,12 @@ public class HomeController extends Controller {
     // called when edit button is pressed
     @Transactional
     public Result updateCustomer() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
          // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
         // Create a form based on the Customer class and fill using c
@@ -165,6 +173,12 @@ public class HomeController extends Controller {
     // Handle the form data when an updated customer is submitted
     @Transactional
     public Result updateCustomerSubmit() {
+
+         if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
 
 	String saveImageMsg;
 
@@ -204,6 +218,12 @@ public class HomeController extends Controller {
           // Delete Customer
     @Transactional
     public Result deleteCustomer() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
          
           // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
@@ -264,9 +284,34 @@ public class HomeController extends Controller {
 
              @Transactional
     public Result updateAddress() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
          
          // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
+
+        
+       if(c.getBasket().getBasketItems().size() == 0){
+          flash("warning", "Basket is empty" );
+           
+        return redirect(routes.ShoppingCtrl.showBasket());
+      }
+
+        for (OrderItem i: c.getBasket().getBasketItems()){
+     
+         if(i.getSize().equalsIgnoreCase("No size selected")){
+	    // Set a success message in temporary flash
+        flash("warning", "Please select a size" );
+           
+        return redirect(routes.ShoppingCtrl.showBasket());
+         }
+}
+
         // Create a form based on the Customer class and fill using c
         Form<Customer> customerForm = Form.form(Customer.class).fill(c);
         // Render the updateCustomer view
@@ -276,6 +321,13 @@ public class HomeController extends Controller {
 
     @Transactional
     public Result updateAddressSubmit() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
         // Create a Customer form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
@@ -297,7 +349,7 @@ public class HomeController extends Controller {
 
         
         // Add a success message to the flash session
-        flash("success", "Delivery Address for " + updateAddressForm.get().getName() + " has been updated");
+        flash("success", "Delivery Address for " + updateAddressForm.get().getName() + " has been confirmed");
             
         // Return to admin home
         return redirect(controllers.routes.HomeController.selectcard());
@@ -307,12 +359,18 @@ public class HomeController extends Controller {
 
        @Transactional
      public Result selectcard(){
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
       // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
-        // Create a form based on the PaymentCard class
-       List<PaymentCard> cardList = PaymentCard.findAll();
-        // Render the addPaymentCard view
-        // pass the id and form as parameters
+       
+        List<PaymentCard> cardList = c.getCards();
+    
         
      return ok (selectcard.render(cardList,c));
 
@@ -337,6 +395,12 @@ public class HomeController extends Controller {
     // Handle the form data when a new Review is submitted
     @Transactional
     public Result addReviewSubmit(Long id) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
 
         // Create a product form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
@@ -389,6 +453,13 @@ public class HomeController extends Controller {
     // called when edit button is pressed
     @Transactional
     public Result addPaymentCard() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         // Retrieve the Customer by getCurrentUser
         Customer c = (Customer)getCurrentUser();
         // Create a form based on the PaymentCard class
@@ -403,12 +474,22 @@ public class HomeController extends Controller {
     @Transactional
     public Result addPaymentCardSubmit() {
 
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
+
         // Create a PaymentCard form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<PaymentCard> addPaymentCardForm = formFactory.form(PaymentCard.class).bindFromRequest();
 
         // Check for errors (based on PaymentCard class annotations)	
         if(addPaymentCardForm.hasErrors()) {
+	    // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
+            
             // Display the form again
             return badRequest(addPaymentCard.render(addPaymentCardForm, getCurrentUser()));
         }
@@ -424,18 +505,63 @@ public class HomeController extends Controller {
         // update (save) this PaymentCard            
         p.save();
 
-        // Add a success message to the flash session
-        flash("success", "PaymentCard has been Created" );
-            
-        // Return to admin home
+        if(c.getBasket().getBasketItems().size() > 0){
+         // Add a success message to the flash session
+        flash("success", "Payment Card has been Created" );
+           
         return redirect(controllers.routes.HomeController.selectcard());
+      }
+
+
+        // Add a success message to the flash session
+        flash("success", "Payment Card has been Created" );
+
+        return redirect(controllers.routes.HomeController.manageCards());
     }
+
+     @Transactional
+     public Result manageCards(){
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
+      // Retrieve the Customer by getCurrentUser
+        Customer c = (Customer)getCurrentUser();
+      
+       List<PaymentCard> cardList = c.getCards();
+        
+     return ok (manageCards.render(cardList,c));
+
+   }
+
+
+	// Delete card
+    @Transactional
+    public Result deleteCard(String card) {
+        // Call delete method
+        PaymentCard.find.ref(card).delete();
+        // Add message to flash session 
+        flash("success", "Card has been deleted");
+        // Redirect to admin forum
+        return redirect(routes.HomeController.manageCards());
+    }
+
 
         
     @Security.Authenticated(Secured.class)
     @With(CheckIfCustomer.class)
         @Transactional
     public Result addForumMessage() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         // Retrieve the product by id
         User u = getCurrentUser();
         // Instantiate a form object based on the Review class
@@ -449,6 +575,13 @@ public class HomeController extends Controller {
     // Handle the form data when a new Review is submitted
     @Transactional
     public Result addForumMessageSubmit() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
         // Create a product form object (to hold submitted data)
         // 'Bind' the object to the submitted form (this copies the filled form)
@@ -486,6 +619,12 @@ public class HomeController extends Controller {
     @With(CheckIfCustomer.class)
     @Transactional
     public Result like(Long messageId) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
         
         // Get the message
         ForumMessage m = ForumMessage.find.byId(messageId);
@@ -512,6 +651,13 @@ public class HomeController extends Controller {
     @Security.Authenticated(Secured.class)
     @With(CheckIfCustomer.class)
     public Result dislike(Long messageId) {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
         
         // Get the message
         ForumMessage m = ForumMessage.find.byId(messageId);
@@ -610,6 +756,13 @@ public class HomeController extends Controller {
     @Transactional
     public Result accountDetails(){
 
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
+
         Customer c = (Customer)getCurrentUser();
         
         return ok(accountDetails.render(env, c));
@@ -618,6 +771,13 @@ public class HomeController extends Controller {
     // Get a list of orders
     @Transactional
     public Result myPosts() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
 
         Customer c = (Customer)getCurrentUser();
 

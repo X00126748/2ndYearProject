@@ -84,6 +84,13 @@ public class AdminProductCtrl extends Controller {
     // Otherwise return products for a category (by id)
     @Transactional
     public Result listProducts(Long cat, String filter) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Get list of categories in ascending order
         List<Category> categories = Category.find.where().orderBy("name asc").findList();
         // Instantiate products, an Array list of products			
@@ -137,6 +144,13 @@ public class AdminProductCtrl extends Controller {
     // Otherwise return products for a category (by id)
     @Transactional
     public Result lowStock(Long cat, String filter) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Get list of categories in ascending order
         List<Category> categories = Category.find.where().orderBy("name asc").findList();
         // Instantiate products, an Array list of products			
@@ -171,6 +185,13 @@ public class AdminProductCtrl extends Controller {
     // Display an empty form in the view
     @Transactional
     public Result addProduct() {   
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Instantiate a form object based on the Product class
         Form<Product> addProductForm = formFactory.form(Product.class);
         // Render the Add Product View, passing the form object
@@ -180,6 +201,7 @@ public class AdminProductCtrl extends Controller {
     // Handle the form data when a new product is submitted
     @Transactional
     public Result addProductSubmit() {
+
 
         String saveImageMsg;
 
@@ -227,6 +249,13 @@ public class AdminProductCtrl extends Controller {
     // called when edit button is pressed
     @Transactional
     public Result updateProduct(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Retrieve the product by id
         Product p = Product.find.byId(id);
         // Create a form based on the Product class and fill using p
@@ -340,6 +369,13 @@ public class AdminProductCtrl extends Controller {
     @Transactional
     public Result orderStock(Long id, Long amount) {
 
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+
         if(amount < 1){
            // Add message to flash session 
         flash("warning", "Cannot add stock less than 1");
@@ -362,6 +398,13 @@ public class AdminProductCtrl extends Controller {
     // order stock for all low stock Products
     @Transactional
     public Result orderAllStock(Long amount) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
 
         if (amount instanceof Long) {
 
@@ -412,6 +455,13 @@ public class AdminProductCtrl extends Controller {
 
         @Transactional
     public Result product(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
          // Retrieve the product by id
         Product p = Product.find.byId(id);
 

@@ -32,6 +32,9 @@ public class ShopOrder extends Model {
     @ManyToOne
     private Customer customer;
 
+    @OneToOne
+    private PaymentCard card;
+
     // Default constructor
     public  ShopOrder() {
         OrderDate = new Date();
@@ -93,6 +96,14 @@ public class ShopOrder extends Model {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public PaymentCard getCard() {
+        return card;
+    }
+
+    public void setCard(PaymentCard card) {
+        this.card = card;
     }
 
     public int getLoyaltyPointsEarned() {

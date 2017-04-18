@@ -78,6 +78,13 @@ public class AdminHomeCtrl extends Controller {
     // Display an empty form in the view
     @Transactional
     public Result addAdministrator() {   
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Instantiate a form object based on the Product class
         Form<Administrator> addAdministratorForm = formFactory.form(Administrator.class);
         // Render the Add Administrator View, passing the form object
@@ -179,6 +186,13 @@ public class AdminHomeCtrl extends Controller {
     // called when edit button is pressed
     @Transactional
     public Result updateAdministrator() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
          // Retrieve the Administrator by getCurrentUser
         Administrator a = (Administrator)getCurrentUser();
         // Create a form based on the Administrator class and fill using a
@@ -231,6 +245,13 @@ public class AdminHomeCtrl extends Controller {
           // Delete Administrator
     @Transactional
     public Result deleteAdministrator() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
          
           // Retrieve the Administrator by getCurrentUser
        Administrator a = (Administrator)getCurrentUser();
@@ -250,6 +271,13 @@ public class AdminHomeCtrl extends Controller {
          @Transactional
     public Result accountDetails(){
 
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+
         Administrator a = (Administrator)getCurrentUser();
         
         return ok(accountDetails.render(env, a));
@@ -259,6 +287,13 @@ public class AdminHomeCtrl extends Controller {
       // Get a list of orders
     @Transactional
     public Result orders() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
 
         List<ShopOrder> ordersList = new ArrayList<ShopOrder>();
 
@@ -291,6 +326,13 @@ public class AdminHomeCtrl extends Controller {
     @Transactional
     public Result stockOrders() {
 
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         List<StockOrder> ordersList = new ArrayList<StockOrder>();
 
          
@@ -322,6 +364,13 @@ public class AdminHomeCtrl extends Controller {
 
     @Transactional
     public Result setOrderForDelivery(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
 
          ShopOrder order = ShopOrder.find.byId(id);
 
@@ -359,6 +408,13 @@ for (OrderItem i: order.getItems()){
       @Transactional
     public Result setStockOrderForDelivery(Long id) {
 
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+
          StockOrder order = StockOrder.find.byId(id);
 
          order.setOrderStatus("Order Complete");
@@ -382,6 +438,13 @@ for (OrderItem i: order.getItems()){
 
     @Transactional
     public Result addForumMessage() {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Retrieve the product by id
         User u = getCurrentUser();
         // Instantiate a form object based on the Review class
@@ -428,6 +491,13 @@ for (OrderItem i: order.getItems()){
            // Delete message
     @Transactional
     public Result deleteMessage(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Call delete method
         ForumMessage.find.ref(id).delete();
         // Add message to flash session 
@@ -441,6 +511,13 @@ for (OrderItem i: order.getItems()){
     // Delete Review
     @Transactional
     public Result deleteReview(Long id, Long product) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         // Call delete method
         Review.find.ref(id).delete();
 
@@ -462,6 +539,13 @@ for (OrderItem i: order.getItems()){
          @Transactional
          public Result forum() {
 
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+
 	 List<ForumMessage> messages = new ArrayList<ForumMessage>();
 
          messages = ForumMessage.findAll();
@@ -473,6 +557,13 @@ for (OrderItem i: order.getItems()){
             // Thumbs up message
     @Transactional
     public Result like(Long messageId) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Get the message
         ForumMessage m = ForumMessage.find.byId(messageId);
@@ -497,6 +588,13 @@ for (OrderItem i: order.getItems()){
 
     @Transactional
     public Result dislike(Long messageId) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
         
         // Get the message
         ForumMessage m = ForumMessage.find.byId(messageId);

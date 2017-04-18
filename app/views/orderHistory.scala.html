@@ -70,6 +70,7 @@
 		<p><strong>Email: @o.getCustomer.getEmail</strong></p>
 		<p><strong>Phone Num: @o.getCustomer.getNumber</strong></p>
 		<p><strong>Address: @o.getCustomer.getStreet1, @if(o.getCustomer.getStreet2 != "") {@o.getCustomer.getStreet2,} @o.getCustomer.getTown, @if(o.getCustomer.getCounty != "") {@o.getCustomer.getCounty,} @o.getCustomer.getPostCode, @o.getCustomer.getCountry  </strong></p>
+		<p><strong>Card Number: ************@o.getCard.getShortCardNumber</strong></p>
             </div> 
             <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
@@ -142,6 +143,7 @@
 		<p><strong>Email: @o.getCustomer.getEmail</strong></p>
 		<p><strong>Phone Num: @o.getCustomer.getNumber</strong></p>
 		<p><strong>Address: @o.getCustomer.getStreet1, @if(o.getCustomer.getStreet2 != "") {@o.getCustomer.getStreet2,} @o.getCustomer.getTown, @if(o.getCustomer.getCounty != "") {@o.getCustomer.getCounty,} @o.getCustomer.getPostCode, @o.getCustomer.getCountry  </strong></p>
+		<p><strong>Card Number: ************@o.getCard.getShortCardNumber</strong></p>
             </div> 
             <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>

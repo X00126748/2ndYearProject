@@ -17,6 +17,14 @@
 		      @flash.get("loginRequired")
 		  </div>
 	}
+      @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
      @if(flash.containsKey("success")) {
 			  <div class="alert alert-success">
 			      @flash.get("success")

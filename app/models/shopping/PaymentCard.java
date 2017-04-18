@@ -66,7 +66,7 @@ public class PaymentCard extends Model {
     }
 
     //Generic query helper for entity Computer with id Long
-    public static Finder<Long,PaymentCard> find = new Finder<Long,PaymentCard>(PaymentCard.class);
+    public static Finder<String,PaymentCard> find = new Finder<String,PaymentCard>(PaymentCard.class);
 
     // Find all PaymentCard in the database
     // Filter PaymentCard name 
@@ -126,6 +126,11 @@ public class PaymentCard extends Model {
 
     public String getCardNumber() {
         return cardNumber;
+    }
+
+    public String getShortCardNumber() {
+        String card = cardNumber.substring(12);
+        return card;
     }
 
     public void setCardNumber(String cardNumber) {
