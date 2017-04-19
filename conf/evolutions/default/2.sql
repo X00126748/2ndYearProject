@@ -15,22 +15,47 @@ insert into category (id,name) values ( 10,'Womens');
 
 insert into supplier (id,name, email, number) values (1,'ABC Product Supplier','customer@products.com', '0855436782');
 
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 1,'Nike T-Shirt','Mens Black Basketball Top',50,40.00,13.00, 1 ,0,4.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 2,'Nike T-Shirt','Mens Bring Your Game Basketball Top',50,35.00,10.00, 1 ,0,4.5);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 3,'Nike T-Shirt','Mens Black & White Basketball Top',50,35.00, 9.00,1 ,0,4.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 4,'Nike T-Shirt','Good Things Come In Threes Top',50,40.00, 10.00,1 ,0,5.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 5,'Nike T-Shirt','Kobe Bryant Black Top',50,26.00, 7.00,1 ,0,4.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 6,'Nike T-Shirt','Kobe Bryant Grey Top',50,30.00 , 15.00,1,0,4.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 7,'Nike T-Shirt','Lebron James Grey Top',50,35.00,14.00, 1 ,0,4.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 8,'Jordan T-Shirt','Air Jordan Gret Top',50,26.00,12.00, 1 ,0,3.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 9,'Jordan T-Shirt','Air Jordan Black Top',50,30.00,11.00, 1 ,0,5.0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 10,'Jordan T-Shirt','Air Jordan Engineered For Flight Top',50,35.00 ,10.00, 1,0,4.5);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 11,'Jordan T-Shirt','Air Jordan Long Sleeve Top',50,45.00, 18.00,1 ,0, 3.5);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 12,'Jordan T-Shirt','Air Jordan No Excuses Top',50,30.00,16.00,1 ,0 ,5);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 13,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00,15.00, 1 ,0,0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 14,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00,8.00, 1 ,0,0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 15,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00,12.00, 1 ,0,0);
-insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 16,'Jordan T-Shirt','Air Jordan No Excuses Top',5,30.00,10.00, 1 ,0,0);
+
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 1,'Nike',' Black Basketball Hoop T-shirt',50,40.00,13.00, 1 ,0,4.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 2,'Nike',' Bring Your Game T-shirt',50,35.00,10.00, 1 ,0,4.5);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 3,'Nike','Mens Black & White T-shirt',50,35.00, 9.00, 1 ,0,4.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 4,'Nike','Good Things Come In Threes T-shirt',50,40.00,10.00, 1 ,0,5.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 5,'Nike','Kobe Bryant Black T-shirt',50,26.00,7.00, 1 ,0,4.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 6,'Nike','Kobe Bryant Grey T-shirt',50,30.00 ,15.00, 1,0,4.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 7,'Nike','Lebron James Grey T-shirt',50,35.00,14.00, 1 ,0,4.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 8,'Jordan','Air Jordan Grey T-shirt',50,26.00,12.00, 1 ,0,3.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 9,'Jordan','Air Jordan Black T-shirt',50,30.00,11.00, 1 ,0,5.0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 10,'Jordan','Air Jordan Engineered For Flight T-shirt',50,35.00 ,10.00, 1,0,4.5);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 11,'Jordan','Air Jordan Long Sleeve T-shirt',50,45.00,18.00, 1 ,0, 3.5);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 12,'Jordan','Air Jordan No Excuses T-shirt',50,30.00,16.00,1 ,0 ,5);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 13,'Adidas ','James Harden Black T-shirt',5,30.00,15.00, 1 ,0,0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 14,'Adidas','James Harden Black T-shirt',5,30.00,8.00, 1 ,0,0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 15,'Adidas',  'Black & white Tank-top',5,30.00,12.00, 1 ,0,0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 16,'Adidas','Red Compression T-shirt ',5,30.00,10.00, 1 ,0,0);
+
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 17,'Adidas','Blue Compression T-shirt ',5,30.00,12.00, 1 ,0,0);
+insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 18,'Under Armour ','Grey & Red T-shirt ',5,30.00,13.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 19,'Under Armour ','Long sleeve T-shirt ',5,30.00,10.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 20,'Under Armour ','Dark Grey T-shirt ',5,30.00,11.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 21,'Under Armour ','Red Compression t-shirt ',5,30.00,12.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 22,'Under Armour ','Black Long sleeve Compression T-shirt ',5,30.00,10.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 23,'Nike','Red Basketball T-shirt ',5,30.00,14.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 24,'Nike','Grey Basketball T-shirt ',5,30.00,10.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 25,'Nike','Black Just Do It T-shirt ',5,30.00,8.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 26,'Nike','Blue Just Do It T-shirt ',5,30.00,9.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 27,'Nike','Blue Basketball T-shirt ',5,30.00,7.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 28,'Nike','White Basketball T-shirt ',5,30.00, 11.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 29,'Jordan','Jumpman Basketball T-shirt ',5,30.00,12.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 30,'Jordan','Teal Basketball T-shirt ',5,30.00,9.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 31,'Jordan','Brand of Flight T-shirt ',5,30.00,9.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 32,'Jordan','Red elephant print T-shirt ',5,30.00,7.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 35,'Adidas','Multi-Colored T-shirt ',5,30.00,10.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 36,'Adidas','White Basketball T-shirt ',5,30.00,11.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 37,'Adidas','Grey Basketball T-shirt ',5,30.00,6.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 38,'Adidas','Black Basketball T-shirt ',5,30.00,8.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 39,'Under Armour','Black Basketball T-shirt',5,30.00,12.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 40,'Under Armour','Red Basketball T-shirt',5,30.00,8.00, 1 ,0,0);
+
 
 insert into category_product (category_id,product_id) values (4,1);
 insert into category_product (category_id,product_id) values (4,2);
