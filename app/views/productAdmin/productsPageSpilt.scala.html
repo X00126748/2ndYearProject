@@ -71,9 +71,14 @@
 
 	<div class="list-group">
 	<a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
-	  @for(c <- categories) {
+
+          @for(c <- categories) {
+          <a href="@routes.AdminProductCtrl.listProducts(c.getId, currentFilter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+				}
+
+	 <!-- @for(c <- categories) {
 		<a href="@routes.AdminProductCtrl.listCat(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
-			}
+			} -->
 
 	</div>
 	  </div>

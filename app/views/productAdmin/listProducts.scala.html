@@ -11,16 +11,29 @@
 		form {
 			margin-bottom: 1em;
 		}
+                 .sortBy {
+			margin-bottom: 1em;
+		}
 	</style>
 
 <div class="row">
 
   <div class="col-md-3">
+
+ @if(user != null) {
+		<div class="sortBy">
+			<a href="@routes.AdminProductCtrl.addProduct()">
+				<button class="btn btn-primary btn-block">Add a Product</button>
+			</a>
+		</div>
+		}
+
       <div class="list-group">
 				<!-- Start of For loop - For each c in categories add a link -->
-				<a href="@routes.AdminProductCtrl.listProducts(0)" class="list-group-item">All categories</a>
+		<!--<a href="@routes.AdminProductCtrl.listProducts(0)" class="list-group-item">All categories</a>-->
+	 <a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
 				@for(c <- categories) {
-          <a href="@routes.AdminProductCtrl.listProducts(c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+          <a href="@routes.AdminProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 				}
       </div>
   </div>
@@ -40,6 +53,14 @@
 			 </form>
 			</div>
 
+
+      @if(products.size == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
 
 		 <div class="row">
 
@@ -190,13 +211,9 @@
 	}
 
 		</div>
-		@if(user != null) {
-		<div>
-			<a href="@routes.AdminProductCtrl.addProduct()">
-				<button class="btn btn-primary">Add a Product</button>
-			</a>
-		</div>
-		}
+
+}
+		
 	</div>
 </div>
 

@@ -44,6 +44,9 @@ public class PaymentCard extends Model {
     @ManyToOne
     private Customer customer;
 
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private List<ShopOrder> orders;
+
   
     // Default constructor
     public PaymentCard() {
@@ -175,6 +178,14 @@ public class PaymentCard extends Model {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public List<ShopOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<ShopOrder> orders) {
+        this.orders = orders;
     }
 
 

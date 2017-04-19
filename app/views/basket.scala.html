@@ -106,8 +106,17 @@
 			</tbody>
 		</table>
         <div class="row">
-            <div class="col-md-12">
-                <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(customer.getBasket.getBasketTotal))</strong></p>
+            <div class="col-md-6">
+	<p><strong>Free Delivery on all orders over &euro;30.00 </strong></p>
+        </div>
+       <div class="col-md-6">
+        <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(customer.getBasket.getBasketTotal))</strong></p>
+	@if(customer.getBasket.getBasketTotal <= 30.00){
+        <p class="text-right"><strong>Delivery Cost: &euro; @("%.2f".format(customer.getBasket.getDeliveryCost))</strong></p>
+	<p class="text-right"><strong>Total: &euro; @("%.2f".format(customer.getBasket.getDeliveryCost + customer.getBasket.getBasketTotal))</strong></p>} else {
+	<p class="text-right"><strong>Delivery Cost: &euro; 0.00</strong></p>
+	<p class="text-right"><strong>Total: &euro; @("%.2f".format(customer.getBasket.getBasketTotal))</strong></p>
+}
             </div>  
         </div>
         <div class="row">

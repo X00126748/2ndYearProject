@@ -32,7 +32,7 @@ public class ShopOrder extends Model {
     @ManyToOne
     private Customer customer;
 
-    @OneToOne
+    @ManyToOne
     private PaymentCard card;
 
     // Default constructor
@@ -43,10 +43,17 @@ public class ShopOrder extends Model {
     public double getOrderTotal() {
         
         double total = 0;
+	double delivery = 5.00;
         
         for (OrderItem i: items) {
             total += i.getItemTotal();
+             
         }
+
+        if (total <= 30.00){
+         total += delivery;
+
+       }
         return total;
     }
 	

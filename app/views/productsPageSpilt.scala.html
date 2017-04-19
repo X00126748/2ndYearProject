@@ -65,12 +65,16 @@
 	<a href="@routes.ProductCtrl.list()" class="list-group-item">All categories</a>
 
         @for(c <- categories) {
+		<a href="@routes.ProductCtrl.listProducts(c.getId, currentFilter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+			}
+
+       <!-- @for(c <- categories) {
 		<a href="@routes.ProductCtrl.listCat(0, currentSortBy, currentOrder, currentFilter, c.getId)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
 			}
 
         @for(c <- categories) {
 		<a href="@link(0, "name", c.getId())" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
-			}
+			} -->
 
 
 	</div>

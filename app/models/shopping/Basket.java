@@ -23,6 +23,8 @@ public class Basket extends Model {
     @OneToOne
     private Customer customer;
 
+    private double deliveryCost = 5.00;
+
     // Default constructor
     public  Basket() {
     }
@@ -46,6 +48,7 @@ public class Basket extends Model {
         for (OrderItem i: basketItems) {
             total += i.getItemTotal();
         }
+
         return total;
     }
 	
@@ -82,7 +85,13 @@ public class Basket extends Model {
         this.customer = customer;
     }
 
+    public double getDeliveryCost() {
+        return deliveryCost;
+    }
 
+    public void setDeliveryCost(double deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
 
 
     // Add product to basket

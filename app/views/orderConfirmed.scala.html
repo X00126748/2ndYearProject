@@ -61,11 +61,13 @@
 		<p><strong>Email: @order.getCustomer.getEmail</strong></p>
 		<p><strong>Phone Num: @order.getCustomer.getNumber</strong></p>
 		<p><strong>Address: @order.getCustomer.getStreet1, @if(order.getCustomer.getStreet2 != "") {@order.getCustomer.getStreet2,} @order.getCustomer.getTown, @if(order.getCustomer.getCounty != "") {@order.getCustomer.getCounty,} @order.getCustomer.getPostCode, @order.getCustomer.getCountry</strong></p>
-                <p><strong>Card Number: ************@order.getCard.getShortCardNumber</strong></p>
+                
             </div> 
             <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(order.getOrderTotal))</strong></p>
 		<p class="text-right"><strong>Order Date: @order.getOrderDate</strong></p>
+		<p class="text-right"><strong>Card Type: @order.getCard.getType</strong></p>
+		<p class="text-right"><strong>Card Number: ************@order.getCard.getShortCardNumber</strong></p>
                 <p class="text-right"><strong>Order Status: @order.getOrderStatus</strong></p>
 		<p class="text-right"><strong>Loyalty Points: @order.getLoyaltyPointsEarned</strong></p>
             </div>  

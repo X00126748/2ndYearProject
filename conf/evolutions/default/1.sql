@@ -6,6 +6,7 @@
 create table basket (
   id                            bigint not null,
   customer_email                varchar(255),
+  delivery_cost                 double,
   constraint uq_basket_customer_email unique (customer_email),
   constraint pk_basket primary key (id)
 );
@@ -101,7 +102,6 @@ create table shop_order (
   order_status                  varchar(255),
   customer_email                varchar(255),
   card_card_number              varchar(255),
-  constraint uq_shop_order_card_card_number unique (card_card_number),
   constraint pk_shop_order primary key (id)
 );
 create sequence shop_order_seq;
@@ -205,6 +205,7 @@ alter table shop_order add constraint fk_shop_order_customer_email foreign key (
 create index ix_shop_order_customer_email on shop_order (customer_email);
 
 alter table shop_order add constraint fk_shop_order_card_card_number foreign key (card_card_number) references payment_card (card_number) on delete restrict on update restrict;
+create index ix_shop_order_card_card_number on shop_order (card_card_number);
 
 alter table stock_basket add constraint fk_stock_basket_admin_email foreign key (admin_email) references user (email) on delete restrict on update restrict;
 
@@ -265,6 +266,7 @@ alter table shop_order drop constraint if exists fk_shop_order_customer_email;
 drop index if exists ix_shop_order_customer_email;
 
 alter table shop_order drop constraint if exists fk_shop_order_card_card_number;
+drop index if exists ix_shop_order_card_card_number;
 
 alter table stock_basket drop constraint if exists fk_stock_basket_admin_email;
 
