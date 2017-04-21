@@ -70,11 +70,13 @@
 		<p><strong>Email: @o.getCustomer.getEmail</strong></p>
 		<p><strong>Phone Num: @o.getCustomer.getNumber</strong></p>
 		<p><strong>Address: @o.getCustomer.getStreet1, @if(o.getCustomer.getStreet2 != "") {@o.getCustomer.getStreet2,} @o.getCustomer.getTown, @if(o.getCustomer.getCounty != "") {@o.getCustomer.getCounty,} @o.getCustomer.getPostCode, @o.getCustomer.getCountry  </strong></p>
-		<p><strong>Card Number: ************@o.getCard.getShortCardNumber</strong></p>
+		
             </div> 
             <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
+		<p class="text-right"><strong>Card Type: @o.getCard.getType</strong></p>
+		<p class="text-right"><strong>Card Number: ************@o.getCard.getShortCardNumber</strong></p>
                 <p class="text-right"><strong>Order Status: @o.getOrderStatus</strong></p>
                  <p class="text-right"><strong>Loyalty Points: @o.getLoyaltyPointsEarned</strong></p>
                 <p class="text-right"><a href="@routes.ShoppingCtrl.cancelOrder(o.getId(),o.getLoyaltyPointsEarned())">
@@ -120,10 +122,10 @@
                     @for(i <- o.getItems) {
                     <tr>
 			<td>
-			@if(env.resource("public/images/productImages/thumbnails/" + i.getProduct.getId + ".jpg").isDefined) {
-					<img src="/assets/images/productImages/thumbnails/@(i.getProduct.getId).jpg" style="width: 3em;" />
+			@if(env.resource("public/images/productImages/" + i.getProduct.getId + ".jpg").isDefined) {
+					<img src="/assets/images/productImages/@(i.getProduct.getId).jpg" style="width: 3em;" />
 				} else {
-					<img src="/assets/images/productImages/thumbnails/noImage.png" style="width: 3em;"/>
+					<img src="/assets/images/productImages/noImage.png" style="width: 3em;"/>
 				}
 			</td>
                         <td>@i.getProduct.getName</td>

@@ -36,6 +36,7 @@ GET		/updateAddress			controllers.HomeController.updateAddress()
 POST	/updateAddressSubmit		controllers.HomeController.updateAddressSubmit()
 
 GET     /deleteCustomer             controllers.HomeController.deleteCustomer()
+GET     /deleteUser            controllers.HomeController.deleteUser()
 
 GET     /accountDetails                        controllers.HomeController.accountDetails()
 GET     /myPosts                        controllers.HomeController.myPosts()

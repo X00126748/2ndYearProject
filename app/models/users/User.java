@@ -47,7 +47,7 @@ public class User extends Model {
     @Constraints.MinLength(5)
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ForumMessage> messages;
 
 

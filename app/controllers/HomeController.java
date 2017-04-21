@@ -245,6 +245,36 @@ public class HomeController extends Controller {
     }
 
 
+    @Transactional
+    public Result deleteUser() {
+
+	 if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+         
+          // Retrieve the Customer by getCurrentUser
+        User u = getCurrentUser();
+       
+        if (u.getMessages().size() > 0){
+          for(ForumMessage m : u.getMessages()){
+             ForumMessage.find.ref(m.getId()).delete();
+
+         }
+
+        }
+        String email = u.getEmail();
+        
+        // Call delete method
+       User.find.ref(email).delete();
+        // Add message to flash session 
+        flash("success", "User has been deleted");
+        // Redirect home
+        return redirect(controllers.security.routes.LoginCtrl.login());
+    }
+
+
 
          // Save an image file
     public String saveFile(String name, FilePart<File> image) {

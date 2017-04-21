@@ -34,8 +34,8 @@ public class PaymentCard extends Model {
     private Integer expirationYear;
 
     @Constraints.Required
-   // @Constraints.Min(3)
-    //@Constraints.Max(3)
+    @Constraints.Min(100)
+    @Constraints.Max(999)
     private Integer securityCode;
 
     @Constraints.Required
