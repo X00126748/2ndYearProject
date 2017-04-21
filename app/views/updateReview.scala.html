@@ -1,0 +1,84 @@
+@(id: Long,updateReviewForm: Form[models.products.Review],  user: models.users.User)
+<!-- addReviewForm defined above is the parameter
+ passed to this view by the controller -->
+@import models.products._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Update Review", user) {
+
+
+<div class="row">
+
+       <div class="col-md-3">
+     @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+
+                
+		} 
+               @if(flash.containsKey("warning")) {
+			  <div class="alert alert-warning">
+			      @flash.get("warning")
+			  </div>
+
+                
+		} 
+
+
+    </div>
+
+	<div class="col-md-6">
+
+         <div class="panel panel-success">
+	<div class="panel-heading">
+	<h3>Update Review  <span class="glyphicon glyphicon-pencil"></span></h3></div>
+	<div class="panel-body">
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.HomeController.updateReviewSubmit(id), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+		
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+		
+		@inputText(updateReviewForm("description"), '_label -> "Description",'class -> "form-control")
+               
+		 @select(
+                updateReviewForm("stars"), 
+                options(Review.starOptions), 
+                '_label -> "Rating", '_default -> "-- Choose a Star Rating--",
+                '_showConstraints -> false
+            )
+ 		
+	
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Update Review" class="btn btn-primary">
+			<a href="@controllers.routes.HomeController.home()"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} <!-- End Form definition -->
+
+
+</div>
+    </div>
+
+</div>
+
+  <div class="col-md-3">
+
+    </div>
+
+
+</div>
+
+
+} <!-- End of page content -->
+
+

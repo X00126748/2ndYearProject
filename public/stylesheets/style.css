@@ -37,7 +37,9 @@ margin-top: -20px;
 }
 
 
-
+.portfolio-item {
+    margin-bottom: 25px;
+}
 
 .image-bg-fluid-height,
 .image-bg-fixed-height {

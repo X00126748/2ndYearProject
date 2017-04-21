@@ -83,6 +83,11 @@ public class HomeController extends Controller {
         return ok(error.render("Product out of stock", User.getLoggedIn(session().get("email"))));
     }
 
+    @Transactional
+    public Result help() {
+
+        return ok(help.render(User.getLoggedIn(session().get("email"))));
+    }
 
 
 
@@ -423,16 +428,79 @@ public class HomeController extends Controller {
 
         newReview.setCustomer(c);
 
-        // Save product now to set id (needed to update manytomany)
+        // Save review now to set id (needed to update manytomany)
         newReview.save();
 
         p.setRating();
 
         p.update();
-        
-        // Redirect to the admin home
-        return redirect(routes.ProductCtrl.listProducts(0, ""));
+
+	// Add a success message to the flash session
+        flash("success", "Review has been created");
+
+        return redirect(routes.ProductCtrl.product(id));
     }
+
+
+
+       // Update a Review by ID
+    // called when edit button is pressed
+    @Transactional
+    public Result updateReview(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+        // Retrieve the Review by id
+        Review r = Review.find.byId(id);
+        // Create a form based on the Review class and fill using r
+        Form<Review> reviewForm = Form.form(Review.class).fill(r);
+        // Render the updateProduct view
+        // pass the id and form as parameters
+        return ok(updateReview.render(id, reviewForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when an updated review is submitted
+    @Transactional
+    public Result updateReviewSubmit(Long id) {
+
+
+        // Create a Review form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<Review> updateReviewForm = formFactory.form(Review.class).bindFromRequest();
+
+        // Check for errors (based on Product class annotations)	
+        if(updateReviewForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateReview.render(id, updateReviewForm, getCurrentUser()));
+        }
+        
+        // Update the Review (using its ID to select the existing object))
+        Review r = updateReviewForm.get();
+        r.setId(id);
+        
+
+        // update (save) this Review            
+        r.update();
+
+	 // Retrieve the product by id
+        Product p = Product.find.byId(r.getProduct().getId());
+
+        p.setRating();
+
+        p.update();
+
+        // Add a success message to the flash session
+        flash("success", "Review has been updated");
+            
+        // Return to admin home
+        return redirect(controllers.routes.ProductCtrl.product(r.getProduct().getId()));
+    }
+
 
 
     @Transactional
@@ -499,11 +567,33 @@ public class HomeController extends Controller {
         Customer c = (Customer)getCurrentUser();
         // Update the PaymentCard (using its ID to select the existing object))
         PaymentCard p = addPaymentCardForm.get();
+
+
+         
+        List<PaymentCard> cards = PaymentCard.findAll();
+
+       if (cards.size() > 0){
+        for (PaymentCard pc : cards) {
+            if (p.getCardNumber().equals(pc.getCardNumber())){
+              // Add a warning message to the flash session
+        flash("warning", "Card already exits");
+   
+        return redirect(controllers.routes.HomeController.addPaymentCard());
+            }
+        }
+}
         p.setCustomer(c);
    
         
         // update (save) this PaymentCard            
         p.save();
+
+         if (c.getBasket() == null) {
+            // If no basket, create one
+            c.setBasket(new Basket());
+            c.getBasket().setCustomer(c);
+            c.update();
+        }
 
         if(c.getBasket().getBasketItems().size() > 0){
          // Add a success message to the flash session
@@ -612,6 +702,59 @@ public class HomeController extends Controller {
 
     }
 
+	 // Update a ForumMessage by ID
+    // called when edit button is pressed
+    @Transactional
+    public Result updateForumMessage(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+        // Retrieve the ForumMessage by id
+        ForumMessage f = ForumMessage.find.byId(id);
+        // Create a form based on the ForumMessage class and fill using r
+        Form<ForumMessage> ForumMessageForm = Form.form(ForumMessage.class).fill(f);
+        // Render the updateForumMessage view
+        // pass the id and form as parameters
+        return ok(updateForumMessage.render(id, ForumMessageForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when an updated review is submitted
+    @Transactional
+    public Result updateForumMessageSubmit(Long id) {
+
+
+        // Create a ForumMessage form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<ForumMessage> updateForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
+
+        // Check for errors (based on ForumMessage class annotations)	
+        if(updateForumMessageForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateForumMessage.render(id, updateForumMessageForm, getCurrentUser()));
+        }
+        
+        // Update the ForumMessage (using its ID to select the existing object))
+        ForumMessage f = updateForumMessageForm.get();
+        f.setId(id);
+        
+
+        // update (save) this ForumMessage            
+        f.update();
+
+
+        // Add a success message to the flash session
+        flash("success", "Forum Message has been updated");
+            
+        // Return to admin home
+        return redirect(routes.HomeController.forum());
+    }
+
+
 
 
         // Thumbs up message
@@ -642,6 +785,9 @@ public class HomeController extends Controller {
          }
        
         m.update();
+
+        flash("success", "You have liked "+ m.getUser().getName() +"s Message");
+            
         // Show updated forum
         return redirect(routes.HomeController.forum());
     }
@@ -675,6 +821,9 @@ public class HomeController extends Controller {
          }
 
         m.update();
+
+        
+        flash("success", "You have disliked "+ m.getUser().getName() +"s Message");
         // Show updated forum
         return redirect(routes.HomeController.forum());
     }
@@ -682,32 +831,6 @@ public class HomeController extends Controller {
 
         // Thumbs up message
     
-    @Transactional
-    public Result liked(Long messageId) {
-
-        Reaction r = new Reaction();
-        
-        // Get the message
-        ForumMessage message = ForumMessage.find.byId(messageId);
-
-        User u = getCurrentUser();
-        
-        r.setMessage(message);
-
-	r.setUser(u);
-
-        r.setLiked(true);
-
-        r.save();
-           //add like
-        message.addLike();
-       
-        message.update();
-        // Show updated forum
-        return redirect(routes.HomeController.forum());
-    }
-
-
         @Transactional
     public Result forum() {
 

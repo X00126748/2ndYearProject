@@ -53,7 +53,8 @@
       <p>@m.getMessageDate.format("dd MMM yy")</p>
         @if(user != null){
                       @if(user.getEmail().equals(m.getUser().getEmail())){
-      <p><a href="@routes.HomeController.deleteMessage(m.getId)" class="btn-xs btn-danger"
+ 	<p><a href="@routes.HomeController.updateForumMessage(m.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+      <a href="@routes.HomeController.deleteMessage(m.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a></p>
 	}	
@@ -105,5 +106,10 @@
 
         </div>
 
-	
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
 }

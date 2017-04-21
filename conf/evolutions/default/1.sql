@@ -73,16 +73,6 @@ create table product (
 );
 create sequence product_seq;
 
-create table reaction (
-  id                            bigint not null,
-  user_email                    varchar(255),
-  message_id                    bigint,
-  liked                         boolean,
-  disliked                      boolean,
-  constraint pk_reaction primary key (id)
-);
-create sequence reaction_seq;
-
 create table review (
   id                            bigint not null,
   customer_email                varchar(255),
@@ -189,12 +179,6 @@ create index ix_payment_card_customer_email on payment_card (customer_email);
 alter table product add constraint fk_product_supplier_id foreign key (supplier_id) references supplier (id) on delete restrict on update restrict;
 create index ix_product_supplier_id on product (supplier_id);
 
-alter table reaction add constraint fk_reaction_user_email foreign key (user_email) references user (email) on delete restrict on update restrict;
-create index ix_reaction_user_email on reaction (user_email);
-
-alter table reaction add constraint fk_reaction_message_id foreign key (message_id) references forum_message (id) on delete restrict on update restrict;
-create index ix_reaction_message_id on reaction (message_id);
-
 alter table review add constraint fk_review_customer_email foreign key (customer_email) references user (email) on delete restrict on update restrict;
 create index ix_review_customer_email on review (customer_email);
 
@@ -250,12 +234,6 @@ drop index if exists ix_payment_card_customer_email;
 alter table product drop constraint if exists fk_product_supplier_id;
 drop index if exists ix_product_supplier_id;
 
-alter table reaction drop constraint if exists fk_reaction_user_email;
-drop index if exists ix_reaction_user_email;
-
-alter table reaction drop constraint if exists fk_reaction_message_id;
-drop index if exists ix_reaction_message_id;
-
 alter table review drop constraint if exists fk_review_customer_email;
 drop index if exists ix_review_customer_email;
 
@@ -300,9 +278,6 @@ drop table if exists payment_card;
 
 drop table if exists product;
 drop sequence if exists product_seq;
-
-drop table if exists reaction;
-drop sequence if exists reaction_seq;
 
 drop table if exists review;
 drop sequence if exists review_seq;

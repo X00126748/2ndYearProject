@@ -33,7 +33,14 @@
 		<!--<a href="@routes.AdminProductCtrl.listProducts(0)" class="list-group-item">All categories</a>-->
 	 <a href="@routes.AdminProductCtrl.list()" class="list-group-item">All categories</a>
 				@for(c <- categories) {
-          <a href="@routes.AdminProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+
+@if(catId == c.getId){
+		 <a href="@routes.AdminProductCtrl.listProducts(c.getId, filter)" class="list-group-item active">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+		} else {
+		 <a href="@routes.AdminProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+
+                }
+      
 				}
       </div>
   </div>

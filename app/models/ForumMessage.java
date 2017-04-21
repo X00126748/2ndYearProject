@@ -32,9 +32,6 @@ public class ForumMessage extends Model {
 
     @ManyToOne
     private User user;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Reaction> reactions;
    
     private Integer likes;
     
@@ -51,11 +48,10 @@ public class ForumMessage extends Model {
     }
 
     // Constructor to initialise object
-    public ForumMessage(Long id, String subject, String messageContent, List<Reaction> reactions) {
+    public ForumMessage(Long id, String subject, String messageContent) {
         this.id = id;
         this.subject = subject;
         this.messageContent = messageContent; 
-        this.reactions = reactions; 
         messageDate = new Date();
         likes = 0;
         dislikes = 0;
@@ -124,13 +120,7 @@ public class ForumMessage extends Model {
         this.messageDate = messageDate;
     }
 
-    public List<Reaction> getReactions() {
-        return reactions;
-    }
 
-    public void setReactions(List<Reaction> reactions) {
-        this.reactions = reactions;
-    }
 
     public Integer getLikes() {
         return likes;
@@ -140,27 +130,6 @@ public class ForumMessage extends Model {
         return dislikes;
     }
 
-    public Integer getReactLikes() {
-        int count = 0;
-
-        if(reactions != null){
-
-         for(int i=0; i < reactions.size(); i++){
-	if (reactions.get(i).getLiked() == true){
- 	  count++;
-          }
-       }
-      }
-
-       /* for(Reaction r : getReactions()){
-	if (r.getLiked() == true){
- 	  count++;
-          }
-       }*/
-
-	likes = count;
-       return likes;
-    }
 
     public void addLike() {
         likes += 1;

@@ -79,8 +79,17 @@
                         <li>
                             <a href="@routes.HomeController.forum()">Forum</a>
                         </li>
-                        
-                                            <!-- Login/ logout Link - check if user logged in -->
+                  
+                        <li>
+                            <a href="@routes.HomeController.help()">Help <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+		<ul class="nav navbar-nav navbar-right">
+               
+			<li>
+              <a href="@routes.ShoppingCtrl.showBasket()"><span class="glyphicon glyphicon-shopping-cart"></span> Basket</a>
+                        </li>
+	 <!-- Login/ logout Link - check if user logged in -->
                         
                             @if(user != null) {
                                 <li class="dropdown">
@@ -96,18 +105,10 @@
                          </li>
 
                             } else {
-                                <li>
-                                <a href="@controllers.security.routes.LoginCtrl.login()">Login</a>
-                                 </li>
-                                 <li>
-                                <a href="@routes.HomeController.addCustomer()">Sign Up</a>
-                                </li>
-                            }
-         
-                        <li>
-                            <a href="@routes.ShoppingCtrl.showBasket()"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-                        </li>
-                    </ul>
+      <li><a href="@routes.HomeController.addCustomer()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="@controllers.security.routes.LoginCtrl.login()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			    }
+   		 </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

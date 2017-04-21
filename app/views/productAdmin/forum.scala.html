@@ -71,8 +71,10 @@
 	<h5>Subject: @m.getSubject</h5>
       <p>@m.getMessageContent</p>
         <p>@m.getMessageDate.format("dd MMM yy")</p>
+         <p>@if(user.getEmail().equals(m.getUser().getEmail())){
+ 	<a href="@routes.AdminHomeCtrl.updateForumMessage(m.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>}
         <!-- Delete product button -->
-<p><a href="@routes.AdminHomeCtrl.deleteMessage(m.getId)" class="btn-xs btn-danger"
+<a href="@routes.AdminHomeCtrl.deleteMessage(m.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
 	<span class="glyphicon glyphicon-trash"></span></a></p>
     </div>

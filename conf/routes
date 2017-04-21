@@ -19,16 +19,11 @@ GET     /Admin/productPageSplitCat                 controllers.AdminProductCtrl.
 GET		/   						        controllers.ProductCtrl.index()
 
 GET     /home                      controllers.HomeController.home
-
 GET     /about                      controllers.HomeController.about
-
-
 GET     /contact                     controllers.HomeController.contact
-
 GET     /error                     controllers.HomeController.error
-
 GET     /product/:id                    controllers.ProductCtrl.product(id: Long)
-
+GET     /help                     controllers.HomeController.help
 
 # Customer
 GET		/addCustomer					controllers.HomeController.addCustomer()
@@ -52,22 +47,28 @@ POST	/addReviewSubmit/:id				controllers.HomeController.addReviewSubmit(id:Long)
 GET     /viewReview/:id                      controllers.HomeController.viewReview(id: Long)
 GET     /delReview/:id/product               controllers.HomeController.deleteReview(id:Long, product:Long)
 GET     /Admin/delReview/:id/product               controllers.AdminHomeCtrl.deleteReview(id:Long, product:Long)
+GET		/updateReview/:id			controllers.HomeController.updateReview(id:Long)
+POST	/updateReviewSubmit/:id		controllers.HomeController.updateReviewSubmit(id:Long)
 
 
 # Forum
 GET		/addForumMessage/					controllers.HomeController.addForumMessage()
 POST	/addForumMessageSubmit/				controllers.HomeController.addForumMessageSubmit()
+GET		/updateForumMessage/:id			controllers.HomeController.updateForumMessage(id:Long)
+POST	/updateForumMessageSubmit/:id		controllers.HomeController.updateForumMessageSubmit(id:Long)
 
 GET     /forum                      controllers.HomeController.forum()
 
 GET     /deleteMessage/:id               controllers.HomeController.deleteMessage(id:Long)
 GET     /like/:messageId                     controllers.HomeController.like(messageId: Long)
 GET     /dislike/:messageId                  controllers.HomeController.dislike(messageId: Long)
-GET     /liked/:messageId                     controllers.HomeController.liked(messageId: Long)
+
 
 #Admin Forum
 GET		/Admin/addForumMessage/					controllers.AdminHomeCtrl.addForumMessage()
 POST	/Admin/addForumMessageSubmit/				controllers.AdminHomeCtrl.addForumMessageSubmit()
+GET		/Admin/updateForumMessage/:id			controllers.AdminHomeCtrl.updateForumMessage(id:Long)
+POST	/Admin/updateForumMessageSubmit/:id		controllers.AdminHomeCtrl.updateForumMessageSubmit(id:Long)
 
 GET     /Admin/forum                      controllers.AdminHomeCtrl.forum()
 GET     /Admin/deleteMessage/:id               controllers.AdminHomeCtrl.deleteMessage(id:Long)

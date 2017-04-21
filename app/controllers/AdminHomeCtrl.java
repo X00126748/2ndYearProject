@@ -488,6 +488,56 @@ for (OrderItem i: order.getItems()){
 
     }
 
+   public Result updateForumMessage(Long id) {
+
+        if(getCurrentUser() == null){
+           flash("warning", "Session has timed out, You've been logged out");
+        return redirect(controllers.security.routes.LoginCtrl.login());
+
+        }
+        
+        // Retrieve the ForumMessage by id
+        ForumMessage f = ForumMessage.find.byId(id);
+        // Create a form based on the ForumMessage class and fill using r
+        Form<ForumMessage> ForumMessageForm = Form.form(ForumMessage.class).fill(f);
+        // Render the updateForumMessage view
+        // pass the id and form as parameters
+        return ok(updateForumMessage.render(id, ForumMessageForm, User.getLoggedIn(session().get("email"))));		
+    }
+
+
+    // Handle the form data when an updated message is submitted
+    @Transactional
+    public Result updateForumMessageSubmit(Long id) {
+
+
+        // Create a ForumMessage form object (to hold submitted data)
+        // 'Bind' the object to the submitted form (this copies the filled form)
+        Form<ForumMessage> updateForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
+
+        // Check for errors (based on ForumMessage class annotations)	
+        if(updateForumMessageForm.hasErrors()) {
+            // Display the form again
+            return badRequest(updateForumMessage.render(id, updateForumMessageForm, getCurrentUser()));
+        }
+        
+        // Update the ForumMessage (using its ID to select the existing object))
+        ForumMessage f = updateForumMessageForm.get();
+        f.setId(id);
+        
+
+        // update (save) this ForumMessage            
+        f.update();
+
+
+        // Add a success message to the flash session
+        flash("success", "Forum Message has been updated");
+            
+        // Return to admin home
+        return redirect(routes.AdminHomeCtrl.forum());
+    }
+
+
            // Delete message
     @Transactional
     public Result deleteMessage(Long id) {

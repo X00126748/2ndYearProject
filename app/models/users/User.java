@@ -50,8 +50,6 @@ public class User extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private List<ForumMessage> messages;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Reaction> reactions;
 
     // Default constructor
     public  User() {
@@ -164,13 +162,6 @@ public class User extends Model {
         this.messages = messages;
     }
 
-    public List<Reaction> getReactions() {
-        return reactions;
-    }
-
-    public void setReactions(List<Reaction> reactions) {
-        this.reactions = reactions;
-    }
-
+ 
 }
 

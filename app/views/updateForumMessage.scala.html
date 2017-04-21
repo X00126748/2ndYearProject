@@ -1,0 +1,62 @@
+@(id: Long, updateForumMessageForm: Form[models.ForumMessage],  user: models.users.User)
+<!-- addProductForm defined above is the parameter
+ passed to this view by the controller -->
+@import models._
+
+<!-- a 'helper' will be used to create the form dynamically, 
+though a static HTML form would also work -->
+@import helper._
+
+<!-- The page will be based on the main template -->
+@main("Update Message", user) {
+
+<div class="row">
+ <div class="col-sm-4">
+         <img class="img-rounded img-responsive img-left" style="width: 100%; max-width: 400px" src="@routes.Assets.versioned("images/pageImages/athleteImg/athleteImg1.3.jpg")" alt="">
+                
+            </div>
+	<div class="col-sm-4">
+
+	<h3>Update Message</h3>
+
+                <div class="container234">
+	        <div class="row">
+		<div class="panel panel-primary">
+		<div class="panel-body">
+	
+	<!-- Use the views.html.helpers package to create the form -->
+	@form(action = routes.HomeController.updateForumMessageSubmit(id), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data")  {
+
+			
+			 
+		<!-- Build the form, adding an input for each field -->
+		<!-- Note the label parameter -->
+	@inputText(updateForumMessageForm("subject"), '_label -> "Subject",'class -> "form-control")         
+	@inputText(updateForumMessageForm("messageContent"), '_label -> "Message",'class -> "form-control")  
+		<br><br>
+
+	<!-- Add a submit button -->
+  <div class="actions">
+      <input type="submit" value="Leave Message" class="btn btn-primary">
+			<a href="@controllers.routes.HomeController.forum()"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+
+	}
+</div>
+</div>
+</div>
+</div>
+</div>
+	
+	
+	     <div class="col-sm-4">
+             <img class="img-rounded img-responsive img-right pull-right" style="width: 100%; max-width: 400px" src="@routes.Assets.versioned("images/pageImages/athleteImg/athleteImg8.1.png")" alt="">
+            </div>
+	</div>
+
+
+ <!-- End Form definition -->
+
+} <!-- End of page content -->

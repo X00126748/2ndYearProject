@@ -21,7 +21,12 @@
 			<!--<a href="@routes.ProductCtrl.listProducts(0, filter)" class="list-group-item">All categories</a>-->
 			<a href="@routes.ProductCtrl.list()" class="list-group-item">All categories</a>
 			@for(c <- categories) {
+		@if(catId == c.getId){
+		<a href="@routes.ProductCtrl.listProducts(c.getId, filter)" class="list-group-item active">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+		} else {
 		<a href="@routes.ProductCtrl.listProducts(c.getId, filter)" class="list-group-item">@c.getName <span class="badge">@c.getProducts.size()</span> </a>
+
+                }
 			}
 	</div>
 	  </div>
@@ -185,7 +190,7 @@
 				</p>
 				 
 				<p>@p.getDescription</p>
-                               <p>@p.getStock</p>
+                               
 
 			</div>
 
@@ -198,7 +203,7 @@
 			}	 
 		</div>
 
-        <a href="@routes.MyComponent.send()"  class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+       
 
 
 	</div>

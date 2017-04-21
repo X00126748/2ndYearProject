@@ -105,6 +105,11 @@
             </div>
 
             <div class="col-md-8">
+        @if(flash.containsKey("success")) {
+			  <div class="alert alert-success">
+			      @flash.get("success")
+			  </div>
+		} 
 
                 <div class="well">
                     <h3>Customer Reviews </h3>
@@ -187,6 +192,7 @@
                             <p>@r.getDescription()</p>
                       @if(user != null){
                       @if(user.getEmail().equals(r.getCustomer().getEmail())){
+                       <a href="@routes.HomeController.updateReview(r.getId)" class="btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
                              <!-- Delete product button -->
 <a href="@routes.HomeController.deleteReview(r.getId, p.getId)" class="btn-xs btn-danger"
 						onclick="return confirmDel();">
@@ -211,4 +217,11 @@
 
 
         <hr>
+
+<script>
+	// JavaScript function returns true if user clicks yes, otherwise, false
+	function confirmDel() {
+		return confirm('Are you sure?');
+	}
+</script>
 }
