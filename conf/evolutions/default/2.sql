@@ -48,6 +48,8 @@ insert into product (id,name,description,stock,price,supplier_price,supplier_id,
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 30,'Jordan','Teal Basketball T-shirt ',5,30.00,9.00, 1 ,0,0);
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 31,'Jordan','Brand of Flight T-shirt ',5,30.00,9.00, 1 ,0,0);
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 32,'Jordan','Red elephant print T-shirt ',5,30.00,7.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 33,'Nike','KYRIE 3 University Red/Team Red/Black ',5,122.00,40.00, 1 ,0,0);
+ insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 34,'Nike','PG1 Ivory/Gum Light Brown/Vivid Sky/Oatmeal ',5,110.00,20.00, 1 ,0,0);
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 35,'Adidas','Multi-Colored T-shirt ',5,30.00,10.00, 1 ,0,0);
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 36,'Adidas','White Basketball T-shirt ',5,30.00,11.00, 1 ,0,0);
  insert into product (id,name,description,stock,price,supplier_price,supplier_id, amount_sold, rating) values ( 37,'Adidas','Grey Basketball T-shirt ',5,30.00,6.00, 1 ,0,0);
@@ -325,7 +327,8 @@ insert into product (id,name,description,stock,price,supplier_price,supplier_id,
 
 
 
-
+insert into category_product (category_id,product_id) values (1,33);
+insert into category_product (category_id,product_id) values (1,34);
 insert into category_product (category_id,product_id) values (1,89);
 insert into category_product (category_id,product_id) values (1,90);
 insert into category_product (category_id,product_id) values (1,91);
@@ -892,6 +895,8 @@ insert into category_product (category_id,product_id) values (10,29);
 insert into category_product (category_id,product_id) values (10,30);
 insert into category_product (category_id,product_id) values (10,31);
 insert into category_product (category_id,product_id) values (10,32);
+insert into category_product (category_id,product_id) values (10,33);
+insert into category_product (category_id,product_id) values (10,34);
 insert into category_product (category_id,product_id) values (10,35);
 insert into category_product (category_id,product_id) values (10,36);
 insert into category_product (category_id,product_id) values (10,37);

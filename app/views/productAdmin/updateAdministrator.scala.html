@@ -43,7 +43,7 @@ though a static HTML form would also work -->
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
-		@inputText(updateAdministratorForm("email"), '_label -> "Email",'class -> "form-control")
+		<div class="hidden">@inputText(updateAdministratorForm("email"), '_label -> "Email",'class -> "form-control")</div>
 		@select(
                 updateAdministratorForm("title"), 
                 options(User.titleOptions), 

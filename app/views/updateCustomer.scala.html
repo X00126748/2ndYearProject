@@ -41,7 +41,7 @@ though a static HTML form would also work -->
 		
 		<!-- Build the form, adding an input for each field -->
 		<!-- Note the label parameter -->
-		@inputText(updateCustomerForm("email"), '_label -> "Email",'class -> "form-control")
+		<div class="hidden"> @inputText(updateCustomerForm("email"), '_label -> "Email",'class -> "form-control")--></div>
 		 @select(
                 updateCustomerForm("title"), 
                 options(User.titleOptions), 

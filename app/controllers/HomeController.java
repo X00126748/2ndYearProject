@@ -113,6 +113,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Product class annotations)	
         if(newCustomerForm.hasErrors()) {
+           // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(addCustomer.render(newCustomerForm, getCurrentUser()));
         }
@@ -193,6 +195,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Customer class annotations)	
         if(updateCustomerForm.hasErrors()) {
+            // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(updateCustomer.render(updateCustomerForm, getCurrentUser()));
         }
@@ -370,6 +374,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Customer class annotations)	
         if(updateAddressForm.hasErrors()) {
+            // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(updateAddress.render(updateAddressForm, getCurrentUser()));
         }
@@ -443,6 +449,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Review class annotations)	
         if(newReviewForm.hasErrors()) {
+		// Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(addReview.render(id,newReviewForm, getCurrentUser()));
         }
@@ -505,6 +513,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Product class annotations)	
         if(updateReviewForm.hasErrors()) {
+             // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(updateReview.render(id, updateReviewForm, getCurrentUser()));
         }
@@ -709,6 +719,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on Product class annotations)	
         if(addForumMessageForm.hasErrors()) {
+             // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(addForumMessage.render(addForumMessageForm, getCurrentUser()));
         }
@@ -764,6 +776,8 @@ public class HomeController extends Controller {
 
         // Check for errors (based on ForumMessage class annotations)	
         if(updateForumMessageForm.hasErrors()) {
+             // Add a warning message to the flash session
+            flash("warning", "Please review the entered details" );
             // Display the form again
             return badRequest(updateForumMessage.render(id, updateForumMessageForm, getCurrentUser()));
         }

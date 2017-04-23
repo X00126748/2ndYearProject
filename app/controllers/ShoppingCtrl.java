@@ -77,7 +77,8 @@ public class ShoppingCtrl extends Controller {
         customer.update();
         } else {
 
-        return redirect(routes.HomeController.error());
+	 flash("warning", "Product is out of stock");
+        return redirect(routes.ShoppingCtrl.showBasket());
 
         }
         // Show the basket contents     
@@ -122,8 +123,8 @@ public Result showBasket(){
         item.increaseQty();
 
         } else {
-           return redirect(routes.HomeController.error());
-
+        flash("warning", "Product is out of stock");
+        return redirect(routes.ShoppingCtrl.showBasket());
         }
        
         item.update();

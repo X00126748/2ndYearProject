@@ -15,6 +15,8 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Random;
 import javax.inject.Inject;
 import play.Logger;
 
@@ -217,7 +219,13 @@ public class AdminProductCtrl extends Controller {
      
         Product newProduct = newProductForm.get();
 
-        
+         Random randomGenerator = new Random();
+        long randomInt = randomGenerator.nextLong();
+
+      long newId = 400 * randomInt;
+
+
+        newProduct.setId(newId);
         
         // Save product now to set id (needed to update manytomany)
         newProduct.save();
