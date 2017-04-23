@@ -110,6 +110,7 @@
 	<p><strong>Free Delivery on all orders over &euro;30.00 </strong></p>
         </div>
        <div class="col-md-6">
+        <p class="text-right"><strong>@(customer.getEmail) Loyalty Points: @(customer.getLoyaltyPointsEarned)</strong></p>
         <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(customer.getBasket.getBasketTotal))</strong></p>
 	@if(customer.getBasket.getBasketTotal <= 30.00){
         <p class="text-right"><strong>Delivery Cost: &euro; @("%.2f".format(customer.getBasket.getDeliveryCost))</strong></p>
@@ -120,25 +121,31 @@
             </div>  
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p>
                     <a href="@routes.ShoppingCtrl.emptyBasket()" class="btn btn-danger btn-sm" onclick="return confirmDel();">
                     <span class="glyphicon glyphicon-trash"></span> Empty Basket</a>
                 </p>
 
             </div>  
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <p class="text-center">
                     <a href="@routes.ProductCtrl.list()" class="btn btn-primary btn-sm">
                     <span class="glyphicon glyphicon-circle-arrow-left"></span> Return to Shop</a>
                 </p>
             </div>  
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <p class="text-right">
+                    <a href="@routes.ShoppingCtrl.showBasketLoyalty()" class="btn btn-success btn-sm"> 
+                      <span class="glyphicon glyphicon-euro"></span> Use Loyalty Points</a>
+                </p>
+            </div> 
+            <div class="col-md-3">
                 <p class="text-right">
                     <a href="@routes.HomeController.updateAddress()" class="btn btn-success btn-sm"> 
-                    <span class="glyphicon glyphicon-euro"></span> Proceed</a>
+                     <span class="glyphicon glyphicon-euro"></span> Proceed</a>
                 </p>
-            </div>  
+            </div>   
         </div>
     </div>
 </div>

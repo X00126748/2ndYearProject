@@ -110,7 +110,33 @@ public Result showBasket(){
 
 }
 
-    
+	 @Transactional
+ public Result showBasketLoyalty(){
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+ 
+         Customer customer = (Customer)User.getLoggedIn(session().get("email"));
+         
+         // Check if item in basket
+         if (customer.getBasket() == null) {
+             // If no basket, create one
+             customer.setBasket(new Basket());
+             customer.getBasket().setCustomer(customer);
+             customer.update();
+         }
+           customer.update();
+ 
+       return ok(basketLoyalty.render(env, getCurrentUser()));
+ 
+ }
+   
+
+ 
       // Add an item to the basket
     @Transactional
     public Result addOne(Long itemId) {
@@ -266,7 +292,126 @@ return ok (orderConfirmed.render(env, c, order));
 }
 
 
+	
+                       @Transactional
+     public Result placeOrderLoyalty(String card) {
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+         Customer c = getCurrentUser();
+ 
+        if(c.getBasket().getBasketItems().size() == 0){
+           flash("warning", "Basket is empty" );
+            
+         return redirect(routes.ShoppingCtrl.showBasket());
+       }
+         
+         for (OrderItem i: c.getBasket().getBasketItems()){
+      
+          if(i.getSize().equalsIgnoreCase("No size selected")){
+ 	    // Set a success message in temporary flash
+        flash("warning", "Please select a size" );
+           
+         return redirect(routes.ShoppingCtrl.showBasketLoyalty());
+          }
+ }
+ 
 
+         ShopOrder order = new ShopOrder();
+ 
+         order.setCustomer(c);
+ 
+         PaymentCard pCard = PaymentCard.find.byId(card);
+ 
+         order.setCard(pCard);
+ 
+         order.setItems(c.getBasket().getBasketItems());
+ 
+         order.setOrderStatus("Processing Order");
+ 
+         order.save();
+ 
+ for (OrderItem i: order.getItems()){
+      
+      i.setOrder(order);
+ 
+      i.setBasket(null);
+ 
+      i.update();
+ }
+ 
+ order.update();
+ 
+ c.getBasket().setBasketItems(null);
+ c.getBasket().update();
+ 
+ 
+ 
+
+ 
+ c.addNumOfOrders();
+ 
+ c.update();
+ 
+  // Set a success message in temporary flash
+         flash("success", "Order has been Created" );
+ 
+ return ok (orderConfirmedLoyalty.render(env, c, order));
+ 
+ 
+ }
+
+
+         @Transactional
+ public Result completeOrder(){
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+ 
+        
+ 
+       return redirect(routes.HomeController.home());
+ 
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+             @Transactional
+ public Result completeOrderLoyalty(){
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+ 
+         Customer customer = (Customer)User.getLoggedIn(session().get("email"));
+         int points = 0;
+          for (ShopOrder o: customer.getOrders()) {
+ 
+             points = o.getLoyaltyPointsEarned(); 
+ 
+         }
+         
+         customer.setLoyaltyPointsEarned(points);
+        
+           customer.update();
+ 
+       return redirect(routes.HomeController.home());
+ 
+ }
 
     // Empty Basket
     @Transactional

@@ -1,0 +1,87 @@
+@(updateAddressForm: Form[models.users.Customer], user: models.users.User)
+ <!-- editCustomerForm parameters defined above
+  passed to this view by the controller -->
+  @import models.products._
+ @import models.users._
+ 
+ <!-- a 'helper' will be used to create the form dynamically, 
+ though a static HTML form would also work -->
+ @import helper._
+ <!-- The page will be based on the main template -->
+ @main("Update Address", user) {
+  <link href="@routes.Assets.versioned("stylesheets/update-address.css")" rel="stylesheet"> 
+ 
+ <div class="row">
+ 
+        <div class="col-md-3">
+      @if(flash.containsKey("success")) {
+ 			  <div class="alert alert-success">
+ 			      @flash.get("success")
+ 			  </div>
+ 
+                 
+ 		} 
+                @if(flash.containsKey("warning")) {
+ 			  <div class="alert alert-warning">
+ 			      @flash.get("warning")
+ 			  </div>
+ 
+                 
+ 		} 
+ 
+             
+ 
+ 
+     </div>
+
+ 	<div class="col-md-6">
+ 
+         <div class="panel panel-success">
+ 	<div class="panel-heading"><h4>Confirm/Change Address <i class="fa fa-home" aria-hidden="true"></i></h4></div>
+ 	<div class="panel-body">
+ 	<!-- Use the views.html.helpers package to create the form -->
+ 	@form(action = routes.HomeController.updateAddressLoyaltySubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+ 		
+ 		<!-- Build the form, adding an input for each field -->
+ 		<!-- Note the label parameter -->
+ 		
+                <div class="hidden"> @inputText(updateAddressForm("email"), '_label -> "Email",'class -> "form-control")
+ @inputText(updateAddressForm("title"), '_label -> "Title",'class -> "form-control") 
+                 @inputText(updateAddressForm("name"), '_label -> "First Name",'class -> "form-control")
+ @inputText(updateAddressForm("surname"), '_label -> "Last Name",'class -> "form-control")
+ 		@inputText(updateAddressForm("password"), '_label -> "Password",'class -> "form-control")
+    @inputText(updateAddressForm("number"), '_label -> "Phone Number",'class -> "form-control")</div>
+                 @inputText(updateAddressForm("street1"), '_label -> "Street1",'class -> "form-control")
+ 		@inputText(updateAddressForm("street2"), '_label -> "Street2",'class -> "form-control")
+                 @inputText(updateAddressForm("town"), '_label -> "Town",'class -> "form-control")
+ 		@inputText(updateAddressForm("county"), '_label -> "County",'class -> "form-control")
+                 @inputText(updateAddressForm("postCode"), '_label -> "PostCode",'class -> "form-control")
+                 @inputText(updateAddressForm("country"), '_label -> "Country",'class -> "form-control")
+ 
+ 		
+ 		<br><br>
+ 
+ 	<!-- Add a submit button -->
+   <div class="actions">
+       <input type="submit" value="Confirm Details" class="btn btn-primary">
+ 			<a href="@routes.HomeController.accountDetails()"
+ 				<button class="btn btn-warning" role="button">Cancel</button>
+ 			</a>
+   </div>
+ 	} <!-- End Form definition -->
+ 
+ </div>
+     </div>
+ 
+ </div>
+ 
+   <div class="col-md-3">
+ 
+     </div>
+ 
+ 
+ </div>
+ 
+ 
+ 
+ }

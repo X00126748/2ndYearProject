@@ -8,7 +8,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 import com.avaje.ebean.*;
-
+import models.users.*;
 import models.products.*;
 import models.users.*;
 
@@ -56,6 +56,29 @@ public class ShopOrder extends Model {
        }
         return total;
     }
+
+       
+      public double getOrderTotalLoyalty() {
+         int points = 0;
+         double total = 0;
+ 	double delivery = 5.00;
+ 
+         Customer customer = getCustomer();
+         
+         for (OrderItem i: items) {
+             total += i.getItemTotal();
+              
+         }
+ 
+         if (total <= 30.00){
+          total += delivery;
+ 
+        }
+        
+         points = customer.getLoyaltyPointsEarned();
+         total = (total - points);
+         return total;
+     }
 	
 	//Generic query helper
     public static Finder<Long,ShopOrder> find = new Finder<Long,ShopOrder>(ShopOrder.class);

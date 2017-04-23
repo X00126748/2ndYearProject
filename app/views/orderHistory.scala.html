@@ -74,6 +74,8 @@
             </div> 
             <div class="col-md-6">
                 <p class="text-right"><strong>Order Total: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+  <p class="text-right"><strong>Order Total without LoyaltyPoints: &euro; @("%.2f".format(o.getOrderTotal))</strong></p>
+             <p class="text-right"><strong>Order Total with LoyaltyPoints: &euro; @("%.2f".format(o.getOrderTotalLoyalty + o.getLoyaltyPointsEarned))</strong></p>
                 <p class="text-right"><strong>Order Date: @o.getOrderDate</strong></p>
 		<p class="text-right"><strong>Card Type: @o.getCard.getType</strong></p>
 		<p class="text-right"><strong>Card Number: ************@o.getCard.getShortCardNumber</strong></p>

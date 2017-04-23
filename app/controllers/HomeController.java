@@ -398,6 +398,80 @@ public class HomeController extends Controller {
     }
 
 
+    
+      @Transactional
+     public Result updateAddressLoyalty() {
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+         
+         // Retrieve the Customer by getCurrentUser
+         Customer c = (Customer)getCurrentUser();
+ 
+         
+        if(c.getBasket().getBasketItems().size() == 0){
+           flash("warning", "Basket is empty" );
+            
+         return redirect(routes.ShoppingCtrl.showBasketLoyalty());
+       }
+ 
+         for (OrderItem i: c.getBasket().getBasketItems()){
+      
+          if(i.getSize().equalsIgnoreCase("No size selected")){
+ 	    // Set a success message in temporary flash
+         flash("warning", "Please select a size" );
+            
+         return redirect(routes.ShoppingCtrl.showBasketLoyalty());
+          }
+ }
+ 
+         // Create a form based on the Customer class and fill using c
+         Form<Customer> customerForm = Form.form(Customer.class).fill(c);
+         // Render the updateCustomer view
+         // pass the form as a parameter
+         return ok(updateAddressLoyalty.render(customerForm, User.getLoggedIn(session().get("email"))));		
+     }
+ 
+     @Transactional
+     public Result updateAddressLoyaltySubmit() {
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+ 
+         // Create a Customer form object (to hold submitted data)
+         // 'Bind' the object to the submitted form (this copies the filled form)
+         Form<Customer> updateAddressLoyaltyForm = formFactory.form(Customer.class).bindFromRequest();
+ 
+         // Check for errors (based on Customer class annotations)	
+         if(updateAddressLoyaltyForm.hasErrors()) {
+             // Display the form again
+             return badRequest(updateAddressLoyalty.render(updateAddressLoyaltyForm, getCurrentUser()));
+         }
+         
+        // Update the Customer (using its ID to select the existing object))
+         Customer c = updateAddressLoyaltyForm.get();
+ 
+         //c.setId(id);
+        
+         // update (save) this Customer           
+         c.update();
+ 
+         
+         // Add a success message to the flash session
+         flash("success", "Delivery Address for " + updateAddressLoyaltyForm.get().getName() + " has been confirmed");
+             
+         // Return to admin home
+         return redirect(controllers.routes.HomeController.selectcardLoyalty());
+     }
+
 
        @Transactional
      public Result selectcard(){
@@ -417,6 +491,26 @@ public class HomeController extends Controller {
      return ok (selectcard.render(cardList,c));
 
    }
+
+     
+     @Transactional
+      public Result selectcardLoyalty(){
+ 
+ 	 if(getCurrentUser() == null){
+            flash("warning", "Session has timed out, You've been logged out");
+         return redirect(controllers.security.routes.LoginCtrl.login());
+ 
+         }
+          
+       // Retrieve the Customer by getCurrentUser
+         Customer c = (Customer)getCurrentUser();
+        
+         List<PaymentCard> cardList = c.getCards();
+     
+         
+      return ok (selectcardLoyalty.render(cardList,c));
+ 
+    }
 
 
      // Add Review by product ID
