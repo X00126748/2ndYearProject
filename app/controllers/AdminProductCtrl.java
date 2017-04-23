@@ -219,10 +219,10 @@ public class AdminProductCtrl extends Controller {
      
         Product newProduct = newProductForm.get();
 
-         Random randomGenerator = new Random();
+        Random randomGenerator = new Random();
         long randomInt = randomGenerator.nextLong();
 
-      long newId = 400 * randomInt;
+        long newId = 400 * randomInt;
 
 
         newProduct.setId(newId);

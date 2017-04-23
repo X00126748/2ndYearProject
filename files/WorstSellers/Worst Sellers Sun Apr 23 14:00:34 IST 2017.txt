@@ -1,0 +1,23 @@
+
+Worst Sellers Sun Apr 23 14:00:34 IST 2017
+********************
+Product Name: Nike
+Price: 40.0
+Description:  Black Basketball Hoop T-shirt
+Stock: 50
+Amount Sold: 0
+Rating: 4.0
+********************
+Product Name: Nike
+Price: 35.0
+Description:  Bring Your Game T-shirt
+Stock: 50
+Amount Sold: 0
+Rating: 4.5
+********************
+Product Name: Nike
+Price: 35.0
+Description: Mens Black & White T-shirt
+Stock: 50
+Amount Sold: 0
+Rating: 4.0

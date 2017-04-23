@@ -68,6 +68,9 @@
                     <li>
                             <a href="@routes.AdminHomeCtrl.forum()">Forum</a>
                         </li>
+			  <li>
+                            <a href="@routes.AdminHomeCtrl.help()">Help <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                        </li>
 
 
                                 <li><a href="@routes.ReportCtrl.reports()">Reports <span class="glyphicon glyphicon-stats"></span></a></li>
@@ -134,20 +137,20 @@
    
 
        <!-- Footer -->
-    <footer class="footer-distributed">
+      <footer class="footer-distributed">
 
 			<div class="footer-left">
 
 				<img src="@routes.Assets.versioned("images/pageImages/logo.png")" style="width: 7em;" alt="Logo">
 
 				<p class="footer-links">
-					<a href="@routes.HomeController.home()">Home</a>
+					<a href="@controllers.security.routes.LoginCtrl.logout()">Home</a>
 					·
-					<a href="@routes.HomeController.about()">About Us</a>
+					<a href="@controllers.security.routes.LoginCtrl.logout()">About Us</a>
 					·
-					<a href="@routes.HomeController.contact()">Contact Us</a>
+					<a href="@routes.AdminHomeCtrl.forum()">Contact Us</a>
           ·
-					<a href="@routes.ProductCtrl.listProducts(0)">Products</a>
+					<a href="@routes.AdminProductCtrl.listProducts(0)">Products</a>
 				</p>
 
 				<p class="footer-company-name">JAS Basketball &copy; 2016</p>
@@ -157,12 +160,13 @@
 
 				<div>
 					<i class="fa fa-map-marker"></i>
-					<p><span>21 Revolution Street</span> Cincinnati, Usa</p>
+					<p><span>21 Harrington Street</span> Dublin, Ireland</p>
 				</div>
 
 				<div>
 					<i class="fa fa-phone"></i>
-					<p>+1 555 123456</p>
+					<p>01 456 7650</p>
+
 				</div>
 
 				<div>
@@ -176,7 +180,7 @@
 
 				<p class="footer-company-about">
 					<span>About the company</span>
-					Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+					JAS Basketball is Ireland's leading retailer in basketball apparel and equipment. We offer a wide range of the most up to date products for men and women.
 				</p>
 
 				<div class="footer-icons">
@@ -190,7 +194,6 @@
 			</div>
 
 		</footer>
-
     </div>
     <!-- /.containerID -->
 

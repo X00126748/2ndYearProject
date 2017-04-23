@@ -1110,11 +1110,11 @@ insert into Review(id,product_id,customer_email,description,stars,review_date) v
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 22,12,'customer2@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 27,11,'customer@products.com','Great buy', 3, GETDATE());
+( 23,11,'customer@products.com','Great buy', 3, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 28,11,'customer2@products.com','Great buy', 4, GETDATE());
+( 24,11,'customer2@products.com','Great buy', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 29,12,'customer3@products.com','Great buy', 5, GETDATE());
+( 25,12,'customer3@products.com','Great buy', 5, GETDATE());
 
 insert into payment_card( card_number,expiration_month,expiration_year,security_code,type,customer_email) values
 ( 371449635398431,12,2020, 453, 'Debit Card','customer@products.com');

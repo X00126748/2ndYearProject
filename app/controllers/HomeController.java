@@ -10,6 +10,7 @@ import controllers.security.Secured;
 import controllers.security.LoginCtrl;
 import controllers.security.*;
 
+import java.util.Date;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -457,6 +458,26 @@ public class HomeController extends Controller {
      
         Review newReview = newReviewForm.get();
 
+
+        
+       /*Random randomGenerator = new Random();
+        long randomInt = randomGenerator.nextInt(200);
+
+
+        long newId = 400 * randomInt;
+        
+	
+	List<Review> reviews = new ArrayList<Review>();
+
+        reviews = Review.findAll();
+	
+         long newId = reviews.size() + 1; */
+
+         Date dte=new Date();
+        long milliSeconds = dte.getTime();
+
+        newReview.setId(milliSeconds);
+
         // Retrieve the product by id
         Product p = Product.find.byId(id);
 
@@ -726,6 +747,12 @@ public class HomeController extends Controller {
         }
      
         ForumMessage f = addForumMessageForm.get();
+
+	 Date dte=new Date();
+        long milliSeconds = dte.getTime();
+        
+        f.setId(milliSeconds);
+        
 
         // Retrieve the product by id
         User u = getCurrentUser();

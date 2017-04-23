@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.inject.Inject;
 import play.Logger;
 import java.util.Date;
@@ -71,6 +72,14 @@ public class AdminHomeCtrl extends Controller {
 		User u = User.getLoggedIn(session().get("email"));
 		return u;
 	}
+
+
+    @Transactional
+    public Result help() {
+
+        return ok(help.render(User.getLoggedIn(session().get("email"))));
+    }
+
     
   
     
@@ -463,7 +472,7 @@ for (OrderItem i: order.getItems()){
         // 'Bind' the object to the submitted form (this copies the filled form)
         Form<ForumMessage> addForumMessageForm = formFactory.form(ForumMessage.class).bindFromRequest();
 
-        // Check for errors (based on Product class annotations)	
+        // Check for errors (based on message class annotations)	
         if(addForumMessageForm.hasErrors()) {
             // Display the form again
             return badRequest(addForumMessage.render(addForumMessageForm, getCurrentUser()));
@@ -471,12 +480,17 @@ for (OrderItem i: order.getItems()){
      
         ForumMessage f = addForumMessageForm.get();
 
-        // Retrieve the product by id
+        Date dte=new Date();
+        long milliSeconds = dte.getTime();
+        
+        f.setId(milliSeconds);
+        
+        // Retrieve the user
         User u = getCurrentUser();
 
         f.setUser(u);
 
-        // Save product now to set id (needed to update manytomany)
+        // Save message now to set id
         f.save();
 
          // Add a success message to the flash session

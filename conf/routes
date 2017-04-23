@@ -24,6 +24,7 @@ GET     /contact                     controllers.HomeController.contact
 GET     /error                     controllers.HomeController.error
 GET     /product/:id                    controllers.ProductCtrl.product(id: Long)
 GET     /help                     controllers.HomeController.help
+GET     /Admin/help                     controllers.AdminHomeCtrl.help
 
 # Customer
 GET		/addCustomer					controllers.HomeController.addCustomer()

@@ -1,0 +1,23 @@
+
+Lowest Rated Sun Apr 23 14:00:44 IST 2017
+********************
+Product Name: Adidas 
+Price: 30.0
+Description: James Harden Black T-shirt
+Stock: 5
+Amount Sold: 0
+Rating: NaN
+********************
+Product Name: Adidas
+Price: 30.0
+Description: James Harden Black T-shirt
+Stock: 5
+Amount Sold: 0
+Rating: NaN
+********************
+Product Name: Adidas
+Price: 30.0
+Description: Black & white Tank-top
+Stock: 5
+Amount Sold: 0
+Rating: NaN
