@@ -4,7 +4,7 @@
 
 insert into category (id,name) values ( 1,'Shoes' );
 insert into category (id,name) values ( 2,'Jerseys' );
-insert into category (id,name) values ( 3,'Shorts' );
+insert into category (id,name) values ( 3,'Shorts & Tracksuit-Bottoms' );
 insert into category (id,name) values ( 4,'T-Shirts' );
 insert into category (id,name) values ( 5,'Jumpers' );
 insert into category (id,name) values ( 6,'Hats' );
@@ -1074,23 +1074,23 @@ insert into Review(id,product_id,customer_email,description,stars,review_date) v
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 4,2,'customer2@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 5,2,'customer@products.com','Great buy', 4, GETDATE());
+( 5,2,'customer@products.com','Very high quality', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 6,3,'customer3@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 7,3,'customer@products.com','Great buy', 3, GETDATE());
+( 7,3,'customer@products.com','Bargin', 3, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 8,3,'customer@products.com','Great buy', 4, GETDATE());
+( 8,3,'customer@products.com','Might have to buy another one, great value for money', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 9,4,'customer3@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 10,5,'customer@products.com','Great buy', 4, GETDATE());
+( 10,5,'customer@products.com','Great product and quick delivery', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 11,6,'customer@products.com','Great buy', 3, GETDATE());
+( 11,6,'customer@products.com','Got one for my brother, he loved it', 3, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 12,6,'customer2@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 13,7,'customer@products.com','Great buy', 4, GETDATE());
+( 13,7,'customer@products.com','JAS has the best products', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 14,7,'customer3@products.com','Great buy', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
@@ -1110,11 +1110,11 @@ insert into Review(id,product_id,customer_email,description,stars,review_date) v
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
 ( 22,12,'customer2@products.com','Great buy', 5, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 23,11,'customer@products.com','Great buy', 3, GETDATE());
+( 27,11,'customer@products.com','Great buy', 3, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 24,11,'customer2@products.com','Great buy', 4, GETDATE());
+( 28,11,'customer2@products.com','Great buy', 4, GETDATE());
 insert into Review(id,product_id,customer_email,description,stars,review_date) values
-( 25,12,'customer3@products.com','Great buy', 5, GETDATE());
+( 29,12,'customer3@products.com','Great buy', 5, GETDATE());
 
 insert into payment_card( card_number,expiration_month,expiration_year,security_code,type,customer_email) values
 ( 371449635398431,12,2020, 453, 'Debit Card','customer@products.com');

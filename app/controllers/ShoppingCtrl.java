@@ -279,7 +279,7 @@ order.update();
 c.getBasket().setBasketItems(null);
 c.getBasket().update();
 
-AddLoyaltyPoints();
+
 
 c.addNumOfOrders();
 
@@ -350,7 +350,7 @@ return ok (orderConfirmed.render(env, c, order));
  c.getBasket().update();
  
  
- 
+ completeOrderLoyalty();
 
  
  c.addNumOfOrders();
@@ -365,53 +365,25 @@ return ok (orderConfirmed.render(env, c, order));
  
  }
 
-
-         @Transactional
- public Result completeOrder(){
- 
- 	 if(getCurrentUser() == null){
-            flash("warning", "Session has timed out, You've been logged out");
-         return redirect(controllers.security.routes.LoginCtrl.login());
- 
-         }
-          
- 
-        
- 
-       return redirect(routes.HomeController.home());
- 
- }
  
  
  
+     @Transactional
+ public void completeOrderLoyalty(){
  
- 
- 
-             @Transactional
- public Result completeOrderLoyalty(){
- 
- 	 if(getCurrentUser() == null){
-            flash("warning", "Session has timed out, You've been logged out");
-         return redirect(controllers.security.routes.LoginCtrl.login());
- 
-         }
-          
+ 	  
  
          Customer customer = (Customer)User.getLoggedIn(session().get("email"));
          int points = 0;
-          for (ShopOrder o: customer.getOrders()) {
- 
-             points = o.getLoyaltyPointsEarned(); 
- 
-         }
+       
          
          customer.setLoyaltyPointsEarned(points);
         
            customer.update();
- 
-       return redirect(routes.HomeController.home());
+
  
  }
+ 
 
     // Empty Basket
     @Transactional
@@ -483,7 +455,7 @@ return ok (orderConfirmed.render(env, c, order));
  
 
         @Transactional
-    public Result cancelOrder(Long id, int points) {
+    public Result cancelOrder(Long id) {
 
 	 if(getCurrentUser() == null){
            flash("warning", "Session has timed out, You've been logged out");
@@ -515,8 +487,6 @@ return ok (orderConfirmed.render(env, c, order));
 
 order.update();
 
-   
-	DeleteLoyaltyPoints(points);
 
          Customer c = getCurrentUser();
 
@@ -533,56 +503,6 @@ order.update();
 
     } 
         
-
-
-	@Transactional
-    public void DeleteLoyaltyPoints(int points) {
-
-          
-         
-         
-        Customer c = getCurrentUser();
-        int LoyaltyPointsEarned = c.getLoyaltyPointsEarned();
-        int LoyaltyPointsLost =0;
-        int pointsLeft=0;
-         
-        LoyaltyPointsLost = points;
-        pointsLeft =(LoyaltyPointsEarned - LoyaltyPointsLost);
-
-        
-        c.setLoyaltyPointsEarned(pointsLeft);
-        c.update();
-  
-         
-        
-
-     }
-
-
-
-
-         @Transactional
-    public void AddLoyaltyPoints() {
-
-
-        
-        Customer c = getCurrentUser();
-        int LoyaltyPointsEarned = 0;
-        
-
-
-
-        for (ShopOrder o: c.getOrders()) {
-
-            LoyaltyPointsEarned =(c.getLoyaltyPointsEarned()+ o.getLoyaltyPointsEarned()); 
-
-        }
-        
-        c.setLoyaltyPointsEarned(LoyaltyPointsEarned);
-        c.update();
-
-   }
-
 
 
 

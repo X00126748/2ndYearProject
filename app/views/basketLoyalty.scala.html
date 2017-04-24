@@ -110,7 +110,7 @@
  	<p><strong>Free Delivery on all orders over &euro;30.00 </strong></p>
          </div>
        <div class="col-md-6">
-        <p class="text-right"><strong>@(customer.getEmail) Loyalty Points: @(customer.getLoyaltyPointsEarned)</strong></p>
+        <p class="text-right"><strong>@(customer.getName()) @(customer.getSurname()) Loyalty Points: @(customer.getLoyaltyPointsEarned)</strong></p>
          <p class="text-right"><strong>Basket Total: &euro; @("%.2f".format(customer.getBasket.getBasketTotal))</strong></p></strong></p>
  	@if(customer.getBasket.getBasketTotal <= 30.00){
          <p class="text-right"><strong>Delivery Cost: &euro; @("%.2f".format(customer.getBasket.getDeliveryCost))</strong></p>
@@ -139,11 +139,13 @@
                  <p class="text-right">
                     <a href="@routes.HomeController.updateAddressLoyalty()" class="btn btn-success btn-sm"> 
                      <span class="glyphicon glyphicon-euro"></span> Proceed</a>  
-         </div>
-     </div>
- </div>
- 
- </div>
+		</p>
+         </div>   
+        </div>
+    </div>
+</div>
+
+</div>
  
  <script>
  	// JavaScript function returns true if user clicks yes, otherwise, false

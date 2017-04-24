@@ -391,6 +391,8 @@ public class AdminHomeCtrl extends Controller {
 
 Product p = null;
 
+  AddLoyaltyPoints(id);
+
 for (OrderItem i: order.getItems()){
      
      p = i.getProduct();
@@ -680,7 +682,27 @@ for (OrderItem i: order.getItems()){
         return redirect(routes.AdminHomeCtrl.forum());
     }
 
+       @Transactional
+    public void AddLoyaltyPoints(Long id) {
 
+
+        ShopOrder order = ShopOrder.find.byId(id);
+        Customer c = order.getCustomer();
+        int LoyaltyPointsEarned = 0;
+        
+
+
+
+        for (ShopOrder o: c.getOrders()) {
+
+            LoyaltyPointsEarned =(c.getLoyaltyPointsEarned()+ o.getLoyaltyPointsEarned()); 
+
+        }
+        
+        c.setLoyaltyPointsEarned(LoyaltyPointsEarned);
+        c.update();
+
+   }
     
 
 }

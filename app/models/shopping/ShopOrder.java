@@ -154,6 +154,9 @@ public class ShopOrder extends Model {
         
    }
 
+   public void setLoyaltyPointsEarned(int LoyaltyPointsEarned) {
+       this.LoyaltyPointsEarned = LoyaltyPointsEarned;
+     }
 
 
 }

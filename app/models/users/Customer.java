@@ -234,6 +234,9 @@ public class Customer extends User{
     }
 
 
+    public void addLoyaltyPointsEarned(int LoyaltyPointsEarned) {
+       this.LoyaltyPointsEarned += LoyaltyPointsEarned;
+     }
 
 
     public void setLoyaltyPointsEarned(int LoyaltyPointsEarned) {
