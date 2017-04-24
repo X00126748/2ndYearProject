@@ -322,7 +322,46 @@ public class AdminProductCtrl extends Controller {
     // Delete Product
     @Transactional
     public Result deleteProduct(Long id) {
-        // Call delete method
+        
+	 Product productToDelete = Product.find.ref(id);
+         List<ShopOrder> ordersList = new ArrayList<ShopOrder>();
+
+       // Get the list of ALL orders
+            ordersList = ShopOrder.findAll();
+
+	List<ShopOrder> currentOrders = new ArrayList<ShopOrder>();
+        List<ShopOrder> previousOrders = new ArrayList<ShopOrder>();
+        
+	
+        for (ShopOrder o: ordersList){
+
+            if (o.getOrderStatus().equals("Processing Order")){
+
+              currentOrders.add(o);
+
+		}
+			}	
+
+
+        for (ShopOrder o: currentOrders){
+
+           for (OrderItem i: o.getItems()){
+
+        Product p = i.getProduct();
+
+           if (productToDelete == p){
+		 flash("warning", "Product cannot be deleted, It is currently being ordered");
+        // Redirect home
+        return redirect(routes.AdminProductCtrl.index());
+	
+	}
+       
+}
+
+
+        }
+
+       // Call delete method
         Product.find.ref(id).delete();
         // Add message to flash session 
         flash("success", "Product has been deleted");
